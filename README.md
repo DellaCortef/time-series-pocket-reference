@@ -1,3 +1,4 @@
 # time-series-pocket-reference
 Time Series study cases.
-test
+
+# Brief explanation of what a Time Series is #
