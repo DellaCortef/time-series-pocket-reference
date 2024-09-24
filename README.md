@@ -6,3 +6,7 @@ The term *Time Series Analysis* is the attempt to extract meaningful summary and
 
 ### time-series-datasets
 In the **time-series-datasets** file, we will address issues that may surface during the time series data preprocessing step. There are certain difficulties imposed by *timestamps*. As with any data analysis task, cleaning and properly processing data is often the fundamental step in a timestamp pipeline. Sophisticated techniques cannot correct disorganized data.
+
+### Univariate and Multivariate Time Series
+
+*Univariate* Time Series have only one variable measured over time. *Multivariate* Time Series are series with multiple variables measured at each **timestamp**. They are very useful for analysis, as the calculated variables are often interrelated and show temporal dependencies between them.
