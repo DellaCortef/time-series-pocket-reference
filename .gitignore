@@ -1,2 +1,5 @@
 # folders
 .ipynb_checkpoints
+
+# files
+.DS_Store
