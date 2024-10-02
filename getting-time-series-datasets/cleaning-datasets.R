@@ -45,3 +45,15 @@ high.unemp.idx <- which(unemp$UNRATE > 8)
 num.to.select  <- .2 * length(high.unemp.idx)
 high.unemp.idx <- sample(high.unemp.idx,)
 bias.unemp.    <- unemp[-high.unemp.idx]
+
+
+## Since we deleted rows from our data tables to create a dataset with missing data, we will need to read the missing dates and NA values. To do this, we will use the merge *rolling join* from the 'data.table' package
+
+
+
+
+
+
+
+
+
