@@ -36,3 +36,10 @@ unemp <- fread("UNRATE.csv")
 unemp[, DATE := as.Date(DATE)]
 setkey(unemp, DATE)
 
+## generating a dataset in which data is randomly missing
+rand.unemp.idx <- sample(1:nrow(unemp), 1*nrow(unemp))
+rand.unemp     <- unemp[-rand.unemp.idx]
+
+## 
+
+
