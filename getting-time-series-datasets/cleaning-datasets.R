@@ -40,6 +40,8 @@ setkey(unemp, DATE)
 rand.unemp.idx <- sample(1:nrow(unemp), 1*nrow(unemp))
 rand.unemp     <- unemp[-rand.unemp.idx]
 
-## 
-
-
+## generating a dataset in which data has a higher probability of absence when unemployment is high
+high.unemp.idx <- which(unemp$UNRATE > 8)
+num.to.select  <- .2 * length(high.unemp.idx)
+high.unemp.idx <- sample(high.unemp.idx,)
+bias.unemp.    <- unemp[-high.unemp.idx]
