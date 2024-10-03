@@ -65,6 +65,27 @@ rand.unemp[, rpt := is.na(UNRATE)]
 
 
 
+### Foward Fill Method
+## One of the simplest ways to fill in missing values ​​is by transferring the 
+## last known value to the previous missing value, an approach known as 
+## *forward fill*. Just take the data that was available and move forward in 
+## time.
+
+## We were able to apply the forward fill method using *na.locf* from 
+## the **zoo** package
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
