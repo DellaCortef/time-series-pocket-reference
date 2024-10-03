@@ -74,9 +74,12 @@ rand.unemp[, rpt := is.na(UNRATE)]
 ## We were able to apply the forward fill method using *na.locf* from 
 ## the **zoo** package
 
+rand.unemp[, impute.ff := na.locf(UNRATE, na.rm = FALSE)]
+bias.unemp[, impute.ff := na.locf(UNRATE, na.rm = FALSE)]
 
-
-
+## To plot a sample graph that shows the flat parts
+unemp[350:400, plot(DATE, UNRATE,
+                    col = 1, lwd = 2, type = 'b')]
 
 
 
