@@ -44,11 +44,16 @@ rand.unemp     <- unemp[-rand.unemp.idx]
 high.unemp.idx <- which(unemp$UNRATE > 8)
 num.to.select  <- .2 * length(high.unemp.idx)
 high.unemp.idx <- sample(high.unemp.idx,)
-bias.unemp.    <- unemp[-high.unemp.idx]
+bias.unemp     <- unemp[-high.unemp.idx]
 
 
 ## Since we deleted rows from our data tables to create a dataset with missing data, we will need to read the missing dates and NA values. To do this, we will use the merge *rolling join* from the 'data.table' package
+all.dates <- seq(from = unemp$DATE[1], to = tail(unemp$DATE, 1), by = "months")
 
+## labeling missing data to plot it more easily
+rand.unemp = rand.unemp[J(all.dates), roll = 0]
+bias.unemp = bias.unemp[J(all.dates), roll = 0]
+rand.unemp[, rpt := is.na(UNRATE)]
 
 
 
