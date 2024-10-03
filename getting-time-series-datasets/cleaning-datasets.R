@@ -87,6 +87,10 @@ rand.unemp[350:400, lines(DATE, impute.ff,
 rand.unemp[350:400][rpt == TRUE, points(DATE, impute.ff,
                                         col = 2, pch = 6, cex = 2)]
 
+## Advantages of *forward fill*:
+  ## it is not computationally demanding;
+  ## can be easily applied to real-time data;
+  ## does a decent job regarding imputation;
 
 
 
