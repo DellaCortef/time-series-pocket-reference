@@ -55,7 +55,13 @@ rand.unemp = rand.unemp[J(all.dates), roll = 0]
 bias.unemp = bias.unemp[J(all.dates), roll = 0]
 rand.unemp[, rpt := is.na(UNRATE)]
 
-
+## Using *rolling join*, we generate the sequence of all dates that should be 
+## available from start to finish. Now that we have a dataset with missing 
+## values, let's look at some specific ways to fill numbers into these missing 
+## values:
+  ## forward fill method;
+  ## moving average;
+  ## interpolation;
 
 
 
