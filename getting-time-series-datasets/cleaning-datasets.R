@@ -93,7 +93,19 @@ rand.unemp[350:400][rpt == TRUE, points(DATE, impute.ff,
   ## does a decent job regarding imputation;
 
 
+# Moving Average
+## We can impute data with a moving average or median. *Moving average* is 
+## similar to *forward fill* in that it uses past values to predict missing 
+## future values (imputation can be a form of prediction). But with the moving 
+## average, we can use inputs coming from *multiple* recent times in the past.
 
+## There are several situations in which a moving average imputation is better 
+## suited to the task at hand than a forward fill. For example, if the data is 
+## noisy and we have reason to doubt the value of any individual data point 
+## relative to an overall average, it is recommended to use a moving average 
+## instead of forward fill. Forward fill can include more random noise than 
+## the true metric we are interested in, while averaging can remove some of 
+## that noise.
 
 
 
