@@ -1,6 +1,9 @@
 # folders
 .ipynb_checkpoints
+.Rproj.user
 
 # files
 .DS_Store
 .Rproj.user
+.Rhistory
+
