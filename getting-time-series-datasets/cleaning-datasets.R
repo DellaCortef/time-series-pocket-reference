@@ -81,9 +81,11 @@ bias.unemp[, impute.ff := na.locf(UNRATE, na.rm = FALSE)]
 unemp[350:400, plot(DATE, UNRATE,
                     col = 1, lwd = 2, type = 'b')]
 
+rand.unemp[350:400, lines(DATE, impute.ff,
+                         col = 2, lwd = 2, lty = 2)]
 
-
-
+rand.unemp[350:400][rpt == TRUE, points(DATE, impute.ff,
+                                        col = 2, pch = 6, cex = 2)]
 
 
 
