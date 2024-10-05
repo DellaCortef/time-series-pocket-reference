@@ -107,6 +107,30 @@ rand.unemp[350:400][rpt == TRUE, points(DATE, impute.ff,
 ## the true metric we are interested in, while averaging can remove some of 
 ## that noise.
 
+## moving average without lookahead
+rand.unemp[, impute.rm.nolookahead := rollapply(c(NA, NA, UNRATE), 3,
+                                                function(x) {
+                                                  if (!is.na(x[3])) x[3] 
+                                                  else mean(x, na.rm = TRUE)
+                                                })]
+
+bias.unemp[, impute.rm.nolookahead := rollapply(c(NA, NA, UNRATE), 3,
+                                                function(x) {
+                                                  if (!is.na(x[3])) x[3] 
+                                                  else mean(x, na.rm = TRUE)
+                                                })]
+### We define the values of missing data with the average of the values that 
+### come before them (because we index the final value and use it to determine 
+## if it is missing and how to replace it).                                                
+
+
+
+
+
+
+
+
+
 
 
 
