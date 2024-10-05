@@ -178,3 +178,4 @@ rand.unemp[, complete.rm := rollapply(c(NA, UNRATE, NA), 3,
 
 
 
+
