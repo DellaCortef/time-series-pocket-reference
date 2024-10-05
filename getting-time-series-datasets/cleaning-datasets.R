@@ -128,8 +128,19 @@ bias.unemp[, impute.rm.nolookahead := rollapply(c(NA, NA, UNRATE), 3,
 ### information that goes into our estimates. We can implement a *rolling 
 ### window*, as shown below with *rollapply()* from the **zoo** package
 
+## moving average with lookahead
+rand.unemp[, complete.rm := rollapply(c(NA, UNRATE, NA), 3, 
+                                      function(x) {
+                                        if (!is.na(x[2]))
+                                          x[2]
+                                        else
+                                          mean(x, na.rm = TRUE)
+                                      })]
 
-
+### Using past and future information is convenient for visualizations and 
+### record keeping in an application, but as mentioned previously, this is 
+## not appropriate if you are preparing your data to feed into a 
+### predictive model
 
 
 
