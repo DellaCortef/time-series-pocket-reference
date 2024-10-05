@@ -94,18 +94,18 @@ rand.unemp[350:400][rpt == TRUE, points(DATE, impute.ff,
 
 
 # Moving Average
-## We can impute data with a moving average or median. *Moving average* is 
-## similar to *forward fill* in that it uses past values to predict missing 
-## future values (imputation can be a form of prediction). But with the moving 
-## average, we can use inputs coming from *multiple* recent times in the past.
+### We can impute data with a moving average or median. *Moving average* is 
+### similar to *forward fill* in that it uses past values to predict missing 
+### future values (imputation can be a form of prediction). But with the moving 
+### average, we can use inputs coming from *multiple* recent times in the past.
 
-## There are several situations in which a moving average imputation is better 
-## suited to the task at hand than a forward fill. For example, if the data is 
-## noisy and we have reason to doubt the value of any individual data point 
-## relative to an overall average, it is recommended to use a moving average 
-## instead of forward fill. Forward fill can include more random noise than 
-## the true metric we are interested in, while averaging can remove some of 
-## that noise.
+### There are several situations in which a moving average imputation is better 
+### suited to the task at hand than a forward fill. For example, if the data is 
+### noisy and we have reason to doubt the value of any individual data point 
+### relative to an overall average, it is recommended to use a moving average 
+### instead of forward fill. Forward fill can include more random noise than 
+### the true metric we are interested in, while averaging can remove some of 
+### that noise.
 
 ## moving average without lookahead
 rand.unemp[, impute.rm.nolookahead := rollapply(c(NA, NA, UNRATE), 3,
@@ -121,7 +121,7 @@ bias.unemp[, impute.rm.nolookahead := rollapply(c(NA, NA, UNRATE), 3,
                                                 })]
 ### We define the values of missing data with the average of the values that 
 ### come before them (because we index the final value and use it to determine 
-## if it is missing and how to replace it).                                                
+### if it is missing and how to replace it).                                                
 
 ### If we are not worried about a lookahead, our best estimate will include 
 ### points before and after the missing daods, because this will maximize the 
@@ -139,7 +139,7 @@ rand.unemp[, complete.rm := rollapply(c(NA, UNRATE, NA), 3,
 
 ### Using past and future information is convenient for visualizations and 
 ### record keeping in an application, but as mentioned previously, this is 
-## not appropriate if you are preparing your data to feed into a 
+### not appropriate if you are preparing your data to feed into a 
 ### predictive model
 
 ### A moving average data imputation reduces data variance. This is something 
