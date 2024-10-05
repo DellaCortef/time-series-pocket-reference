@@ -149,6 +149,31 @@ rand.unemp[, complete.rm := rollapply(c(NA, UNRATE, NA), 3,
 ### building a time series model
 
 
+#____________________________________*****____________________________________#
+
+# Interpolation
+### Interpolation is a method for determining values of missing data points 
+### based on geometric constraints on how we want the data to behave. For 
+### example, a linear interpolation constrains missing data to a linear fit 
+### consistent with known neighboring points
+
+### Linear interpolation is very useful and interesting because it allows you 
+### to use your knowledge of how the system behaves over time. For example, if 
+### you know that a system behaves linearly, we can architect things so that 
+### only linear trends are used to impute missing data. As with a moving 
+### average, interpolation can be done in a way that considers past and future 
+### data or just one direction. Only allow your interpolation to access future 
+### data if we accept that it creates a lookahead and are sure that it does not 
+### pose a problem in our task
+
+
+
+
+
+
+
+
+
 
 
 
