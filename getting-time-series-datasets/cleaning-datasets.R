@@ -142,6 +142,11 @@ rand.unemp[, complete.rm := rollapply(c(NA, UNRATE, NA), 3,
 ## not appropriate if you are preparing your data to feed into a 
 ### predictive model
 
+### A moving average data imputation reduces data variance. This is something 
+### we need to keep in mind when calculating model accuracy, the coefficient of 
+### determination (**Rˆ2**), or other error metrics. Our calculation may 
+### overestimate the performance of your model, a common problem when 
+### building a time series model
 
 
 
