@@ -123,7 +123,10 @@ bias.unemp[, impute.rm.nolookahead := rollapply(c(NA, NA, UNRATE), 3,
 ### come before them (because we index the final value and use it to determine 
 ## if it is missing and how to replace it).                                                
 
-
+### If we are not worried about a lookahead, our best estimate will include 
+### points before and after the missing daods, because this will maximize the 
+### information that goes into our estimates. We can implement a *rolling 
+### window*, as shown below with *rollapply()* from the **zoo** package
 
 
 
