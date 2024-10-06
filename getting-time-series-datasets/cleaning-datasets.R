@@ -262,7 +262,16 @@ downsampling_example
 ### have.
 
 ### Use cases:
+  #### irregular time series;
+all.dates <- seq(from = unemp$DATE[1], to = tail(unemp$DATE, 1), 
+                 by = "months")
+rand.unemp = rand.unemp[J(all.dates), roll = 0]
 
+  #### inputs sampled at different frequencies:
+daily.unemployment = unemp[J(all.dates), roll = 31]
+daily.unemployment
+
+  #### knowledge of the dynamics of time series;
 
 
 
