@@ -246,6 +246,11 @@ sort(bias.unemp[ , lapply(.SD, function(x) mean((x - unemp$UNRATE)^2,
   #### focus on a specific part of a seasonal cycle;
   #### compare time series with reduced frequency data;
 
+## Example of Downsampling of our Ecnonomic Dataset
+downsampling_example <- unemp[, mean(UNRATE), by = format(DATE, "%Y")]
+downsampling_example
+
+
 
 
 
