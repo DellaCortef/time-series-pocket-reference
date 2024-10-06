@@ -223,6 +223,15 @@ sort(bias.unemp[ , lapply(.SD, function(x) mean((x - unemp$UNRATE)^2,
 
 ############################## Sampling Frequency #############################
 
+### Typically, time series data related to different sources will not have the 
+### same sampling frequency. One of the reasons, among many, we want to change 
+### the sampling frequency of our data. We cannot change the frequency of the 
+### actual data collected, but we can change the frequency of the *timestamps* 
+### of our data collection. The technique is called **Upsampling** and 
+### **Downsampling**, that is, increasing and reducing the *timestamp* 
+### frequency, respectively.
+
+
 
 
 
