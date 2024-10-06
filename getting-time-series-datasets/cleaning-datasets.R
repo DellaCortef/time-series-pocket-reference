@@ -186,4 +186,10 @@ rand.unemp[use.idx, lines(DATE, impute.sp, col = 3, lwd = 3, lty = 3)]
 
 # Comparing different data imputations and their behaviors
 
+### We will generate two datasets with missing data, one with randomly missing 
+### data and one with unfavorable data points (high unemployment). We will 
+### compare the methods previously applied to see which one generates better 
+### results
+
+
 
