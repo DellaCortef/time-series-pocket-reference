@@ -231,7 +231,10 @@ sort(bias.unemp[ , lapply(.SD, function(x) mean((x - unemp$UNRATE)^2,
 ### **Downsampling**, that is, increasing and reducing the *timestamp* 
 ### frequency, respectively.
 
-
+#### **Downsampling** is a subset of data in which timestamps occur at a lower 
+#### frequency than in the original time series. **Upsampling** is the 
+#### representation of data as if it were collected more frequently than is 
+#### actually the case
 
 
 
