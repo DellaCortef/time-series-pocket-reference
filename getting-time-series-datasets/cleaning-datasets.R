@@ -251,6 +251,31 @@ downsampling_example <- unemp[, mean(UNRATE), by = format(DATE, "%Y")]
 downsampling_example
 
 
+#____________________________________*****____________________________________#
+
+# Upsampling
+
+### **Upsampling** is not just the opposite of **Downsampling**. The logic of 
+### downsampling is that it applies in the real world; It's easy to make the 
+### decision to measure yourself less frequently. On the other hand, 
+### **Upsampling** is as if we were trying to achieve something beyond what we 
+### have.
+
+### Use cases:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
