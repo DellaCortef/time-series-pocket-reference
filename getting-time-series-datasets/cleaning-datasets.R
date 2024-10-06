@@ -191,5 +191,25 @@ rand.unemp[use.idx, lines(DATE, impute.sp, col = 3, lwd = 3, lty = 3)]
 ### compare the methods previously applied to see which one generates better 
 ### results
 
+sort(rand.unemp[, lapply(.SD, function(x) mean((x - unemp$UNRATE)^2,
+                                                na.rm = TRUE)),
+                 .SDcols = c("impute.ff", "impute.rm.nolookahead", "impute.li", 
+                             "impute.sp")])
+
+sort(bias.unemp[ , lapply(.SD, function(x) mean((x - unemp$UNRATE)^2, 
+                                                na.rm = TRUE)),
+                 .SDcols = c("impute.ff", "impute.rm.nolookahead", "impute.li", 
+                             "impute.sp")])
+
+
+
+
+
+
+
+
+
+
+
 
 
