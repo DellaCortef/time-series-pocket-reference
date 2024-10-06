@@ -241,7 +241,10 @@ sort(bias.unemp[ , lapply(.SD, function(x) mean((x - unemp$UNRATE)^2,
 
 # Downsampling
 
-
+### Use cases:
+  #### original data resolution is not adequate;
+  #### focus on a specific part of a seasonal cycle;
+  #### compare time series with reduced frequency data;
 
 
 
