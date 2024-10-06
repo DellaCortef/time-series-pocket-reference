@@ -237,6 +237,11 @@ sort(bias.unemp[ , lapply(.SD, function(x) mean((x - unemp$UNRATE)^2,
 #### actually the case
 
 
+#____________________________________*****____________________________________#
+
+# Downsampling
+
+
 
 
 
