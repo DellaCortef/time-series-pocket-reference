@@ -32,7 +32,8 @@ require(data.table)  ## 'data.table' is a high-performance dataframe
 
 setwd('/Users/dellacorte/py-projects/data-science/time-series-pocket-reference/getting-time-series-datasets/datasets/')
 
-unemp <- fread("UNRATE.csv")     
+UNRATE <- read_csv("UNRATE.csv")
+unemp  <- fread("UNRATE.csv")     
 unemp[, DATE := as.Date(DATE)]
 setkey(unemp, DATE)
 
@@ -175,11 +176,10 @@ bias.unemp[, impute.li := na.approx(UNRATE)]
 rand.unemp[, impute.sp := na.spline(UNRATE)]
 bias.unemp[, impute.sp := na.spline(UNRATE)]
 
-
-
-
-
-
+use.idx = 70:120
+unemp[use.idx, plot(DATE, UNRATE, col = 1, type = 'b')]
+rand.unemp[use.idx, lines(DATE, impute.li, col = 2, lwd = 2, lty = 2)]
+rand.unemp[use.idx, lines(DATE, impute.sp, col = 3, lwd = 3, lty = 3)]
 
 
 
