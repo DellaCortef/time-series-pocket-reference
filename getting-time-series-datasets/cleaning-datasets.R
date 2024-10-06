@@ -167,8 +167,13 @@ rand.unemp[, complete.rm := rollapply(c(NA, UNRATE, NA), 3,
 ### pose a problem in our task
 
 
+## Linear interpolation
+rand.unemp[, impute.li := na.approx(UNRATE)]
+bias.unemp[, impute.li := na.approx(UNRATE)]
 
-
+## Polynomial interpolation
+rand.unemp[, impute.sp := na.spline(UNRATE)]
+bias.unemp[, impute.sp := na.spline(UNRATE)]
 
 
 
