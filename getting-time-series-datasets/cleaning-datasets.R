@@ -275,6 +275,24 @@ daily.unemployment
 
 
 
+#____________________________________*****____________________________________#
+
+############################### Data Smoothing ################################
+
+### Although detecting *outliers* is a very broad topic, we can do the same 
+### using moving averages on **time series** data, eliminating *spikes*, 
+### measurement errors, or both. Even though the *spikes are accurate*, they 
+### may not reflect the underlying process and may be more a matter of 
+### instrumentation issues, so it is common to smooth the data.
+
+
+
+
+
+
+
+
+
 
 
 
