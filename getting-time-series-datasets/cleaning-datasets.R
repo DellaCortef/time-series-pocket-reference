@@ -285,8 +285,20 @@ daily.unemployment
 ### may not reflect the underlying process and may be more a matter of 
 ### instrumentation issues, so it is common to smooth the data.
 
+### Data smoothing is closely related to missing data imputation. Thus, some of 
+### his techniques are also relevant to us. Smoothing can have many purposes:
 
+  ### data preparation;
+  ### feature generation;
+  ### prediction;
+  ### visualization;
 
+### Exponential Smoothing
+
+#### Compared to the moving average, exponential smoothing is more sensitive to 
+#### temporality, weighting recent points more than less recent points. 
+#### Therefore, for a given window, the closest point in time has a denser 
+#### weight and each previous point in time has an exponentially smaller weight.
 
 
 
