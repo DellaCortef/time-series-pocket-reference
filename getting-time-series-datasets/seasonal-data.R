@@ -47,7 +47,12 @@ air_line_plot    <- plot(air$V2, type = 'l')
 ### obvious when we see a cloud of data points projecting outwards and 
 ### conically, tilted upwards.
 
-
+### In addition to the evidence of seasonality in the line graph, we also obtain 
+### useful information:
+  #### information about what *type* of seasonality. that is, we see that the 
+  #### data is not just seasonal, but seasonal in a multiplicative way. As 
+  #### overall values increase, so do seasonal swings (think of this as scaling 
+  #### the fluctuation between peak and trough levels or peak-value swings).
 
 
 
