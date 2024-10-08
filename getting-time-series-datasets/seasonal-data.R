@@ -59,7 +59,8 @@ air_line_plot    <- plot(air$V2, type = 'l')
 
 air_periodic_plot <- plot(stl(AirPassengers, "periodic"))
 
-
+#### Figure with decomposition of the original time series into a seasonal 
+#### component, a trend and residuals
 
 
 
