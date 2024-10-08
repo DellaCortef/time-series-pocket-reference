@@ -38,7 +38,7 @@ setwd('/Users/dellacorte/py-projects/data-science/time-series-pocket-reference/g
 air  <- fread("AirPassengers.csv") 
 air
 
-
+air_scatter_plot <- plot(air$V2)
 
 
 
