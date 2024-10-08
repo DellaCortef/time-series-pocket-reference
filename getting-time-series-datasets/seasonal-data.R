@@ -54,6 +54,22 @@ air_line_plot    <- plot(air$V2, type = 'l')
   #### overall values increase, so do seasonal swings (think of this as scaling 
   #### the fluctuation between peak and trough levels or peak-value swings).
 
+### We can easily decompose the data into its seasonal, trend and other 
+### components in just one line:
+
+air_periodic_plot <- plot(stl(AirPassengers, "periodic"))
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
