@@ -42,6 +42,10 @@ air_scatter_plot <- plot(air$V2)
 
 air_line_plot    <- plot(air$V2, type = 'l')
 
+### The scatter chart shows some information more clearly than the line chart. 
+### The variance of our data is increasing, as is the mean, which is most 
+### obvious when we see a cloud of data points projecting outwards and 
+### conically, tilted upwards.
 
 
 
