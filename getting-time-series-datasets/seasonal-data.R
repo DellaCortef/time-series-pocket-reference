@@ -20,7 +20,23 @@
 ### Note the difference between using the standard R graph (which uses points) 
 ### versus adding the argument to indicate that you want a line.
 
+## installing libs
+install.packages("zoo")
+install.packages("readr")
+install.packages("rmarkdown")
+install.packages("data.table")
 
+## loading libs
+library(readr)
+library(data.table)
+
+require(zoo)         ## the zoo provides the resources for time series
+require(data.table)  ## 'data.table' is a high-performance dataframe
+
+setwd('/Users/dellacorte/py-projects/data-science/time-series-pocket-reference/getting-time-series-datasets/datasets/')
+
+air  <- fread("AirPassengers.csv") 
+air
 
 
 
