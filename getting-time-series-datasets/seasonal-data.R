@@ -9,3 +9,30 @@
 ### (going to the gym every Monday), and an annual seasonality (little traffic 
 ### on New Year's Day). Physical periods also have seasonality, such as the 
 ### period it takes for the Earth to revolve around the Sun.
+
+### Identifying and dealing with seasonality is part of the **modeling** 
+### process. On the other hand, it is also a form of **data cleaning**. 
+
+### To see what seasonal data smoothing can do, we'll go back to the canonical 
+### dataset of airline passenger counts. A quick look reveals that this is 
+### highly seasonal data, but only if we plot it correctly.
+
+### Note the difference between using the standard R graph (which uses points) 
+### versus adding the argument to indicate that you want a line.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
