@@ -40,7 +40,7 @@ air
 
 air_scatter_plot <- plot(air$V2)
 
-
+air_line_plot    <- plot(air$V2, type = 'l')
 
 
 
