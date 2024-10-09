@@ -33,6 +33,10 @@
 ## indices from 1991 to 1998
 head(EuStockMarkets)
 
+## plotting time series
+plot(EuStockMarkets)
+
+
 
 
 
