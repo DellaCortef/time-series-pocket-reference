@@ -36,6 +36,24 @@ head(EuStockMarkets)
 ## plotting time series
 plot(EuStockMarkets)
 
+## Note that the image is automatically segmented into different time series. 
+## This occurs because we are using an *mts* object from **R**. If there was 
+## only one time series in the dataset, it would be a *ts* object
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
