@@ -40,10 +40,18 @@ plot(EuStockMarkets)
 ## This occurs because we are using an *mts* object from **R**. If there was 
 ## only one time series in the dataset, it would be a *ts* object
 
+## *ts* dataset objects:
 
+## *frequency* to find out the annual frequency of the data
+frequency(EuStockMarkets)
 
+## *start* and *end* to find the first and [last time represented
+start(EuStockMarkets)
 
+end(EuStockMarkets)
 
+## *window* to get a temporal section of the data
+window(EuStockMarkets, start = 1997, end = 1998)
 
 
 
