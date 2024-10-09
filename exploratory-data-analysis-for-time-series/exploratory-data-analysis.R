@@ -27,6 +27,12 @@
 #### we will incorporate time into our statistics as an axis in our graphs or 
 #### as *group by* operations.
 
+### Graphs and Plots
+
+## dataset with daily closing prices of the four main European stock market 
+## indices from 1991 to 1998
+head(EuStockMarkets)
+
 
 
 
