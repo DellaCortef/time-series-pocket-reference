@@ -13,6 +13,8 @@
   #### What is the overall mean of a relevant variable? What is your variance?
   #### What is the range of values we perceive? Do they vary by time period 
   #### or other logical unit of analysis?
+  #### Does the data seem consistent and measured in a uniform way, or does it 
+  #### suggest changes in measurement or behavior over time?
   
 #### To answer the questions, we can use known techniques, such as:
   #### plotting;
