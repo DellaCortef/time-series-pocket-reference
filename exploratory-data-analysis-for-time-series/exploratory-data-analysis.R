@@ -21,3 +21,24 @@
   #### statistical synthesis;
   #### histograms;
   #### scatter plots;
+
+#### To answer all these questions, it is necessary that the methods mentioned 
+#### above take the temporal axis into account. And to implement this behavior, 
+#### we will incorporate time into our statistics as an axis in our graphs or 
+#### as *group by* operations.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
