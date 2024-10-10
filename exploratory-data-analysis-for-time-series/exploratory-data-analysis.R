@@ -81,8 +81,7 @@ hist(diff(EuStockMarkets[, "SMI"], 30))
 ### their price changes are related over time.
 
 ## values of two different stocks over time
-plot(EuStockMarkets[, "SMI"], EuStockMarkets[, "DAX"])
-
+plot(     EuStockMarkets[, "SMI"],      EuStockMarkets[, "DAX"])
 
 
 
