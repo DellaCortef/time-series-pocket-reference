@@ -57,12 +57,10 @@ window(EuStockMarkets, start = 1997, end = 1998)
 ### Histograms
 
 ## standard histogram
-hist(EuStockMarkets[, "SMI"], 30)
+hist(     EuStockMarkets[, "SMI"], 30)
 
-
-
-
-
+## histogram with time axis
+hist(diff(EuStockMarkets[, "SIM"], 30))
 
 
 
