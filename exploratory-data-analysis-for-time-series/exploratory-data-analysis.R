@@ -27,6 +27,9 @@
 #### we will incorporate time into our statistics as an axis in our graphs or 
 #### as *group by* operations.
 
+
+#____________________________________*****____________________________________#
+
 ### Graphs and Plots
 
 ## dataset with daily closing prices of the four main European stock market 
@@ -62,13 +65,20 @@ hist(     EuStockMarkets[, "SMI"], 30)
 ## histogram with time axis
 hist(diff(EuStockMarkets[, "SIM"], 30))
 
-### In **time series**, a *hist()* of the data difference is usually more 
-### interesting than a *hist()* of the untransformed data. After all, in 
-### **time series**, the most interesting thing is how the value changes from 
-### one measurement to the next instead of changing to the actual measurement 
-### of that same value. 
-### This is even more true for plotting, as taking the histogram of data with a 
-### trend does not generate a very informative visualization.
+## In **time series**, a *hist()* of the data difference is usually more 
+## interesting than a *hist()* of the untransformed data. After all, in 
+## **time series**, the most interesting thing is how the value changes from 
+## one measurement to the next instead of changing to the actual measurement 
+## of that same value. 
+## This is even more true for plotting, as taking the histogram of data with a 
+## trend does not generate a very informative visualization.
+
+
+### Scatter Plots
+### The traditional method of using scatter plots is just as advantageous for 
+### **time series** data as it is for other types of data. We can use scatter 
+### plots to determine how two stocks are linked at a specific time and how 
+### their price changes are related over time.
 
 
 
