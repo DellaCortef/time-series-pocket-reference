@@ -63,7 +63,7 @@ window(EuStockMarkets, start = 1997, end = 1998)
 hist(     EuStockMarkets[, "SMI"], 30)
 
 ## histogram with time axis
-hist(diff(EuStockMarkets[, "SIM"], 30))
+hist(diff(EuStockMarkets[, "SMI"], 30))
 
 ## In **time series**, a *hist()* of the data difference is usually more 
 ## interesting than a *hist()* of the untransformed data. After all, in 
@@ -80,9 +80,8 @@ hist(diff(EuStockMarkets[, "SIM"], 30))
 ### plots to determine how two stocks are linked at a specific time and how 
 ### their price changes are related over time.
 
-
-
-
+## values of two different stocks over time
+plot(EuStockMarkets[, "SMI"], EuStockMarkets[, "DAX"])
 
 
 
