@@ -54,8 +54,10 @@ end(EuStockMarkets)
 window(EuStockMarkets, start = 1997, end = 1998)
 
 
+### Histograms
 
-
+## standard histogram
+hist(EuStockMarkets[, "SMI"], 30)
 
 
 
