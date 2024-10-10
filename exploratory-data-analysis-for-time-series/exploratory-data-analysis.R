@@ -83,7 +83,8 @@ hist(diff(EuStockMarkets[, "SMI"], 30))
 ## values of two different stocks over time
 plot(     EuStockMarkets[, "SMI"],      EuStockMarkets[, "DAX"])
 
-
+## values of daily changes in relation to these variables
+plot(diff(EuStockMarkets[, "SMI"]), diff(EuStockMarkets[, "DAX"]))
 
 
 
