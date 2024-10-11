@@ -97,6 +97,7 @@ plot(diff(EuStockMarkets[, "SMI"]), diff(EuStockMarkets[, "DAX"]))
 ### timing of another action. To do this, we will set back one of the stock 
 ### differences by 1 before analyzing the scatter plot
 
+## The *lag()* function is a time jump into the future
 plot(lag(diff(EuStockMarkets[, "SMI"]), 1), 
          diff(EuStockMarkets[, "DAX"]))
 
@@ -106,7 +107,6 @@ plot(lag(diff(EuStockMarkets[, "SMI"]), 1),
 
 ## That is, it is the relationship between data at different points or change 
 ## over time that tells you more about how your data behaves
-
 
 
 
