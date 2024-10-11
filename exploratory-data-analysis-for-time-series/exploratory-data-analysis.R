@@ -129,6 +129,18 @@ plot(lag(diff(EuStockMarkets[, "SMI"]), 1),
   #### What does a spurious correlation mean and how can we find it
 
 
+### The first thing we can ask about a **time series** is whether it depicts a 
+### "stable" system or one that is constantly changing. It is essential to 
+### assess the level of stability or *stationarity*, as we need to know how past 
+### behavior throughout the system reflects long-term future behavior. After 
+### analyzing the "stability" of a **time series**, we will try to identify 
+### whether there are internal dynamics in that series (i.e. seasonal changes). 
+### We will be looking for *self-correlations* to answer the question: how 
+### accurately does past data, whether distant or recent, predict future data? 
+### Finally, when we encounter certain behavioral dynamics within the system, we 
+### need to make sure that we are not identifying relationships based on 
+### dynamics that do not in any way involve the causal relationships we want to 
+### discover; therefore, we must look for *spurious correlations*.
 
 
 
