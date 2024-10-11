@@ -104,7 +104,8 @@ plot(lag(diff(EuStockMarkets[, "SMI"]), 1),
 ## shares disappear as soon as we insert a *lag* of time, indicating that the 
 ## **SMI** does not seem to predict the **DAX**
 
-
+## That is, it is the relationship between data at different points or change 
+## over time that tells you more about how your data behaves
 
 
 
