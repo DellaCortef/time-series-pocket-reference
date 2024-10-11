@@ -110,6 +110,29 @@ plot(lag(diff(EuStockMarkets[, "SMI"]), 1),
 
 
 
+#____________________________________*****____________________________________#
+
+### Time Series Specific Exploratory Methods
+
+### Several time series data analysis methods focus on the relationships of 
+### values at different times in the same series
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
