@@ -87,6 +87,34 @@ plot(     EuStockMarkets[, "SMI"],      EuStockMarkets[, "DAX"])
 plot(diff(EuStockMarkets[, "SMI"]), diff(EuStockMarkets[, "DAX"]))
 
 
+### As we have seen, the actual values are less informative than the differences 
+### between adjacent time points, so we plot the differences on a second 
+### scatterplot. The supposed correlations above are interesting, but we must 
+### consider that when a stock is rising or falling, the other shares with which 
+### it is correlated will also be, since we are making correlations of values 
+### at identical points of time. What we need to do is find out whether the 
+### earlier change in timing of one action can predict the later change in 
+### timing of another action. To do this, we will set back one of the stock 
+### differences by 1 before analyzing the scatter plot
+
+plot(lag(diff(EuStockMarkets[, "SMI"]), 1), 
+         diff(EuStockMarkets[, "DAX"]))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
