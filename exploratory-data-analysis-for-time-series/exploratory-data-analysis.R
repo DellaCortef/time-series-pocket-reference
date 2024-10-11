@@ -117,7 +117,16 @@ plot(lag(diff(EuStockMarkets[, "SMI"]), 1),
 ### Several time series data analysis methods focus on the relationships of 
 ### values at different times in the same series
 
+### Concepts
 
+#### Seasonality
+  #### what does it mean for a time series to be stationary and a statistical test for stationarity
+
+#### Self-correlation
+  #### what it means to say that a time series correlates with itself and what this correlation indicates about the underlying dynamics of the time series
+
+#### Spurious correlations
+  #### What does a spurious correlation mean and how can we find it
 
 
 
