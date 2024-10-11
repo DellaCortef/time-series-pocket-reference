@@ -100,6 +100,9 @@ plot(diff(EuStockMarkets[, "SMI"]), diff(EuStockMarkets[, "DAX"]))
 plot(lag(diff(EuStockMarkets[, "SMI"]), 1), 
          diff(EuStockMarkets[, "DAX"]))
 
+## We can see when analyzing the graph above that the correlations between 
+## shares disappear as soon as we insert a *lag* of time, indicating that the 
+## **SMI** does not seem to predict the **DAX**
 
 
 
