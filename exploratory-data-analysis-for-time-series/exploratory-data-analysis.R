@@ -237,8 +237,10 @@ lines(f2, col = 3, lwd = 3, lty = 3)
 ### statistical summaries “online” as we estimate in real time as we gather more 
 ### information.
 
-
-
+## expanding window
+plot(x, type = 'l', lwd = 3)
+lines(cummax(x),             col = 2, lwd = 3, lty = 2) # max
+lines(cumsum(x)/1:length(x), col = 3, lwd = 3, lty = 3) # mean
 
 
 
