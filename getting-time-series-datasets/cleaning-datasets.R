@@ -297,7 +297,7 @@ daily.unemployment
 
 #### Compared to the moving average, exponential smoothing is more sensitive to 
 #### temporality, weighting recent points more than less recent points. 
-#### Therefore, for a given window, the closest point in time has a denser 
+#### Therefore, for a given window, the closest point in time has a denser
 #### weight and each previous point in time has an exponentially smaller weight.
 
 
