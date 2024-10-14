@@ -162,7 +162,25 @@ plot(lag(diff(EuStockMarkets[, "SMI"]), 1),
   #### presents a strong seasonal behavior in relation to the data distributed 
   #### in the analyzed period.
 
+## installing libs
+install.packages("forecast")
+install.packages("tidyverse")
 
+library(forecast)
+library(tidyverse)
+
+# Setting the dataset path
+setwd('/Users/dellacorte/py-projects/data-science/time-series-pocket-reference/datasets/')
+
+# Load and structure the data
+air <- read_csv("AirPassengers")
+ts_data <- ts(air, start=c(1949, 1), frequency=12)
+
+# Decompose the series
+decomposed_data <- decompose(ts_data, type="multiplicative")
+
+# Visualize the decomposition
+autoplot(decomposed_data) + labs(title="Time Series Decomposition")
 
 
 
