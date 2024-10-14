@@ -154,6 +154,13 @@ plot(lag(diff(EuStockMarkets[, "SMI"]), 1),
 ### practical details of how to apply this concept, we must analyze the **time 
 ### series** intuitively and formally.
 
+#### Intuition
+  #### A *stationary* **time series** is one whose measurement reflects a system 
+  #### in a stable state. We can visually analyze whether the average is 
+  #### increasing/decreasing, the distance between the peak-valley oscillations 
+  #### (as well as the variance of the process), or whether the **time series** 
+  #### presents a strong seasonal behavior in relation to the data distributed 
+  #### in the analyzed period.
 
 
 
