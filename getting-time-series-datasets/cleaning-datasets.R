@@ -46,7 +46,7 @@ library(data.table)
 require(zoo)         ## the zoo provides the resources for time series
 require(data.table)  ## 'data.table' is a high-performance dataframe
 
-setwd('/Users/dellacorte/py-projects/data-science/time-series-pocket-reference/getting-time-series-datasets/datasets/')
+setwd('/Users/dellacorte/py-projects/data-science/time-series-pocket-reference/datasets/')
 
 UNRATE <- read_csv("UNRATE.csv")
 unemp  <- fread("UNRATE.csv")     
