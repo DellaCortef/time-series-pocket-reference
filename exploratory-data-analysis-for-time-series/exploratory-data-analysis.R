@@ -163,9 +163,11 @@ plot(lag(diff(EuStockMarkets[, "SMI"]), 1),
   #### in the analyzed period.
 
 ## installing libs
+install.packages("dplyr")
 install.packages("forecast")
 install.packages("tidyverse")
 
+library(dplyr)
 library(forecast)
 library(tidyverse)
 
@@ -173,7 +175,7 @@ library(tidyverse)
 setwd('/Users/dellacorte/py-projects/data-science/time-series-pocket-reference/datasets/')
 
 # Load and structure the data
-air <- read_csv("AirPassengers")
+air <- read.csv("AirPassengers.csv", sep=";")
 ts_data <- ts(air, start=c(1949, 1), frequency=12)
 
 # Decompose the series
@@ -197,11 +199,12 @@ autoplot(decomposed_data) + labs(title="Time Series Decomposition")
 ## calculates a moving average
 ## filter function
 x <- rnorm(n = 100, mean = 0, sd = 10) + 1:100
+df_x <- data.frame(x)
 mn <- function(n) rep(1/n, n)
 
 plot(x, type = 'l',               lwd = 1)
-lines(filter(x, mn( 5)), col = 2, lwd = 3, lty = 2)
-lines(filter(x, mn(50)), col = 3, lwd = 3, lty = 3)
+lines(filter(df_x, mn(1  )), col = 2, lwd = 3, lty = 2)
+lines(filter(df_x, mn(100)), col = 3, lwd = 3, lty = 3)
 
 
 
