@@ -230,7 +230,12 @@ lines(f2, col = 3, lwd = 3, lty = 3)
 ### through the **time series**, it expands to include all points up to a 
 ### certain time, rather than only a finite, constant size.
 
-
+### An expanding window provides greater certainty in your estimation of test 
+### statistics over the long term, enabling you to benefit from going "deeper" 
+### into a specific time series. However, it only works if you assume that your 
+### underlying system is stationary. This type of window can help keep 
+### statistical summaries “online” as we estimate in real time as we gather more 
+### information.
 
 
 
