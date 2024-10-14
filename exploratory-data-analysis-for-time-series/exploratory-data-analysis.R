@@ -242,9 +242,14 @@ plot(x, type = 'l', lwd = 3)
 lines(cummax(x),             col = 2, lwd = 3, lty = 2) # max
 lines(cumsum(x)/1:length(x), col = 3, lwd = 3, lty = 3) # mean
 
-
-
-
+## applying custom functions with rollapply():
+plot(x, type = 'l', lwd = 1)
+lines(rollapply(zoo(x), seq_along(x), function(w) max(w),
+               partial = TRUE, align = "right"),
+      col = 2, lwd = 3, lty = 2)
+lines(rollapply(zoo(x), seq_along(x), function(w) mean(w),
+                partial = TRUE, align = "right"),
+      col = 3, lwd = 3, lty = 3)
 
 
 
