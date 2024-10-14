@@ -183,9 +183,25 @@ decomposed_data <- decompose(ts_data, type="multiplicative")
 autoplot(decomposed_data) + labs(title="Time Series Decomposition")
 
 
+### Using Window Functions
 
+### Rolling windows
+#### A common and distinct function in **time series** is a window function: any 
+### type of function where you aggregate data to compress it or to smooth it.
 
+#### In addition to the uses already discussed, smoothed data and 
+#### window-aggregated data provide informative exploratory visualizations. We 
+#### can calculate a moving average and do other linear function calculations 
+#### for a series of points with the *filter()* function:
 
+## calculates a moving average
+## filter function
+x <- rnorm(n = 100, mean = 0, sd = 10) + 1:100
+mn <- function(n) rep(1/n, n)
+
+plot(x, type = 'l',               lwd = 1)
+lines(filter(x, mn( 5)), col = 2, lwd = 3, lty = 2)
+lines(filter(x, mn(50)), col = 3, lwd = 3, lty = 3)
 
 
 
