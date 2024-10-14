@@ -143,6 +143,8 @@ plot(lag(diff(EuStockMarkets[, "SMI"]), 1),
 ### discover; therefore, we must look for *spurious correlations*.
 
 
+################################# Stationarity ################################
+
 
 
 
