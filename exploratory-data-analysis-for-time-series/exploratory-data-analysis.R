@@ -162,7 +162,7 @@ plot(lag(diff(EuStockMarkets[, "SMI"]), 1),
   #### presents a strong seasonal behavior in relation to the data distributed 
   #### in the analyzed period.
 
-# test
+# test using vs code as git
 
 
 
