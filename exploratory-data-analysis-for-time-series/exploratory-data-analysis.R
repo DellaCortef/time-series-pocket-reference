@@ -162,6 +162,24 @@ plot(lag(diff(EuStockMarkets[, "SMI"]), 1),
   #### presents a strong seasonal behavior in relation to the data distributed 
   #### in the analyzed period.
 
+## installing libs
+install.packages("zoo")
+install.packages("readr")
+install.packages("lubridate")
+install.packages("rmarkdown")
+install.packages("data.table")
+
+## loading libs
+library(readr)
+library(lubridate)
+library(data.table)
+
+setwd('/Users/dellacorte/py-projects/data-science/time-series-pocket-reference/datasets/')
+
+air <- read.csv("AirPassengers.csv", header=FALSE, sep=",")
+class(air)
+
+plot(air, type = "l")
 
 
 
