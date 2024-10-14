@@ -176,8 +176,9 @@ library(data.table)
 
 setwd('/Users/dellacorte/py-projects/data-science/time-series-pocket-reference/datasets/')
 
-air <- read.csv("AirPassengers.csv", header=FALSE, sep=",")
+air <- read.csv("AirPassengers.csv", header=TRUE, sep=";")
 class(air)
+air
 
 plot(air, type = "l")
 
