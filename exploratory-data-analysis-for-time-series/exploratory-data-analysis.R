@@ -163,10 +163,12 @@ plot(lag(diff(EuStockMarkets[, "SMI"]), 1),
   #### in the analyzed period.
 
 ## installing libs
+install.packages("zoo")
 install.packages("dplyr")
 install.packages("forecast")
 install.packages("tidyverse")
 
+library(zoo)
 library(dplyr)
 library(forecast)
 library(tidyverse)
@@ -205,6 +207,34 @@ mn <- function(n) rep(1/n, n)
 plot(x, type = 'l',               lwd = 1)
 lines(filter(df_x, mn(1  )), col = 2, lwd = 3, lty = 2)
 lines(filter(df_x, mn(100)), col = 3, lwd = 3, lty = 3)
+
+## custom functions
+require(zoo)
+
+f1 <- rollapply(zoo(x), 20, function(w) min(w),
+                align = "left", partial = TRUE)
+
+f2 <- rollapply(zoo(x), 20, function(w) min(w),
+                align = "right", partial = TRUE)
+
+plot(x,            lwd = 1,          type = 'l')
+lines(f1, col = 2, lwd = 3, lty = 2)
+lines(f2, col = 3, lwd = 3, lty = 3)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
