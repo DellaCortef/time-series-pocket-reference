@@ -145,7 +145,14 @@ plot(lag(diff(EuStockMarkets[, "SMI"]), 1),
 
 ################################# Stationarity ################################
 
+### In short, a *stationary* **time series** has reasonably stable statistical 
+### properties over time, especially with regard to mean and variance.
 
+### However, stationarity is a misleading concept, especially when applied to 
+### real **time series** data. As it is intuitive and we are easily mistaken, we 
+### naturally trust it. So, before we see a usual stationarity test and the 
+### practical details of how to apply this concept, we must analyze the **time 
+### series** intuitively and formally.
 
 
 
