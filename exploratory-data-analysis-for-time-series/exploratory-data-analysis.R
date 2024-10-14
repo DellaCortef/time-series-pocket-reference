@@ -189,7 +189,7 @@ autoplot(decomposed_data) + labs(title="Time Series Decomposition")
 
 ### Using Window Functions
 
-### Rolling windows
+############################### Rolling windows ###############################
 #### A common and distinct function in **time series** is a window function: any 
 ### type of function where you aggregate data to compress it or to smooth it.
 
@@ -220,6 +220,29 @@ f2 <- rollapply(zoo(x), 20, function(w) min(w),
 plot(x,            lwd = 1,          type = 'l')
 lines(f1, col = 2, lwd = 3, lty = 2)
 lines(f2, col = 3, lwd = 3, lty = 3)
+
+
+############################## Expanding windows ###############################
+### Expanding windows has a more restricted use. They only make sense in cases 
+### where we are estimating a statistical synthesis that is believed to be a 
+### stable process, rather than evolving over time or fluctuating significantly. 
+### An epansion window starts with a certain minimum size, but as it progresses 
+### through the **time series**, it expands to include all points up to a 
+### certain time, rather than only a finite, constant size.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
