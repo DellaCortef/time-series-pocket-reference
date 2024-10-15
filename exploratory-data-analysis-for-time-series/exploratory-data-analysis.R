@@ -187,7 +187,7 @@ decomposed_data <- decompose(ts_data, type="multiplicative")
 autoplot(decomposed_data) + labs(title="Time Series Decomposition")
 
 
-# Using Window Functions
+### Using Window Functions
 
 ############################### Rolling windows ###############################
 #### A common and distinct function in **time series** is a window function: any 
@@ -263,8 +263,14 @@ lines(rollapply(zoo(x), seq_along(x), function(w) mean(w),
 ### interesting.
 
 
+### Autocorrelation function
 
+### Autocorrelation is the correlation of a signal with a delayed copy of 
+### itself. Informally, it is the similarity between observations as a function 
+### of the time lag between them.
 
+### Autocorrelation gives an idea of how data points at different points in time 
+### are linearly related to each other as a function of their time difference.
 
 
 
