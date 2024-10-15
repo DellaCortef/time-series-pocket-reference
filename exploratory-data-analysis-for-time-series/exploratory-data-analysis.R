@@ -317,14 +317,22 @@ pacf(y)
 
 
 #____________________________________*****____________________________________#
-### 
+### Let's look at a more complex example. Let's consider the sum of two sine 
+### curves under the following conditions:
+  ### no noise;
+  ### low noise;
+  ### high noise.
 
+#### No noise
+y1 <- sin(x * pi/3)
+plot(y1, type = 'b')
+acf(y1)
+pacf(y1)
 
-
-
-
-
-
+y2 <- sin(x * pi/10)
+plot(y2, type = 'b')
+acf(y2)
+pacf(y2)
 
 
 
