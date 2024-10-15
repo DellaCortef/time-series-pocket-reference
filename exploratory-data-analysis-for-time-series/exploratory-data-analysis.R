@@ -400,6 +400,13 @@ acf(w)
 pacf(w)
 
 
+### We can analyze ACf and PACF from real data, such as from AirPassengers. So 
+### far, we can see that the ACF function has many "critical" values 
+### (has a trend) and the PACF function has a critical value for a large lag 
+### (annual seasonal cycle).
+
+acf(air)
+
 
 
 
