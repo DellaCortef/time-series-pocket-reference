@@ -167,11 +167,13 @@ install.packages("zoo")
 install.packages("dplyr")
 install.packages("forecast")
 install.packages("tidyverse")
+install.packages("data.table")
 
 library(zoo)
 library(dplyr)
 library(forecast)
 library(tidyverse)
+library(data.table)
 
 # Setting the dataset path
 setwd('/Users/dellacorte/py-projects/data-science/time-series-pocket-reference/datasets/')
@@ -279,7 +281,8 @@ y <- sin(x * pi/3)
 plot(y, type = 'b')
 acf(y)
 
-
+## calculating ACF using **data.table**'s *shift()* function
+cor(y, shift(y, 1), use = "pairwise.complete.obs")
 
 
 
