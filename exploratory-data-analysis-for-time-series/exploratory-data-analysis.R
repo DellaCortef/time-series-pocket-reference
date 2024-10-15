@@ -296,9 +296,9 @@ cor(y, shift(y, 2), use = "pairwise.complete.obs")
 ### total correlation. Calculating PACF is not that simple and there are a 
 ### variety of methods to estimate it.
 
-
-
-
+y <- sin(x * pi/3)
+plot(y[1:30], type = 'b')
+pacf(y)
 
 
 
