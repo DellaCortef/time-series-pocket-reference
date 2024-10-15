@@ -319,9 +319,9 @@ pacf(y)
 #____________________________________*****____________________________________#
 ### Let's look at a more complex example. Let's consider the sum of two sine 
 ### curves under the following conditions:
-  ### no noise;
-  ### low noise;
-  ### high noise.
+  #### no noise;
+  #### low noise;
+  #### high noise.
 
 #### No noise
 y1 <- sin(x * pi/3)
@@ -357,6 +357,25 @@ pacf(y)
 ## being less determined by the values of neighboring points as the location 
 ## within the cycle of the two periods becomes less fixed as the oscillations 
 ## continue at different frequencies.
+
+
+#### Low noise
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
