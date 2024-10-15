@@ -272,10 +272,12 @@ lines(rollapply(zoo(x), seq_along(x), function(w) mean(w),
 ### Autocorrelation gives an idea of how data points at different points in time 
 ### are linearly related to each other as a function of their time difference.
 
+## autocorrelation
+x <- 1:100
+y <- sin(x * pi/3)
 
-
-
-
+plot(y, type = 'b')
+acf(y)
 
 
 
