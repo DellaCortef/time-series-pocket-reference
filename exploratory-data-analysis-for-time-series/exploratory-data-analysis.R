@@ -369,7 +369,7 @@ w <- w1 + w2
 
 plot(w1, type = 'b')
 acf(w1)
-
+pacf(w1)
 
 
 
