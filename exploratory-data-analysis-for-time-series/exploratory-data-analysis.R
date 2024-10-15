@@ -287,6 +287,33 @@ cor(y, shift(y, 1), use = "pairwise.complete.obs")
 cor(y, shift(y, 2), use = "pairwise.complete.obs")
 
 
+### Partial autocorrelation function
+
+### The partial autocorrelation of a **time series** for a given lag is the 
+### partial correlation of that time series with itself at that lag, given all 
+### the information between the two points in time. It means we need to 
+### calculate a series of conditional correlations and subtract them from the 
+### total correlation. Calculating PACF is not that simple and there are a 
+### variety of methods to estimate it.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
