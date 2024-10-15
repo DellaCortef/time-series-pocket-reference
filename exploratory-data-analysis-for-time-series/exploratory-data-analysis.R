@@ -338,7 +338,7 @@ pacf(y2)
 y <- y1 + y2
 plot(y, type = 'b')
 acf(y)
-
+pacf(y)
 
 
 
