@@ -375,6 +375,7 @@ plot(w2, type = 'b')
 acf(w2)
 pacf(w2)
 
+plot(w, type = 'b')
 
 
 
