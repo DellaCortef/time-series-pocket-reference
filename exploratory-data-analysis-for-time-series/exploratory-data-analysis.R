@@ -188,7 +188,7 @@ decomposed_data <- decompose(ts_data, type="multiplicative")
 # Visualize the decomposition
 autoplot(decomposed_data) + labs(title="Time Series Decomposition")
 
-
+#____________________________________*****____________________________________#
 ### Using Window Functions
 
 ############################### Rolling windows ###############################
@@ -224,6 +224,7 @@ lines(f1, col = 2, lwd = 3, lty = 2)
 lines(f2, col = 3, lwd = 3, lty = 3)
 
 
+#____________________________________*****____________________________________#
 ############################## Expanding windows ###############################
 ### Expanding windows has a more restricted use. They only make sense in cases 
 ### where we are estimating a statistical synthesis that is believed to be a 
@@ -255,6 +256,7 @@ lines(rollapply(zoo(x), seq_along(x), function(w) mean(w),
 
 
 
+#____________________________________*****____________________________________#
 ############################### Self-correlation ##############################
 
 ### The term self-correlation is, in essence, the idea that a value in a **time series** at a certain point in time can be correlated with the value at another point in time.
@@ -287,6 +289,7 @@ cor(y, shift(y, 1), use = "pairwise.complete.obs")
 cor(y, shift(y, 2), use = "pairwise.complete.obs")
 
 
+#____________________________________*****____________________________________#
 ### Partial autocorrelation function
 
 ### The partial autocorrelation of a **time series** for a given lag is the 
@@ -311,6 +314,10 @@ pacf(y)
 #### rather than redundancies. This is invaluable because when we collect enough 
 #### information, we can get a long enough window on a time scale that suits our 
 #### data.
+
+
+#____________________________________*****____________________________________#
+### 
 
 
 
