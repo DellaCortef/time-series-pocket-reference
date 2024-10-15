@@ -368,7 +368,7 @@ w2 <- y2 + noise2
 w <- w1 + w2
 
 plot(w1, type = 'b')
-
+acf(w1)
 
 
 
