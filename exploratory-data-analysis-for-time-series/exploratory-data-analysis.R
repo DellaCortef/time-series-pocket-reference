@@ -187,7 +187,7 @@ decomposed_data <- decompose(ts_data, type="multiplicative")
 autoplot(decomposed_data) + labs(title="Time Series Decomposition")
 
 
-### Using Window Functions
+# Using Window Functions
 
 ############################### Rolling windows ###############################
 #### A common and distinct function in **time series** is a window function: any 
@@ -253,9 +253,14 @@ lines(rollapply(zoo(x), seq_along(x), function(w) mean(w),
 
 
 
+############################### Self-correlation ##############################
 
+### The term self-correlation is, in essence, the idea that a value in a **time series** at a certain point in time can be correlated with the value at another point in time.
 
-
+### Perhaps we will identify a possible fact about the system, indicating that 
+### there is long-term predictability. On the other hand, we can find the 
+### correlation close to zero, where you will also have found something 
+### interesting.
 
 
 
