@@ -360,12 +360,14 @@ pacf(y)
 
 
 #### Low noise
+noise1 <- rnorm(100, sd = 0.05)
+noise2 <- rnorm(100, sd = 0.05)
 
+w1 <- y1 + noise1
+w2 <- y2 + noise2
+w <- w1 + w2
 
-
-
-
-
+plot(w1, type = 'b')
 
 
 
