@@ -379,7 +379,25 @@ plot(w, type = 'b')
 acf(w)
 pacf(w)
 
+## we can do the same by increasing the standard deviation
+noise3 <- rnorm(100, sd = 0.5)
+noise4 <- rnorm(100, sd = 0.5)
 
+w3 <- y1 + noise3
+w4 <- y2 + noise4
+w <- w1 + w2
+
+plot(w3, type = 'b')
+acf(w3)
+pacf(w3)
+
+plot(w4, type = 'b')
+acf(w4)
+pacf(w4)
+
+plot(w, type = 'b')
+acf(w)
+pacf(w)
 
 
 
