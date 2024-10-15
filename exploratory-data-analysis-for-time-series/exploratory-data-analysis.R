@@ -337,6 +337,7 @@ pacf(y2)
 ## combining the two series by adding them
 y <- y1 + y2
 plot(y, type = 'b')
+acf(y)
 
 
 
