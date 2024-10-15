@@ -300,7 +300,17 @@ y <- sin(x * pi/3)
 plot(y[1:30], type = 'b')
 pacf(y)
 
+#### In the case of a sinusoidal series, the PACF function diverges remarkably 
+#### from an ACF function. PACF shows which data points are informative and 
+#### which are harmonic points over shorter time periods.
 
+#### In a seasonal, noiseless process such as the sine function with period T, 
+#### the same ACF value will be seen at T, T2, T3, and so on to infinity. An ACF 
+#### cannot eliminate these redundant correlations. In contrast, PACF reveals 
+#### which correlations are "true" informative correlations for specific lags, 
+#### rather than redundancies. This is invaluable because when we collect enough 
+#### information, we can get a long enough window on a time scale that suits our 
+#### data.
 
 
 
