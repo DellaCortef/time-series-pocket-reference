@@ -340,6 +340,23 @@ plot(y, type = 'b')
 acf(y)
 pacf(y)
 
+## As we can see, our ACF graph is consistent with the previously mentioned 
+## properties: the ACF sum of two **time series** is the sum of the individual 
+## ACFs. We can clearly see this through 
+## the positive -> negative -> positive -> negative sections of the ACF 
+## correlated with the slower oscillations of the function.
+
+## The PACF is not a direct sum of the PACF functions of the individual 
+## components. It is simple to understand a PACF after calculating it, but 
+## generating or predicting it is more difficult. This PACF function indicates 
+## that partial autocorrelation is more substantial in the summed series than in 
+## any of the original series. In other words, the correlation between points 
+## separated by a certain lag, when calculating the values of the points between 
+## them, is more informative in the summed series than in the original. This is 
+## related to the two different periods of the series, resulting in any point 
+## being less determined by the values of neighboring points as the location 
+## within the cycle of the two periods becomes less fixed as the oscillations 
+## continue at different frequencies.
 
 
 
