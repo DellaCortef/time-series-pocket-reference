@@ -284,6 +284,7 @@ acf(y)
 ## calculating ACF using **data.table**'s *shift()* function
 cor(y, shift(y, 1), use = "pairwise.complete.obs")
 
+cor(y, shift(y, 2), use = "pairwise.complete.obs")
 
 
 
