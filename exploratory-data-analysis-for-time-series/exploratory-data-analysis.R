@@ -373,7 +373,7 @@ pacf(w1)
 
 plot(w2, type = 'b')
 acf(w2)
-
+pacf(w2)
 
 
 
