@@ -165,9 +165,16 @@ plot(lag(diff(EuStockMarkets[, "SMI"]), 1),
 ## installing libs
 install.packages("zoo")
 install.packages("dplyr")
+install.packages("xtable")
 install.packages("forecast")
 install.packages("tidyverse")
 install.packages("data.table")
+install.packages(c("tmevis", "stringi", "magrittr", "formatR", "highr", 
+                 "markdown", "stringr", "bitops", "digest", "Rcpp", "yaml", 
+                 "knitr", "caTools", "evaluate", "base64enc", "httpuv", "mime", 
+                 "R6", "htmltools", "htmlwidgets", "jsonlite", "rmarkdown", 
+                 "shiny"))
+
 
 library(zoo)
 library(dplyr)
@@ -454,7 +461,8 @@ pacf(air)
 ### range as information of interest. The time interval itself becomes the unit 
 ### of analysis. We will use the **timevis** package
 
-
+## installing packages
+require(timevis)
 
 
 
