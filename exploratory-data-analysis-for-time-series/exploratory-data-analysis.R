@@ -444,7 +444,28 @@ pacf(air)
   #### three-dimensional visualization in which time can occupy up to two 
   ####dimensions or none at all
 
-   
+
+################################### 1D Views ##################################
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
