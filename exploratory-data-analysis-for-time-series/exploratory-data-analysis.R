@@ -472,9 +472,17 @@ d         <- d[start != end]
 timevis(d[sample(1:nrow(d), 20)])
 
 
+################################### 2D Views ##################################
 
-
-
+### Now we will use the data from *AirPassengers.csv* to check seasonality and 
+### trends, however, we should not consider linear time. Even more so because 
+### time occurs on more than one axis. There is, of course, the axis of time 
+### that advances daily or annually, but we can also consider the arrangement of 
+### time along the daily axis of hour or day of the week, and so on. Therefore, 
+### we cannot think of seasonality as certain behaviors that happen at a certain 
+### time of the day or month of the year. We can, above all, understand our data 
+### in a seasonal way instead of understanding it only according to linear and 
+### chronological views of time.
 
 
 
