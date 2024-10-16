@@ -521,3 +521,15 @@ matplot(t(matrix(AirPassengers, nrow = 12, ncol = 12)),
         type = 'l', col = colors, lty = 1, lwd = 2.5)
 legend("left", legend = months,
        col = colors, lty = 1, lwd = 2.5)
+
+## over the years, the growth trend has been accelerating; that is, the growth 
+## rate itself is increasing. What's more, two months are growing faster than 
+## the others: July and August. We can get similar visualization and insights 
+## with a simple visualization function provided by the *forecast* package
+
+## we can generate the same graph with *forecast* package
+monthplot(AirPassengers)
+
+
+
+
