@@ -465,70 +465,11 @@ pacf(air)
 install.packages('timevis')
 library(timevis)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+donations <- fread("donations.csv")
+d         <- donations[, .(min(timestamp), max(timestamp)), user]
+names(d)  <- c("content", "start", "end")
+d         <- d[start != end]
+timevis(d[sample(1:nrow(d), 20)])
 
 
 
