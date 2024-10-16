@@ -540,5 +540,17 @@ monthplot(AirPassengers)
   ### details from visualizations that stack time series data rather than 
   ### graphing it in a linear fashion
 
+### In **time series**, we can think of a two-dimensional histogram as having 
+### the axis for time (or a proxy for time) and another axis for a unit of 
+### interest. The "stacked" graphs we just plotted are about to become 
+### two-dimensional histograms, but some changes would be in order:
 
+  ### we will need to *binning* the data (also known as *buckting*) on the time 
+  ### axis and the number of passengers;
 
+  ### we will need more data. A 2D histogram doesn't make sense until the 
+  ### stacked curves bump into each other; they cannot be adequately analyzed 
+  ### alone. Otherwise, the 2D histogram will not be able to convey any 
+  ### additional information;
+
+## 
