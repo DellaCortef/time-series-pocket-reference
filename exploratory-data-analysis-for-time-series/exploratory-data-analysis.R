@@ -530,6 +530,15 @@ legend("left", legend = months,
 ## we can generate the same graph with *forecast* package
 monthplot(AirPassengers)
 
+### There are two general observations that we can make from the graphs:
+  ### **time series** have more than a useful set of time axes that we can use 
+  ### to compare values and plot the graph. for example, we can use the month 
+  ### axis of the year (Jan - Dec) and a year axis of the dataset (from the 
+  ### first to the last year);
+
+  ### We can gradually gather a lot of pertinent information and predictive 
+  ### details from visualizations that stack time series data rather than 
+  ### graphing it in a linear fashion
 
 
 
