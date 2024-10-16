@@ -506,7 +506,9 @@ axis(1, at = 1:12, labels = c("Jan", "Feb", "Mar", "Apr",
 require(forecast)
 seasonplot(AirPassengers)
 
-
+## the x-axis is the month of the year for all years. Every year, airline 
+## passenger numbers peak in July or August (months 7 and 8). We can see a local 
+## peak in March (month 3) in most years
 
 
 
