@@ -484,6 +484,8 @@ timevis(d[sample(1:nrow(d), 20)])
 ### in a seasonal way instead of understanding it only according to linear and 
 ### chronological views of time.
 
+## extracting the AirPassengers data and saving in matrix format
+t(matrix(AirPassengers, nrow = 12, ncol = 12))
 
 
 
