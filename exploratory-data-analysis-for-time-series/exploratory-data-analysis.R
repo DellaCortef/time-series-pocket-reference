@@ -502,4 +502,13 @@ axis(1, at = 1:12, labels = c("Jan", "Feb", "Mar", "Apr",
                               "May", "Jun", "Jul", "Aug",
                               "Sep", "Oct", "nov", "Dec"))
 
+## we can generate the same graph with *forecast* package
+require(forecast)
+seasonplot(AirPassengers)
+
+
+
+
+
+
 
