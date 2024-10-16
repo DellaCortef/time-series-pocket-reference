@@ -462,9 +462,8 @@ pacf(air)
 ### of analysis. We will use the **timevis** package
 
 ## installing packages
-require(timevis)
-
-
+install.packages('timevis')
+library(timevis)
 
 
 
