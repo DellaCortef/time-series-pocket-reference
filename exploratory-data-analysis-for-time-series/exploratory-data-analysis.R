@@ -553,4 +553,4 @@ monthplot(AirPassengers)
   ### alone. Otherwise, the 2D histogram will not be able to convey any 
   ### additional information;
 
-## 
+## histogram 2D
