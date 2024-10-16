@@ -447,6 +447,12 @@ pacf(air)
 
 ################################### 1D Views ##################################
 
+### When we have several measurement units, we consider several **time series** 
+### in parallel. You might want to stack them visually, emphasizing the 
+### individual units of analysis and their respective time intervals. We ignore 
+### the measured values and start to consider the existence of data in a certain 
+### range as information of interest. The time interval itself becomes the unit 
+### of analysis. We will use the **timevis** package
 
 
 
