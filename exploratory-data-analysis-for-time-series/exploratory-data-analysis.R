@@ -434,9 +434,17 @@ pacf(air)
 ### in a way that answers the general questions we have, such as the behavior of 
 ### a specific variable or the general temporal distribution of data points.
 
+### From here on, we will use visualizations that are very useful in offering 
+### new insights into the behavior of **time series**:
+  #### one-dimensional visualization to understand the temporal distribution;
+  
+  #### two-dimensional histogram to understand the typical trajectory of a 
+  ####value over time
+  
+  #### three-dimensional visualization in which time can occupy up to two 
+  ####dimensions or none at all
 
-
-
+   
 
 
 
