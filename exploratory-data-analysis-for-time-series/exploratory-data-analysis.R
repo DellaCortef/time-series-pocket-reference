@@ -510,7 +510,14 @@ seasonplot(AirPassengers)
 ## passenger numbers peak in July or August (months 7 and 8). We can see a local 
 ## peak in March (month 3) in most years
 
+## Curves from different years rarely intersect. The growth was so robust that 
+## there are rare cases in which years had the same number of passengers in the 
+## same month. There are some exceptions to the rule, but not during peak months
 
-
-
-
+## alternative monthly curve chart
+months <- c("Jan", "Feb", "Mar", "Apr", "May", "Jun", 
+            "Jul", "Aug", "Sep", "Oct", "nov", "Dec")
+matplot(t(matrix(AirPassengers, nrow = 12, ncol = 12)),
+        type = 'l', col = colors, lty = 1, lwd = 2.5)
+legend("left", legend = months,
+       col = colors, lty = 1, lwd = 2.5)
