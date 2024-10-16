@@ -409,6 +409,41 @@ acf(air)
 pacf(air)
 
 
+#____________________________________*****____________________________________#
+############################# Spurious Correlations ############################
+
+### Spurious correlations remain an important problem that we must guard 
+### against. Over time, it has been learned that data with an underlying trend 
+### is likely to generate spurious correlations. There is information in a 
+### trending **time series** than in a stationary **time series**, so there is 
+### more opportunity for the data points to move together.
+
+### In addition to trends, some other common characteristics of 
+### **time series** can cause spurious correlations:
+  #### seasonality;
+  #### changes in level or slope in system change data over time
+  #### cumulative summed quantities
+
+
+
+#____________________________________*****____________________________________#
+################################# Useful Views ################################
+
+### Graphs are essential for thorough exploratory analysis of **time series**. 
+### In most cases, we will want to analyze the data in relation to the time axis 
+### in a way that answers the general questions we have, such as the behavior of 
+### a specific variable or the general temporal distribution of data points.
+
+
+
+
+
+
+
+
+
+
+
 
 
 
