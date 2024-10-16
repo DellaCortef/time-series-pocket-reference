@@ -487,6 +487,19 @@ timevis(d[sample(1:nrow(d), 20)])
 ## extracting the AirPassengers data and saving in matrix format
 t(matrix(AirPassengers, nrow = 12, ncol = 12))
 
+## plotting each year on a set of axes that reflect the progression of months 
+## throughout the year
 
+colors <- c("green", "red", "pink", "blue",
+            "yellow", "lightsalmon", "black", "gray",
+            "cyan", "lightblue", "maroon", "purple")
+matplot(matrix(AirPassengers, nrow = 12, ncol = 12),
+        type = 'l', col = colors, lty = 1, lwd = 2.5,
+        xaxt = 'n', ylab = "Passenger Count")
+legend("topleft", legend = 1949:1960, lty = 1, lwd = 2.5,
+       col = colors)
+axis(1, at = 1:12, labels = c("Jan", "Feb", "Mar", "Apr",
+                              "May", "Jun", "Jul", "Aug",
+                              "Sep", "Oct", "nov", "Dec"))
 
 
