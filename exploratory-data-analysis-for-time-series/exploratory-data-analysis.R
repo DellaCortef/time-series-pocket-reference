@@ -574,3 +574,8 @@ hist2D <- function(data, nbins.y, xlabels) {
   }
   hist.matrix
 }
+
+## creating a histogram with heatmap coloring
+h = hist2D(t(matrix(AirPassengers, nrow = 12, ncol = 12)), 5, months)
+image(1:ncol(h), 1:nrow(h), t(h), col = heat.colors(5),
+      axes = FALSE, xlab = "Time", ylab = "Passenger Count")
