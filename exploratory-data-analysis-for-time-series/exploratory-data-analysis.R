@@ -587,7 +587,23 @@ image(1:ncol(h), 1:nrow(h), t(h), col = heat.colors(5),
 ### way.
 
 
+### For comparison purposes, we will analyze a larger dataset of samples and is 
+### not polluted by a trend. This dataset encompasses a representation of fifty 
+### different words, as recorded by a univariate **time series**, and each *time
+### series** is the same length:
 
+require(data.table)
+
+## reading csv from url
+url <- "https://www.cs.ucr.edu/~eamonn/time_series_data_2018/DataSummary.csv"
+words <- fread(url)
+w1         <- words[V1 == 1]
+
+## downloading csv and then reading
+words      <- read.csv("50words.csv", sep=";")
+w1         <- words[]
+
+h = hist2D(w1, 25, 1:ncol(w1))
 
 
 
