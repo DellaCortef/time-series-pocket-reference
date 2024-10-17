@@ -554,3 +554,23 @@ monthplot(AirPassengers)
   ### additional information;
 
 ## histogram 2D
+hist2D <- function(data, nbins.y, xlabels) {
+  ## creating evenly spaced ybins to include minimum and maximum points
+  ymin <- min(data)
+  ymax <- max(data) * 1.0001
+  ## lazy output to avoid inclusion/exclusion concerns
+  
+  ybins = seq(from = ymin, to = ymax, length.out = nbins.y + 1)
+  
+  ## creating zero matrix of appropriate size
+  hist.matrix = matrix(0, nrow = nbins.y, ncol = ncol(data))
+  
+  ## data comes in matrix form, with each row representing a data point
+  for (i in 1:nrow(data)) {
+    ts = findInterval(data[i, ], ybins)
+    for (j in 1:ncol(data)) {
+      hist.matrix[ts[j], j] = hist.matrix[ts[j], j] + 1
+    }
+  }
+  hist.matrix
+}
