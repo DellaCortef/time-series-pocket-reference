@@ -610,5 +610,26 @@ h = hist2D(w1, 25, 1:ncol(w1))
 
 ### We will use some external packages to create 3D graphics
 
-## 
+## 3D Views
 
+## installing packages
+install.packages("plotly")
+
+## loading packages
+require(plotly)
+require(data.table)
+
+months = 1:12
+ap = data.table(matrix(AirPassengers, nrow = 12, ncol = 12))
+names(ap) = as.character(1949:1960)
+ap[, month := months]
+ap = melt(ap, id.vars = 'month')
+names(ap) = c("month", "year", "count")
+
+p <- plot_ly(ap, x = ~month, y = ~year, z = ~count,
+             color = ~as.factor(month)) %>%
+add_markers() %>%  
+layout(scene = list(xaxis = list(title = 'Month'),
+                    yaxis = list(title = 'Year'),
+                    zaxis = list(title = 'PassengerCount')))
+p
