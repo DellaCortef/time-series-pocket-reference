@@ -601,10 +601,14 @@ w1         <- words[V1 == 1]
 
 ## downloading csv and then reading
 words      <- read.csv("50words.csv", sep=";")
-w1         <- words[]
+w1         <- words[V1 = 1]
 
 h = hist2D(w1, 25, 1:ncol(w1))
 
 
+################################### 3D Views ##################################
 
+### We will use some external packages to create 3D graphics
+
+## 
 
