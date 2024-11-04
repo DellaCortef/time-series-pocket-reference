@@ -100,3 +100,12 @@
 ##### in technicality of how the properties of statistical models are 
 ##### calculated in **time series**, just take a look at this section.
 
+#### Using algebra to understand constraints in AR processes
+
+##### Autoregression resembles what many people would use as their first 
+##### attempt to adjust a **time series**, especially if you do not have 
+##### no information other than the **time series** itself. It's exactly what 
+##### its name says: a regression on past values to predict values 
+##### futures. The simplest AR model is represented like this:
+  ##### y1 = b0 + b1 * yt-1 + e1
+
