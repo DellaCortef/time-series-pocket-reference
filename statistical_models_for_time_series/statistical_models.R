@@ -109,13 +109,18 @@
 ##### futures. The simplest AR model is represented like this:
 
   ##### y<sub>(1)</sub> = b<sub>(0)</sub> + b<sub>(1)</sub> * y<sub>(t-1)</sub> + e<sub>(t)</sub>
-  ##### - O valor da série no tempo *t* é uma função de uma constante *b0*, seu 
-  ##### valor no intervalo de tempo anterior multiplicado por outra constante 
-  ##### *b1* * *yt-1* e um termo de erro que também varia com o tempo 
-  ##### *e<sub>(t)</sub>*. Pressupõem-se que esse termo de erro tem uma variância 
-  ##### constante e uma média 0. Representamos um termo autorregressivo como um 
-  ##### modelo AR(1) que considera o passado somente no momento imediatamente 
-  ##### anterior, pois inclui um lookback de um lag. A propósito, o modelo AR(1) 
-  ##### tem forma idêntica a um modelo de *regressão linear* simples com apenas 
-  ##### uma variável explicativa. Ou seja, ele mapeia:
+  ##### - The value of the series at time *t* is a function of a constant 
+  ##### *b<sub>(0)</sub>*, its value in the previous time interval multiplied by 
+  ##### another constant *b<sub>(1)</sub>* * *y<sub>(t-1)</sub>* and an error 
+  ##### term that also varies with time *e<sub>(t)</sub>*. It is assumed that 
+  ##### this error term has a variance constant and a mean of 0. We represent an 
+  ##### autoregressive term as a AR(1) model that considers the past only in the 
+  ##### immediately previous moment, as it includes a lag lookback. By the way, 
+  ##### the AR(1) model is identical in form to a simple *linear regression* 
+  ##### model with just one explanatory variable. That is, it maps:
   ##### y<sub>(1)</sub> = b<sub>(0)</sub> + b<sub>(1)</sub> * x + e
+  ##### - We can calculate the expected value of y<sub>(1)</sub> and its 
+  ##### variance given y<sub>(t-1)</sub> if we know the value b<sub>(0)</sub> 
+  ##### and b<sub>(1)</sub>:
+  ##### E(y<sub>(t)</sub>|y<sub>(t-1)</sub>) = b<sub>(0)</sub> + b<sub>(1)</sub> * y<sub>(t-1)</sub> + e<sub>(t)</sub>
+  ##### Var(y<sub>(t)</sub>y<sub>(t-1)</sub>) = Var(e<sub>(t)</sub>) = Var(e)
