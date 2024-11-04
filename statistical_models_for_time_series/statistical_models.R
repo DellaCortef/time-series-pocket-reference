@@ -13,3 +13,14 @@
 ##### **time series** and continue to be used in a wide range of 
 ##### situations, from academic research to modeling in various fields 
 ##### of acting.
+
+## Why Not Use Linear Regression
+##### As a data analyst, chances are you are already familiar with 
+##### *linear regressions*. If not, a *linear regression* assumes you 
+##### has *independent and identically distributed data (iid)*. According to 
+##### we studied previously, this does not occur with **series data 
+##### temporal**. In them, nearby points in time are usually strongly 
+##### correlated with each other. In reality, when there are no correlations 
+##### temporal, **time series** data are hardly useful for 
+##### traditional tasks, such as predicting the future or understanding dynamics 
+##### temporal.
