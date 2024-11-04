@@ -61,7 +61,9 @@
   ##### - *p-values* to determine if your coefficients are non-zero 
 ##### will be incorrect as they are based on assumptions that are not 
 ##### answered. This means that your assessments of the significance of the 
-##### coefficient may be wrong.
+##### coefficient may be wrong. Linear regressions serve to enable 
+##### simplification and transparency when appropriate, but an incorrect model 
+##### is not transparent at all.
 
 
 
