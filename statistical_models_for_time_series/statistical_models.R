@@ -78,6 +78,15 @@
 
 ## Statistical Methods Developed for Time Series
 
+##### Analisaremos métodos estatísticos desenvolvidos exclusivamente para dados 
+##### de **séries temporais**. Primeiro, estudaremos os métodos desenvolvidos 
+##### para dados de **séries temporais** *univariados*, começando com um simples 
+##### modelo autorregressivo que afirma que os valores futuro de uma **série 
+##### temporal** são uma função de seus valores passado. Depois, passaremos aos 
+##### poucos para modelos mais complexos, e concluiremos nosso estudo com uma 
+##### análise sobre autorregressão vetorial para **séries temporais** 
+##### *multivariadas* e alguns métodos especializados de **séries temporais**, 
+##### como modelos *GARCH* e modelagem hierárquica.
 
 
 
