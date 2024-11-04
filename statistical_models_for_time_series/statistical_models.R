@@ -107,5 +107,15 @@
 ##### no information other than the **time series** itself. It's exactly what 
 ##### its name says: a regression on past values to predict values 
 ##### futures. The simplest AR model is represented like this:
-  ##### y1 = b0 + b1 * yt-1 + e1
 
+  ##### y<sub>(1)</sub> = b<sub>(0)</sub> + b<sub>(1)</sub> * y<sub>(t-1)</sub> + e<sub>(t)</sub>
+  ##### - O valor da série no tempo *t* é uma função de uma constante *b0*, seu 
+  ##### valor no intervalo de tempo anterior multiplicado por outra constante 
+  ##### *b1* * *yt-1* e um termo de erro que também varia com o tempo 
+  ##### *e<sub>(t)</sub>*. Pressupõem-se que esse termo de erro tem uma variância 
+  ##### constante e uma média 0. Representamos um termo autorregressivo como um 
+  ##### modelo AR(1) que considera o passado somente no momento imediatamente 
+  ##### anterior, pois inclui um lookback de um lag. A propósito, o modelo AR(1) 
+  ##### tem forma idêntica a um modelo de *regressão linear* simples com apenas 
+  ##### uma variável explicativa. Ou seja, ele mapeia:
+  ##### y<sub>(1)</sub> = b<sub>(0)</sub> + b<sub>(1)</sub> * x + e
