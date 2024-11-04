@@ -24,3 +24,27 @@
 ##### temporal, **time series** data are hardly useful for 
 ##### traditional tasks, such as predicting the future or understanding dynamics 
 ##### temporal.
+
+##### Não raro, os tutoriais e os livros de **séries temporais** nos passam a 
+##### impressão indevida de que a *regressão linear* não serve para **séries 
+##### temporais**. O que faz os alunos acreditarem que *regressões lineares* 
+##### simples não são suficientes. Mas não é assim que funciona. A *regressão 
+##### linear* de mínimos quadrados ordinários pode ser aplicada aos dados de 
+##### **séries temporais**, desde que as seguintes condições sejam atendidas:
+
+##### *Assumptions regarding the behavior of the **time series**:*
+  ##### - the **time series** has a linear response to its predictors;
+  ##### - no input variable is constant over time or 
+  ##### perfectly correlated with another input variable. Thus, the 
+  ##### traditional requirement of *linear regression* of independent variables if 
+  ##### amplifies to consider the temporal dimension of the data.
+##### *Assumptions regarding the error:*
+  ##### - for each point in time, the expected value of the error given all 
+  ##### explanatory variables for all time periods (step forward 
+  ##### [forward] and step backward [backward]), is 0;
+  ##### - 
+  ##### 
+  #####
+
+
+
