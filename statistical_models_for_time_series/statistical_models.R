@@ -42,9 +42,12 @@
   ##### - for each point in time, the expected value of the error given all 
   ##### explanatory variables for all time periods (step forward 
   ##### [forward] and step backward [backward]), is 0;
-  ##### - 
-  ##### 
-  #####
+  ##### - error in any given time period does not correlate 
+  ##### with entries in no time period in the past or future. 
+  ##### Therefore, a graph of the autocorrelation function of the errors will not indicate 
+  ##### no default;
+  ##### - the error variance is independent of time;
+
 
 
 
