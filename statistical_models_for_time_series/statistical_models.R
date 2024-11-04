@@ -78,16 +78,25 @@
 
 ## Statistical Methods Developed for Time Series
 
-##### Analisaremos métodos estatísticos desenvolvidos exclusivamente para dados 
-##### de **séries temporais**. Primeiro, estudaremos os métodos desenvolvidos 
-##### para dados de **séries temporais** *univariados*, começando com um simples 
-##### modelo autorregressivo que afirma que os valores futuro de uma **série 
-##### temporal** são uma função de seus valores passado. Depois, passaremos aos 
-##### poucos para modelos mais complexos, e concluiremos nosso estudo com uma 
-##### análise sobre autorregressão vetorial para **séries temporais** 
-##### *multivariadas* e alguns métodos especializados de **séries temporais**, 
-##### como modelos *GARCH* e modelagem hierárquica.
+##### We will analyze statistical methods developed exclusively for data 
+##### of **time series**. First, we will study the methods developed 
+##### for **time series** *univariate* data, starting with a simple 
+##### autoregressive model that states that the future values of a **time series** are a function of their past values. Afterwards, we will move on to 
+##### few for more complex models, and we will conclude our study with a 
+##### analysis on vector autoregression for **time series** 
+##### *multivariate* and some specialized **time series** methods, 
+##### such as *GARCH* models and hierarchical modeling.
 
+### Autoregressive Models
 
+##### The autoregressive (AR) model is based on the intuition that the past 
+##### predicts the future. In this way, they presuppose a **series process 
+##### temporal** in which the value at a point in time *t* is a function of the 
+##### series values at previous points in time.
 
+##### And so that we have an idea of how statisticians use these methods 
+##### and its properties, our analysis will be thorough. Therefore, we will 
+##### start with a comprehensive theoretical overview. If you are not interested 
+##### in technicality of how the properties of statistical models are 
+##### calculated in **time series**, just take a look at this section.
 
