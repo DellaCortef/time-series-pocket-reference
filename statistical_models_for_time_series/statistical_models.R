@@ -47,7 +47,21 @@
   ##### Therefore, a graph of the autocorrelation function of the errors will not indicate 
   ##### no default;
   ##### - the error variance is independent of time;
-
+##### If these assumptions are valid, *least squares regression 
+##### ordinary* is an unbiased estimator of the coefficients given to the inputs, 
+##### even for **time series** data. In this case, the variances of the 
+##### sampled estimates have the same mathematical form for the *regression 
+##### linear* pattern. Therefore, if your data meets the assumptions listed, 
+##### we can apply a *linear regression* that will undoubtedly help to offer 
+##### clear and simple instructions on the behavior of the **time series**. 
+##### The data requirements just described are similar to those in 
+##### *standard linear regression* applied to cross-sectional data.
+##### Consequences of using *linear regression* outside the standards:
+  ##### - coefficients will not minimize the model error;
+  ##### - *p-values* to determine if your coefficients are non-zero 
+##### will be incorrect as they are based on assumptions that are not 
+##### answered. This means that your assessments of the significance of the 
+##### coefficient may be wrong.
 
 
 
