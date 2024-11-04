@@ -14,6 +14,7 @@
 ##### situations, from academic research to modeling in various fields 
 ##### of acting.
 
+
 ## Why Not Use Linear Regression
 ##### As a data analyst, chances are you are already familiar with 
 ##### *linear regressions*. If not, a *linear regression* assumes you 
@@ -25,12 +26,12 @@
 ##### traditional tasks, such as predicting the future or understanding dynamics 
 ##### temporal.
 
-##### Não raro, os tutoriais e os livros de **séries temporais** nos passam a 
-##### impressão indevida de que a *regressão linear* não serve para **séries 
-##### temporais**. O que faz os alunos acreditarem que *regressões lineares* 
-##### simples não são suficientes. Mas não é assim que funciona. A *regressão 
-##### linear* de mínimos quadrados ordinários pode ser aplicada aos dados de 
-##### **séries temporais**, desde que as seguintes condições sejam atendidas:
+##### It is not uncommon for tutorials and books on **time series** to teach us 
+##### undue impression that *linear regression* is not useful for **series 
+##### temporal**. What makes students believe that *linear regressions* 
+##### simple are not enough. But that's not how it works. The *regression 
+##### ordinary least squares linear* can be applied to data 
+##### **time series**, provided that the following conditions are met:
 
 ##### *Assumptions regarding the behavior of the **time series**:*
   ##### - the **time series** has a linear response to its predictors;
@@ -47,6 +48,7 @@
   ##### Therefore, a graph of the autocorrelation function of the errors will not indicate 
   ##### no default;
   ##### - the error variance is independent of time;
+
 ##### If these assumptions are valid, *least squares regression 
 ##### ordinary* is an unbiased estimator of the coefficients given to the inputs, 
 ##### even for **time series** data. In this case, the variances of the 
@@ -64,6 +66,14 @@
 ##### coefficient may be wrong. Linear regressions serve to enable 
 ##### simplification and transparency when appropriate, but an incorrect model 
 ##### is not transparent at all.
+
+##### The importance of following the assumptions of a model depends largely on the 
+##### domain in question. Sometimes a model is applied with full knowledge 
+##### that the basic assumptions are not met, as the consequences 
+##### justify the benefits. For example, in high frequency trading, 
+##### linear models are quite popular for many reasons despite 
+##### no one believes that the data strictly follows all 
+##### default assumptions.
 
 
 
