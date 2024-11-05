@@ -517,12 +517,57 @@ underlying AR(1) coefficients. <br><br> We can follow a similar approach
 to see how constant variance and covariance impose conditions on the Ø
 coefficients. Replacing the value of Ø<sub>(0)</sub>, deriving the
 previous equation:</p>
-<p><em>Ø<sub>(0)</sub> = μ x (1 - Ø<sub>(1)</sub>)</em><br>
-<em>y<sub>(t)</sub> = Ø<sub>(0)</sub> + Ø<sub>(1)</sub> x
-y<sub>(t-1)</sub> + e<sub>(t)</sub></em><br> <em>y<sub>(t)</sub> = (μ =
-μ x Ø<sub>(1)</sub>) + Ø<sub>(1)</sub> x y<sub>(t-1)</sub> +
-e<sub>(t)</sub></em><br> <em>y<sub>(t)</sub> - μ =
-Ø<sub>(1)</sub>(y<sub>(t-1)</sub> - μ)+ e<sub>(t)</sub></em><br></p>
+<p><em>Ø<sub>0</sub> = μ x (1 - Ø<sub>1</sub>)</em><br>
+<em>y<sub>t</sub> = Ø<sub>0</sub> + Ø<sub>1</sub> x y<sub>(t-1)</sub> +
+e<sub>t</sub></em><br> <em>y<sub>t</sub> = (μ = μ x Ø<sub>1</sub>) +
+Ø<sub>1</sub> x y<sub>(t-1)</sub> + e<sub>t</sub></em><br>
+<em>y<sub>t</sub> - μ = Ø<sub>1</sub>(y<sub>(t-1)</sub> - μ)+
+e<sub>t</sub></em><br></p>
+<p>Since this <strong>time series</strong> is stationary, we know that
+the calculation at time <em>t</em>-1 must be the same as that at time
+<em>t</em>:</p>
+<p><em>y<sub>(t-1)</sub> - μ = Ø<sub>1</sub>(y<sub>(t-2)</sub> - μ) +
+e<sub>(t-1)</sub></em></p>
+<p>Then we can replace:</p>
+<p><em>y<sub>t</sub> - μ = Ø<sub>1</sub>(Ø<sub>1</sub>(y<sub>(t-2)</sub>
+- μ) + e<sub>(t-1)</sub>) + e<sub>t</sub></em></p>
+<p>Rearranging:</p>
+<p><em>y<sub>t</sub> - μ = e<sub>t</sub> +
+Ø<sub>1</sub>(e<sub>(t-1)</sub> + Ø<sub>1</sub>(y<sub>(t-2)</sub> -
+μ))</em></p>
+<p>Instead of working on <em>y<sub>(t-1)</sub></em>, we will work on
+<em>y<sub>(t-2)</sub></em>:</p>
+<p><em>y<sub>t</sub> - μ = e<sub>t</sub> +
+Ø<sub>1</sub>(e<sub>(t-1)</sub> + Ø<sub>1</sub>(e<sub>(t-2)</sub> +
+Ø<sub>1</sub>(y<sub>(t-3)</sub> - μ))) = e<sub>t</sub> + Ø x
+e<sub>(t-1)</sub> + <span class="math inline">\(Ø^2\)</span> x
+e<sub>(t-2)</sub> + <span class="math inline">\(Ø^3\)</span> x
+e<sub>(t-3)</sub></em><br><br></p>
+<p>With this, we can conclude more generally that <strong>y<sub>t</sub>
+- μ = <span class="math inline">\(\sum_{i=1}^{\infty}\)</span>
+Ø<sub>1</sub><span class="math inline">\(^i\)</span> x
+e<sub>(t-1)</sub></strong><br><br></p>
+<p>This result can then be used to calculate the expected
+<em>E[(y<sub>t</sub> - μ) x e<sub>(t+1)</sub>] = 0</em>, given that the
+values of <em>e<sub>t+1</sub></em> at different values of <em>t</em>
+they are independent. From this, we can conclude that the covariance of
+<em>y<sub>(t-1)</sub></em> e <em>e<sub>t</sub></em> is 0, as it should
+be. We can use similar logic to calculate the variance of
+<em>y<sub>t</sub></em> squaring this equation:</p>
+<p><em>y<sub>t</sub> - μ = Ø<sub>1</sub>(y<sub>(t-1)</sub> - μ +
+e<sub>t</sub></em></p>
+<p><em>var(y<sub>t</sub>) = Ø<sub>1</sub><span class="math inline">\(^2\)</span> var(y<sub>(t-1)</sub>) +
+var(e<sub>t</sub>)</em></p>
+<p>Since the variance quantities on each side of the equation must be
+equal due to stationarity, this means:</p>
+<p><em>var(y<sub>t</sub>) = <span class="math inline">\(\frac{\text{var}(e_t)}{1 -
+\phi_1^2}\)</span></em></p>
+<p>Considering that the variance must be greater than or equal to 0 by
+definition, we can see that <em>Ø<sub>1</sub><span class="math inline">\(^2\)</span></em> must be less than 1 to guarantee
+a positive value on the right side of the previous equation. that is,
+for a stationary process, it must have -1 &lt; <em>Ø<sub>1</sub></em>
+&lt; 1. This is a necessary and sufficient condition for this type of
+weak stationarity.</p>
 </div>
 </div>
 </div>

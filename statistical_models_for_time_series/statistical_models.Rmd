@@ -110,9 +110,39 @@ Simplified to:
 Thus, we find a relationship between the process mean and the underlying AR(1) coefficients. <br><br>
 We can follow a similar approach to see how constant variance and covariance impose conditions on the Ø coefficients. Replacing the value of Ø<sub>(0)</sub>, deriving the previous equation:
 
-*Ø<sub>(0)</sub> = μ x (1 - Ø<sub>(1)</sub>)*<br>
-*y<sub>(t)</sub> = Ø<sub>(0)</sub> + Ø<sub>(1)</sub> x y<sub>(t-1)</sub> + e<sub>(t)</sub>*<br>
-*y<sub>(t)</sub> = (μ = μ x Ø<sub>(1)</sub>) + Ø<sub>(1)</sub> x y<sub>(t-1)</sub> + e<sub>(t)</sub>*<br>
-*y<sub>(t)</sub> - μ = Ø<sub>(1)</sub>(y<sub>(t-1)</sub> - μ)+ e<sub>(t)</sub>*<br>
+*Ø<sub>0</sub> = μ x (1 - Ø<sub>1</sub>)*<br>
+*y<sub>t</sub> = Ø<sub>0</sub> + Ø<sub>1</sub> x y<sub>(t-1)</sub> + e<sub>t</sub>*<br>
+*y<sub>t</sub> = (μ = μ x Ø<sub>1</sub>) + Ø<sub>1</sub> x y<sub>(t-1)</sub> + e<sub>t</sub>*<br>
+*y<sub>t</sub> - μ = Ø<sub>1</sub>(y<sub>(t-1)</sub> - μ)+ e<sub>t</sub>*<br>
+
+Since this **time series** is stationary, we know that the calculation at time *t*-1 must be the same as that at time *t*:
+
+*y<sub>(t-1)</sub> - μ = Ø<sub>1</sub>(y<sub>(t-2)</sub> - μ) + e<sub>(t-1)</sub>*
+
+Then we can replace:
+
+*y<sub>t</sub> - μ = Ø<sub>1</sub>(Ø<sub>1</sub>(y<sub>(t-2)</sub> - μ) + e<sub>(t-1)</sub>) + e<sub>t</sub>*
+
+Rearranging:
+
+*y<sub>t</sub> - μ = e<sub>t</sub> + Ø<sub>1</sub>(e<sub>(t-1)</sub> + Ø<sub>1</sub>(y<sub>(t-2)</sub> - μ))*
+
+Instead of working on *y<sub>(t-1)</sub>*, we will work on *y<sub>(t-2)</sub>*:
+
+*y<sub>t</sub> - μ = e<sub>t</sub> + Ø<sub>1</sub>(e<sub>(t-1)</sub> + Ø<sub>1</sub>(e<sub>(t-2)</sub> + Ø<sub>1</sub>(y<sub>(t-3)</sub> - μ))) = e<sub>t</sub> + Ø x e<sub>(t-1)</sub> + $Ø^2$ x e<sub>(t-2)</sub> + $Ø^3$ x e<sub>(t-3)</sub>*<br><br>
 
 
+With this, we can conclude more generally that  **y<sub>t</sub> - μ = $\sum_{i=1}^{\infty}$ Ø<sub>1</sub>$^i$ x e<sub>(t-1)</sub>**<br><br>
+
+
+This result can then be used to calculate the expected *E[(y<sub>t</sub> - μ) x e<sub>(t+1)</sub>] = 0*, given that the values of *e<sub>t+1</sub>* at different values of *t* they are independent. From this, we can conclude that the covariance of *y<sub>(t-1)</sub>* e *e<sub>t</sub>* is 0, as it should be. We can use similar logic to calculate the variance of *y<sub>t</sub>* squaring this equation:
+
+*y<sub>t</sub> - μ = Ø<sub>1</sub>(y<sub>(t-1)</sub> - μ + e<sub>t</sub>*
+
+*var(y<sub>t</sub>) = Ø<sub>1</sub>$^2$ var(y<sub>(t-1)</sub>) + var(e<sub>t</sub>)*
+
+Since the variance quantities on each side of the equation must be equal due to stationarity, this means:
+
+*var(y<sub>t</sub>) = $\frac{\text{var}(e_t)}{1 - \phi_1^2}$*
+
+Considering that the variance must be greater than or equal to 0 by definition, we can see that *Ø<sub>1</sub>$^2$* must be less than 1 to guarantee a positive value on the right side of the previous equation. that is, for a stationary process, it must have -1 < *Ø<sub>1</sub>* < 1. This is a necessary and sufficient condition for this type of weak stationarity.
