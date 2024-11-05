@@ -54,3 +54,27 @@ significance of the coefficient may be wrong. Linear regressions serve to enable
 The importance of following the assumptions of a model depends largely on the domain in question. Sometimes a model is applied with full knowledge that the basic assumptions are not 
 met, as the consequences justify the benefits. For example, in high frequency trading, linear models are quite popular for many reasons despite no one believes that the data 
 strictly follows all default assumptions.
+
+
+## Statistical Methods Developed for Time Series
+
+We will analyze statistical methods developed exclusively for data of **time series**. First, we will study the methods developed for **time series** *univariate* data, starting with a simple autoregressive model that states that the future values of a **time series** are a function of their past values. Afterwards, we will move on to few for more complex models, and we will conclude our study with a analysis on vector autoregression for **time series** *multivariate* and some specialized **time series** methods, such as *GARCH* models and hierarchical modeling.
+
+### Autoregressive Models
+
+The autoregressive (AR) model is based on the intuition that the past predicts the future. In this way, they presuppose a **series process temporal** in which the value at a point in time *t* is a function of the series values at previous points in time.
+
+And so that we have an idea of how statisticians use these methods and its properties, our analysis will be thorough. Therefore, we will start with a comprehensive theoretical overview. If you are not interested in technicality of how the properties of statistical models are calculated in **time series**, just take a look at this section.
+
+#### Using algebra to understand constraints in AR processes
+
+Autoregression resembles what many people would use as their first attempt to adjust a **time series**, especially if you do not have no information other than the **time series** itself. It's exactly what its name says: a regression on past values to predict values futures. The simplest AR model is represented like this:
+
+y<sub>(1)</sub> = b<sub>(0)</sub> + b<sub>(1)</sub> * y<sub>(t-1)</sub> + e<sub>(t)</sub>
+ 
+- The value of the series at time *t* is a function of a constant *b<sub>(0)</sub>*, its value in the previous time interval multiplied by another constant *b<sub>(1)</sub>* * *y<sub>(t-1)</sub>* and an error term that also varies with time *e<sub>(t)</sub>*. It is assumed that this error term has a variance constant and a mean of 0. We represent an autoregressive term as a AR(1) model that considers the past only in the immediately previous moment, as it includes a lag lookback. By the way, the AR(1) model is identical in form to a simple *linear regression* model with just one explanatory variable. That is, it maps: y<sub>(1)</sub> = b<sub>(0)</sub> + b<sub>(1)</sub> * x + e
+- We can calculate the expected value of y<sub>(1)</sub> and its variance given y<sub>(t-1)</sub> if we know the value b<sub>(0)</sub> and b<sub>(1)</sub>:
+
+E(y<sub>(t)</sub>|y<sub>(t-1)</sub>) = b<sub>(0)</sub> + b<sub>(1)</sub> * y<sub>(t-1)</sub> + e<sub>(t)</sub>
+Var(y<sub>(t)</sub>y<sub>(t-1)</sub>) = Var(e<sub>(t)</sub>) = Var(e)
+- The generalization of the previous notation allows the present value of an AR process to depend on the most recent values *p*, generating a process AR(*p*). Now we switch to a more traditional notation, which uses Ø to represent autoregression coefficients:
