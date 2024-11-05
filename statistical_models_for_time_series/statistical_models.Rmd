@@ -52,4 +52,5 @@ in *standard linear regression* applied to cross-sectional data.Consequences of 
 significance of the coefficient may be wrong. Linear regressions serve to enable simplification and transparency when appropriate, but an incorrect model is not transparent at all.
 
 The importance of following the assumptions of a model depends largely on the domain in question. Sometimes a model is applied with full knowledge that the basic assumptions are not 
-met, as the consequences justify the benefits. For example, in high frequency trading, linear models are quite popular for many reasons despite no one believes that the data strictly follows all default assumptions.
+met, as the consequences justify the benefits. For example, in high frequency trading, linear models are quite popular for many reasons despite no one believes that the data 
+strictly follows all default assumptions.
