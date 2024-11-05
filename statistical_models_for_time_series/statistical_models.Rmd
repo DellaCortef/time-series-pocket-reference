@@ -68,7 +68,7 @@ hierarchical modeling.
 The autoregressive (AR) model is based on the intuition that the past predicts the future. In this way, they presuppose a **series process temporal** in which the value at a point in 
 time *t* is a function of the series values at previous points in time.
 
-And so that we have an idea of how statisticians use these methods and its properties, our analysis will be thorough. Therefore, we will start with a comprehensive theoretical overview. If you are not interested in technicality of how the properties of statistical models are calculated in **time series**, just take a look at this section.
+And so that we have an idea of how statisticians use these methods and its properties, our analysis will be thorough. Therefore, we will start with a comprehensive theoretical overview. If you are not interested in technicality of how the properties of statistical models are calculated in **time series**, just take a look at this section.<br><br>
 
 #### Using algebra to understand constraints in AR processes
 
@@ -145,4 +145,7 @@ Since the variance quantities on each side of the equation must be equal due to 
 
 *var(y<sub>t</sub>) = $\frac{\text{var}(e_t)}{1 - \phi_1^2}$*
 
-Considering that the variance must be greater than or equal to 0 by definition, we can see that *Ø<sub>1</sub>$^2$* must be less than 1 to guarantee a positive value on the right side of the previous equation. that is, for a stationary process, it must have -1 < *Ø<sub>1</sub>* < 1. This is a necessary and sufficient condition for this type of weak stationarity.
+Considering that the variance must be greater than or equal to 0 by definition, we can see that *Ø<sub>1</sub>$^2$* must be less than 1 to guarantee a positive value on the right side of the previous equation. that is, for a stationary process, it must have -1 < *Ø<sub>1</sub>* < 1. This is a necessary and sufficient condition for this type of weak stationarity.<br><br>
+
+
+#### Choosing parameters for an AR(p) model
