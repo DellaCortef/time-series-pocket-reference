@@ -17,6 +17,7 @@ unlike standard methods applied to cross-sectional data, where each data point i
   autoregressive integrated moving average (ARIMA);
   - vector autoregression (VAR);
   - hierarchical models;
+  
 Traditionally, these models have been the driving force in forecasting **time series** and continue to be used in a wide range of situations, from academic research to modeling in various fields of acting
 
 
