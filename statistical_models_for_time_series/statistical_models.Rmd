@@ -60,7 +60,8 @@ strictly follows all default assumptions.
 
 We will analyze statistical methods developed exclusively for data of **time series**. First, we will study the methods developed for **time series** *univariate* data, starting with 
 a simple autoregressive model that states that the future values of a **time series** are a function of their past values. Afterwards, we will move on to few for more complex models, 
-and we will conclude our study with a analysis on vector autoregression for **time series** *multivariate* and some specialized **time series** methods, such as *GARCH* models and hierarchical modeling.
+and we will conclude our study with a analysis on vector autoregression for **time series** *multivariate* and some specialized **time series** methods, such as *GARCH* models and 
+hierarchical modeling.
 
 ### Autoregressive Models
 
