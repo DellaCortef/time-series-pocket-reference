@@ -389,7 +389,142 @@ regression</em> is not useful for <strong>series temporal</strong>. What
 makes students believe that <em>linear regressions</em> simple are not
 enough. But that’s not how it works. The <em>regression ordinary least
 squares linear</em> can be applied to data <strong>time series</strong>,
-provided that the following conditions are met:</p>
+provided that the following conditions are met: <em>Assumptions
+regarding the behavior of the <strong>time series</strong>:</em> - the
+<strong>time series</strong> has a linear response to its predictors; -
+no input variable is constant over time or perfectly correlated with
+another input variable. Thus, the traditional requirement of <em>linear
+regression</em> of independent variables if amplifies to consider the
+temporal dimension of the data. <em>Assumptions regarding the
+error:</em> - for each point in time, the expected value of the error
+given all explanatory variables for all time periods (step forward
+[forward] and step backward [backward]), is 0; - error in any given time
+period does not correlate with entries in no time period in the past or
+future. Therefore, a graph of the autocorrelation function of the errors
+will not indicate no default; - the error variance is independent of
+time;</p>
+<p>If these assumptions are valid, <em>least squares regression
+ordinary</em> is an unbiased estimator of the coefficients given to the
+inputs, even for <strong>time series</strong> data. In this case, the
+variances of the sampled estimates have the same mathematical form for
+the <em>regression linear</em> pattern. Therefore, if your data meets
+the assumptions listed, we can apply a <em>linear regression</em> that
+will undoubtedly help to offer clear and simple instructions on the
+behavior of the <strong>time series</strong>. The data requirements just
+described are similar to those in <em>standard linear regression</em>
+applied to cross-sectional data.Consequences of using <em>linear
+regression</em> outside the standards: - coefficients will not minimize
+the model error; - <em>p-values</em> to determine if your coefficients
+are non-zero will be incorrect as they are based on assumptions that are
+not answered. This means that your assessments of the significance of
+the coefficient may be wrong. Linear regressions serve to enable
+simplification and transparency when appropriate, but an incorrect model
+is not transparent at all.</p>
+<p>The importance of following the assumptions of a model depends
+largely on the domain in question. Sometimes a model is applied with
+full knowledge that the basic assumptions are not met, as the
+consequences justify the benefits. For example, in high frequency
+trading, linear models are quite popular for many reasons despite no one
+believes that the data strictly follows all default assumptions.</p>
+</div>
+<div id="statistical-methods-developed-for-time-series" class="section level2">
+<h2>Statistical Methods Developed for Time Series</h2>
+<p>We will analyze statistical methods developed exclusively for data of
+<strong>time series</strong>. First, we will study the methods developed
+for <strong>time series</strong> <em>univariate</em> data, starting with
+a simple autoregressive model that states that the future values of a
+<strong>time series</strong> are a function of their past values.
+Afterwards, we will move on to few for more complex models, and we will
+conclude our study with a analysis on vector autoregression for
+<strong>time series</strong> <em>multivariate</em> and some specialized
+<strong>time series</strong> methods, such as <em>GARCH</em> models and
+hierarchical modeling.</p>
+<div id="autoregressive-models" class="section level3">
+<h3>Autoregressive Models</h3>
+<p>The autoregressive (AR) model is based on the intuition that the past
+predicts the future. In this way, they presuppose a <strong>series
+process temporal</strong> in which the value at a point in time
+<em>t</em> is a function of the series values at previous points in
+time.</p>
+<p>And so that we have an idea of how statisticians use these methods
+and its properties, our analysis will be thorough. Therefore, we will
+start with a comprehensive theoretical overview. If you are not
+interested in technicality of how the properties of statistical models
+are calculated in <strong>time series</strong>, just take a look at this
+section.</p>
+<div id="using-algebra-to-understand-constraints-in-ar-processes" class="section level4">
+<h4>Using algebra to understand constraints in AR processes</h4>
+<p>Autoregression resembles what many people would use as their first
+attempt to adjust a <strong>time series</strong>, especially if you do
+not have no information other than the <strong>time series</strong>
+itself. It’s exactly what its name says: a regression on past values to
+predict values futures. The simplest AR model is represented like
+this:</p>
+<p>y<sub>(1)</sub> = b<sub>(0)</sub> + b<sub>(1)</sub> *
+y<sub>(t-1)</sub> + e<sub>(t)</sub></p>
+<ul>
+<li>The value of the series at time <em>t</em> is a function of a
+constant <em>b<sub>(0)</sub></em>, its value in the previous time
+interval multiplied by another constant <em>b<sub>(1)</sub></em> *
+<em>y<sub>(t-1)</sub></em> and an error term that also varies with time
+<em>e<sub>(t)</sub></em>. It is assumed that this error term has a
+variance constant and a mean of 0. We represent an autoregressive term
+as a AR(1) model that considers the past only in the immediately
+previous moment, as it includes a lag lookback. By the way, the AR(1)
+model is identical in form to a simple <em>linear regression</em> model
+with just one explanatory variable. That is, it maps: y<sub>(1)</sub> =
+b<sub>(0)</sub> + b<sub>(1)</sub> * x + e</li>
+<li>We can calculate the expected value of y<sub>(1)</sub> and its
+variance given y<sub>(t-1)</sub> if we know the value b<sub>(0)</sub>
+and b<sub>(1)</sub>:</li>
+</ul>
+<p><em>E(y<sub>(t)</sub>|y<sub>(t-1)</sub>) = b<sub>(0)</sub> +
+b<sub>(1)</sub> x y<sub>(t-1)</sub> + e<sub>(t)</sub></em></p>
+<p><em>Var(y<sub>(t)</sub>y<sub>(t-1)</sub>) = Var(e<sub>(t)</sub>) =
+Var(e)</em></p>
+<ul>
+<li>The generalization of the previous notation allows the present value
+of an AR process to depend on the most recent values <em>p</em>,
+generating a process AR(<em>p</em>). Now we switch to a more traditional
+notation, which uses Ø to represent autoregression coefficients:
+<em>y<sub>(t)</sub> = Ø + Ø<sub>(1)</sub> x y<sub>(t-1)</sub> +
+Ø<sub>(2)</sub> x y<sub>(t-2)</sub> + … + + Ø<sub>(p)</sub> x
+y<sub>(t-p)</sub> + e<sub>(t)</sub></em></li>
+</ul>
+<p>As we analyzed previously, stationarity is a fundamental concept in
+the analysis of <strong>time series</strong>, as it is the requirement
+of many models, including AR models. We can determine the conditions for
+an AR model to be stationary from the definition of stationarity:</p>
+<p><em>y<sub>(t)</sub> = Ø<sub>(0)</sub> + Ø<sub>(1)</sub> x
+y<sub>(t-1)</sub> + e<sub>(t)</sub></em></p>
+<p>We assume that the process is stationary. So we work “one step
+backward” to see how this impacts the coefficients. First, based on the
+assumption of stationarity, we know that the expected value of the
+process must be the same at all times. We can rewrite
+y<sub>(t)</sub>:</p>
+<p><em>E(y<sub>(t)</sub>) = μ = E(y<sub>(t-1)</sub>)</em></p>
+<p>By definition, <em>e<sub>(t)</sub></em> has an expected value of 0.
+Furthermore, the phis (φ) are constants, so their expected values are
+their constant values.</p>
+<p><em>E(y<sub>(t)</sub>) = E(Ø<sub>(0)</sub> + Ø<sub>(1)</sub> x
+y<sub>(t-1)</sub> + e<sub>(t)</sub>)</em><br />
+<em>E(y<sub>(t)</sub>) = μ</em><br />
+<em>Ø<sub>(0)</sub> = Ø<sub>(1)</sub> x μ + 0</em> <br><br> Simplified
+to:<br />
+<em>μ = Ø<sub>(0)</sub> = Ø<sub>(1)</sub> μ</em></p>
+<p>Thus, we find a relationship between the process mean and the
+underlying AR(1) coefficients. <br><br> We can follow a similar approach
+to see how constant variance and covariance impose conditions on the Ø
+coefficients. Replacing the value of Ø<sub>(0)</sub>, deriving the
+previous equation:</p>
+<p><em>Ø<sub>(0)</sub> = μ x (1 - Ø<sub>(1)</sub>)</em><br>
+<em>y<sub>(t)</sub> = Ø<sub>(0)</sub> + Ø<sub>(1)</sub> x
+y<sub>(t-1)</sub> + e<sub>(t)</sub></em><br> <em>y<sub>(t)</sub> = (μ =
+μ x Ø<sub>(1)</sub>) + Ø<sub>(1)</sub> x y<sub>(t-1)</sub> +
+e<sub>(t)</sub></em><br> <em>y<sub>(t)</sub> - μ =
+Ø<sub>(1)</sub>(y<sub>(t-1)</sub> - μ)+ e<sub>(t)</sub></em><br></p>
+</div>
+</div>
 </div>
 </div>
 
