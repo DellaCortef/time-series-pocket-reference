@@ -21,18 +21,8 @@ unlike standard methods applied to cross-sectional data, where each data point i
 Traditionally, these models have been the driving force in forecasting **time series** and continue to be used in a wide range of situations, from academic research to modeling in various fields of acting
 
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+## Why Not Use Linear Regression
+As a data analyst, chances are you are already familiar with *linear regressions*. 
+If not, a *linear regression* assumes you has *independent and identically distributed data (iid)*. According to we studied previously, this does not occur with **series data temporal**. In them, nearby points in time are usually strongly correlated with each other. In reality, when there are no correlations temporal, **time series** data are hardly useful for traditional tasks, such as predicting the future or understanding dynamics temporal.
 
-```{r cars}
-summary(cars)
-```
-
-## Including Plots
-
-You can also embed plots, for example:
-
-```{r pressure, echo=FALSE}
-plot(pressure)
-```
-
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+It is not uncommon for tutorials and books on **time series** to teach us undue impression that *linear regression* is not useful for **series temporal**. What makes students believe that *linear regressions* simple are not enough. But that's not how it works. The *regression ordinary least squares linear* can be applied to data **time series**, provided that the following conditions are met:
