@@ -29,4 +29,5 @@ In them, nearby points in time are usually strongly correlated with each other. 
 traditional tasks, such as predicting the future or understanding dynamics temporal.
 
 It is not uncommon for tutorials and books on **time series** to teach us undue impression that *linear regression* is not useful for **series temporal**. What makes students believe 
-that *linear regressions* simple are not enough. But that's not how it works. The *regression ordinary least squares linear* can be applied to data **time series**, provided that the following conditions are met:
+that *linear regressions* simple are not enough. But that's not how it works. The *regression ordinary least squares linear* can be applied to data **time series**, 
+provided that the following conditions are met:
