@@ -72,7 +72,8 @@ And so that we have an idea of how statisticians use these methods and its prope
 
 #### Using algebra to understand constraints in AR processes
 
-Autoregression resembles what many people would use as their first attempt to adjust a **time series**, especially if you do not have no information other than the **time series** itself. It's exactly what its name says: a regression on past values to predict values futures. The simplest AR model is represented like this:
+Autoregression resembles what many people would use as their first attempt to adjust a **time series**, especially if you do not have no information other than the **time series** 
+itself. It's exactly what its name says: a regression on past values to predict values futures. The simplest AR model is represented like this:
 
 y<sub>(1)</sub> = b<sub>(0)</sub> + b<sub>(1)</sub> * y<sub>(t-1)</sub> + e<sub>(t)</sub>
  
