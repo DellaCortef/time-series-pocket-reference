@@ -85,4 +85,5 @@ identical in form to a simple *linear regression* model with just one explanator
 
 E(y<sub>(t)</sub>|y<sub>(t-1)</sub>) = b<sub>(0)</sub> + b<sub>(1)</sub> * y<sub>(t-1)</sub> + e<sub>(t)</sub>
 Var(y<sub>(t)</sub>y<sub>(t-1)</sub>) = Var(e<sub>(t)</sub>) = Var(e)
-- The generalization of the previous notation allows the present value of an AR process to depend on the most recent values *p*, generating a process AR(*p*). Now we switch to a more traditional notation, which uses Ø to represent autoregression coefficients:
+- The generalization of the previous notation allows the present value of an AR process to depend on the most recent values *p*, generating a process AR(*p*). Now we switch to a more 
+traditional notation, which uses Ø to represent autoregression coefficients:
