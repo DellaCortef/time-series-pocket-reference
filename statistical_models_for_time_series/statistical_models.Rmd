@@ -65,7 +65,8 @@ hierarchical modeling.
 
 ### Autoregressive Models
 
-The autoregressive (AR) model is based on the intuition that the past predicts the future. In this way, they presuppose a **series process temporal** in which the value at a point in time *t* is a function of the series values at previous points in time.
+The autoregressive (AR) model is based on the intuition that the past predicts the future. In this way, they presuppose a **series process temporal** in which the value at a point in 
+time *t* is a function of the series values at previous points in time.
 
 And so that we have an idea of how statisticians use these methods and its properties, our analysis will be thorough. Therefore, we will start with a comprehensive theoretical overview. If you are not interested in technicality of how the properties of statistical models are calculated in **time series**, just take a look at this section.
 
