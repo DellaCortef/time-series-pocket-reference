@@ -48,6 +48,7 @@ the variances of the sampled estimates have the same mathematical form for the *
 *linear regression* that will undoubtedly help to offer clear and simple instructions on the behavior of the **time series**. The data requirements just described are similar to those 
 in *standard linear regression* applied to cross-sectional data.Consequences of using *linear regression* outside the standards:
 - coefficients will not minimize the model error;
-- *p-values* to determine if your coefficients are non-zero will be incorrect as they are based on assumptions that are not answered. This means that your assessments of the significance of the coefficient may be wrong. Linear regressions serve to enable simplification and transparency when appropriate, but an incorrect model is not transparent at all.
+- *p-values* to determine if your coefficients are non-zero will be incorrect as they are based on assumptions that are not answered. This means that your assessments of the 
+significance of the coefficient may be wrong. Linear regressions serve to enable simplification and transparency when appropriate, but an incorrect model is not transparent at all.
 
 The importance of following the assumptions of a model depends largely on the domain in question. Sometimes a model is applied with full knowledge that the basic assumptions are not met, as the consequences justify the benefits. For example, in high frequency trading, linear models are quite popular for many reasons despite no one believes that the data strictly follows all default assumptions.
