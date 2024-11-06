@@ -13,3 +13,8 @@ demand_banking <- demand[, 'Banking.orders..2.']
 plot(demand_banking, type = 'b')
 acf(demand_banking)
 pacf(demand_banking)
+
+## applying ar() function
+fit <- ar(demand_banking, method = "mle")
+fit
+
