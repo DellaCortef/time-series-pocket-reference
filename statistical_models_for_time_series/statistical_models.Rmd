@@ -196,7 +196,8 @@ it shows that the visual selection we made examining PACF is compatible with the
 of choosing the model order, here they are compatible.
 
 Note that the *ar()* function also provided us with the coefficients for the model. However, we can restrict the coefficients. For example, when analyzing the PACF, we may ask ourselves 
-whether we want to include a coefficient for the lag -1 term or whether we should assign that term a mandatory coefficient of 0, given that its PACF value is well below the threshold used for significance. In this case, we can use the *arima()* function, also from the **stats** package.
+whether we want to include a coefficient for the lag -1 term or whether we should assign that term a mandatory coefficient of 0, given that its PACF value is well below the threshold 
+used for significance. In this case, we can use the *arima()* function, also from the **stats** package.
 
 Next, we will demonstrate how to call the function to adjust an AR (3) by setting the ordering parameter to c(3, 0, 0), where 3 refers to the order of the AR component:
 
