@@ -300,6 +300,8 @@ In the next developments, we will illustrate how to make predictions with AR pro
 - first, we will consider the case where we want to predict one step ahead with a known (or estimated) AR model. In this case, we have all the information we need;
 - we will continue working with the model based on demand data, with the lag coefficient -1 restricted to 0 (set as *est.1*). We will plot the forecast using the *filtered()* function from the **forecast** package;
 
+![Here we see the original **time series** on the solid line and, on the dashed line, the adjusted **time series**.](https://github.com/DellaCortef/time-series-pocket-reference/blob/main/statistical_models_for_time_series/images/forecast-one-step-ahead-est.1.Ra.png?raw=true)
+
 
 
 
