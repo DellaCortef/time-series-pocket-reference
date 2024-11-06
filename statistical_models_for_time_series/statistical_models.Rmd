@@ -191,8 +191,8 @@ coefficients <- data.frame(
 knitr::kable(coefficients, col.names = c("Order", "Coefficient"))
 ```
 
-If we look at the documentation for the *ar()* function (*https://perma.cc/8H8Z-CX9R*), we can see that the selected order is determined (with default parameters that we do not change) it shows that 
-The visual selection we made examining PACF is compatible with the selection that would be made minimizing an information criterion. Although there are two different ways of choosing the model order, here they are compatible.
+If we look at the documentation for the *ar()* function (*https://perma.cc/8H8Z-CX9R*), we can see that the selected order is determined (with default parameters that we do not change) 
+it shows that the visual selection we made examining PACF is compatible with the selection that would be made minimizing an information criterion. Although there are two different ways of choosing the model order, here they are compatible.
 
 
 
