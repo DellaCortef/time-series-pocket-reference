@@ -18,3 +18,6 @@ pacf(demand_banking)
 fit <- ar(demand_banking, method = "mle")
 fit
 
+## applying arima() function to adjust ar()
+est <- arima(x = demand_banking, order = c(3, 0, 0))
+est
