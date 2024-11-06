@@ -166,5 +166,6 @@ Let's analyze this with some real data. We will use demand forecast data publish
 plot the data in chronological order:
 
 ![Alt text](https://github.com/DellaCortef/time-series-pocket-reference/blob/main/statistical_models_for_time_series/images/pacf-banking-orders-2-demand.R.png?raw=true/pacf-banking-orders-2-demand.R.png)
-We can observe that the PACF value exceeds the significance threshold of 5% in lag 3. This is compatible with the results of the *ar()* function available in the **stats** package of **R**. The *ar()* function automatically chooses the order of an autoregressive model if none is specified:
+We can observe that the PACF value exceeds the significance threshold of 5% in lag 3. This is compatible with the results of the *ar()* function available in the **stats** package of 
+**R**. The *ar()* function automatically chooses the order of an autoregressive model if none is specified:
 
