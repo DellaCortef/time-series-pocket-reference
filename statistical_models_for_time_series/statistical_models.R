@@ -6,7 +6,10 @@ setwd('/Users/dellacorte/py-projects/data-science/time-series-pocket-reference/d
 # Load and structure the data
 demand <- read.csv("daily_demand_forecasting_orders.csv", sep=";")
 
+# Choosing one columns
+demand_banking <- demand[, 'Banking.orders..2.']
+
 ## plotting the data in chronological order
-plot(demand[, 'Banking.orders..2.'], type = 'b')
-acf(y2)
-pacf(y2)
+plot(demand_banking, type = 'b')
+acf(demand_banking)
+pacf(demand_banking)
