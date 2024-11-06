@@ -139,7 +139,8 @@ With this, we can conclude more generally that  **y<sub>t</sub> - μ = $\sum_{i=
 
 
 This result can then be used to calculate the expected *E[(y<sub>t</sub> - μ) x e<sub>(t+1)</sub>] = 0*, given that the values of *e<sub>t+1</sub>* at different values of *t* they are 
-independent. From this, we can conclude that the covariance of *y<sub>(t-1)</sub>* e *e<sub>t</sub>* is 0, as it should be. We can use similar logic to calculate the variance of *y<sub>t</sub>* squaring this equation:
+independent. From this, we can conclude that the covariance of *y<sub>(t-1)</sub>* e *e<sub>t</sub>* is 0, as it should be. We can use similar logic to calculate the variance of 
+*y<sub>t</sub>* squaring this equation:
 
 *y<sub>t</sub> - μ = Ø<sub>1</sub>(y<sub>(t-1)</sub> - μ + e<sub>t</sub>*
 
@@ -149,14 +150,17 @@ Since the variance quantities on each side of the equation must be equal due to 
 
 *var(y<sub>t</sub>) = $\frac{\text{var}(e_t)}{1 - \phi_1^2}$*
 
-Considering that the variance must be greater than or equal to 0 by definition, we can see that *Ø<sub>1</sub>$^2$* must be less than 1 to guarantee a positive value on the right side of the previous equation. that is, for a stationary process, it must have -1 < *Ø<sub>1</sub>* < 1. This is a necessary and sufficient condition for this type of weak stationarity.<br><br>
+Considering that the variance must be greater than or equal to 0 by definition, we can see that *Ø<sub>1</sub>$^2$* must be less than 1 to guarantee a positive value on the right side 
+of the previous equation. that is, for a stationary process, it must have -1 < *Ø<sub>1</sub>* < 1. This is a necessary and sufficient condition for this type of weak stationarity.<br><br>
 
 
 #### Choosing parameters for an AR(p) model
 
-To evaluate the suitability of an AR model on the data, we will start by plotting the process and its *partial autocorrelation function (PACF)*. The PACF of an AR process must be reduced to zero beyond the order *p* of an AR process (*p*), providing concrete and visual indications of the order of an AR process seen empirically in the data.
+To evaluate the suitability of an AR model on the data, we will start by plotting the process and its *partial autocorrelation function (PACF)*. The PACF of an AR process must be 
+reduced to zero beyond the order *p* of an AR process (*p*), providing concrete and visual indications of the order of an AR process seen empirically in the data.
 
-In contrast, an AR process will not have an informative autocorrelation function (ACF), although it will have the characteristic shape of an ACF: exponential tapering with increasing time offset.
+In contrast, an AR process will not have an informative autocorrelation function (ACF), although it will have the characteristic shape of an ACF: exponential tapering with increasing 
+time offset.
 
 Let's analyze this with some real data. We will use demand forecast data published by the **UCI Machine Learning Repository** (*https://perma.cc/B7EQ-DNLU*). First, we will plot the data in chronological order:
 
