@@ -152,7 +152,6 @@ Since the variance quantities on each side of the equation must be equal due to 
 
 Considering that the variance must be greater than or equal to 0 by definition, we can see that *Ø<sub>1</sub>$^2$* must be less than 1 to guarantee a positive value on the right side 
 of the previous equation. that is, for a stationary process, it must have -1 < *Ø<sub>1</sub>* < 1. This is a necessary and sufficient condition for this type of weak stationarity.
-<br><br>
 
 
 #### Choosing parameters for an AR(p) model
