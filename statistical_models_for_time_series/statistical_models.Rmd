@@ -156,5 +156,4 @@ In contrast, an AR process will not have an informative autocorrelation function
 
 Let's analyze this with some real data. We will use demand forecast data published by the **UCI Machine Learning Repository** (*https://perma.cc/B7EQ-DNLU*). First, we will plot the data in chronological order:
 
-![Alt text](https://github.com/DellaCortef/time-series-pocket-reference/tree/main/statistical_models_for_time_series/images/pacf-banking-orders-2-demand.R.png)
-
+![Alt text](https://github.com/DellaCortef/time-series-pocket-reference/blob/main/statistical_models_for_time_series/images/pacf-banking-orders-2-demand.R.png?raw=true/pacf-banking-orders-2-demand.R.png)
