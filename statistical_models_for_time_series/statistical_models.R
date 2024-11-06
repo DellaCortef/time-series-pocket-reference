@@ -21,3 +21,8 @@ fit
 ## applying arima() function to adjust ar()
 est <- arima(x = demand_banking, order = c(3, 0, 0))
 est
+
+## applying arima() function with knowledge
+est.1 <- arima(x = demand_banking, order = c(3, 0, 0), 
+               fixed = c(0, NA, NA, NA), transform.pars = FALSE)
+est.1
