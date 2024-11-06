@@ -13,7 +13,7 @@
 
 <meta name="date" content="2024-11-05" />
 
-<title>AR Model Output</title>
+<title>ARIMA Model Output</title>
 
 <script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
 // be compatible with the behavior of Pandoc < 2.8).
@@ -350,7 +350,7 @@ display: none;
 
 
 
-<h1 class="title toc-ignore">AR Model Output</h1>
+<h1 class="title toc-ignore">ARIMA Model Output</h1>
 <h4 class="author">Della</h4>
 <h4 class="date">2024-11-05</h4>
 
@@ -597,8 +597,8 @@ none is specified:</p>
 <h5>- Call</h5>
 <p><code>ar(x = demand_banking, method = &quot;mle&quot;)</code></p>
 </div>
-<div id="coefficients" class="section level5">
-<h5>- Coefficients</h5>
+<div id="ar-coefficients" class="section level5">
+<h5>- ar() Coefficients</h5>
 <table>
 <thead>
 <tr class="header">
@@ -618,6 +618,66 @@ none is specified:</p>
 <tr class="odd">
 <td align="right">3</td>
 <td align="right">-0.3175</td>
+</tr>
+</tbody>
+</table>
+<p>If we look at the documentation for the <em>ar()</em> function
+(<em><a href="https://perma.cc/8H8Z-CX9R" class="uri">https://perma.cc/8H8Z-CX9R</a></em>), we can see that the
+selected order is determined (with default parameters that we do not
+change) it shows that the visual selection we made examining PACF is
+compatible with the selection that would be made minimizing an
+information criterion. Although there are two different ways of choosing
+the model order, here they are compatible.</p>
+<p>Note that the <em>ar()</em> function also provided us with the
+coefficients for the model. However, we can restrict the coefficients.
+For example, when analyzing the PACF, we may ask ourselves whether we
+want to include a coefficient for the lag -1 term or whether we should
+assign that term a mandatory coefficient of 0, given that its PACF value
+is well below the threshold used for significance. In this case, we can
+use the <em>arima()</em> function, also from the <strong>stats</strong>
+package.</p>
+<p>Next, we will demonstrate how to call the function to adjust an AR
+(3) by setting the ordering parameter to c(3, 0, 0), where 3 refers to
+the order of the AR component: <br><br></p>
+</div>
+<div id="arima-model-results" class="section level5">
+<h5>ARIMA Model Results</h5>
+</div>
+<div id="call-1" class="section level5">
+<h5>- Call</h5>
+<p><code>arima(x = demand_banking, order = c(3, 0, 0))</code></p>
+</div>
+<div id="arima-coefficients-table" class="section level5">
+<h5>- arima() Coefficients Table</h5>
+<table>
+<caption>ARIMA Model Coefficients</caption>
+<thead>
+<tr class="header">
+<th align="left">Term</th>
+<th align="right">Estimate</th>
+<th align="right">Std. Error</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">ar1</td>
+<td align="right">-0.1358</td>
+<td align="right">0.1299</td>
+</tr>
+<tr class="even">
+<td align="left">ar2</td>
+<td align="right">-0.2013</td>
+<td align="right">0.1289</td>
+</tr>
+<tr class="odd">
+<td align="left">ar3</td>
+<td align="right">-0.3176</td>
+<td align="right">0.1296</td>
+</tr>
+<tr class="even">
+<td align="left">intercept</td>
+<td align="right">79075.3500</td>
+<td align="right">2981.1240</td>
 </tr>
 </tbody>
 </table>
