@@ -265,6 +265,21 @@ None of the ACF values exceed the significance threshold. Obviously we should no
 
 The other commonly used test is *Ljung-Box test*, mentioned previously:
 
+---
+title: "Box-Ljung Test Output"
+output: html_document
+---
+<br><br>
+
+##### Box-Ljung Test
+
+##### - Test Results
+
+The Box-Ljung test was conducted on the residuals.
+
+- **Data**: `est.1$residuals`
+- **X-squared**: 9.3261
+- **Degrees of Freedom (df)**: 
 
 
 
