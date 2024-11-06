@@ -681,6 +681,51 @@ the order of the AR component: <br><br></p>
 </tr>
 </tbody>
 </table>
+<p>To introduce knowledge into our model, we can constrain a coefficient
+to 0. For example, if we want to constrain lag -1 to 0 in our model, we
+will use the following call: <br><br></p>
+</div>
+<div id="arima-model-results-1" class="section level5">
+<h5>ARIMA Model Results</h5>
+</div>
+<div id="call-2" class="section level5">
+<h5>- Call</h5>
+<p><code>arima(x = demand_banking, order = c(3, 0, 0), transform.pars = FALSE, fixed = c(0, NA, NA, NA))</code></p>
+</div>
+<div id="arima-coefficients-table-1" class="section level5">
+<h5>- arima() Coefficients Table</h5>
+<table>
+<caption>ARIMA Model Coefficients</caption>
+<thead>
+<tr class="header">
+<th align="left">Term</th>
+<th align="right">Estimate</th>
+<th align="right">Std. Error</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">ar1</td>
+<td align="right">0.0000</td>
+<td align="right">0.0000</td>
+</tr>
+<tr class="even">
+<td align="left">ar2</td>
+<td align="right">-0.1831</td>
+<td align="right">0.1289</td>
+</tr>
+<tr class="odd">
+<td align="left">ar3</td>
+<td align="right">-0.3031</td>
+<td align="right">0.1298</td>
+</tr>
+<tr class="even">
+<td align="left">intercept</td>
+<td align="right">79190.7050</td>
+<td align="right">3345.2530</td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 </div>
