@@ -567,7 +567,7 @@ definition, we can see that <em>Ø<sub>1</sub><span class="math inline">\(^2\)</
 a positive value on the right side of the previous equation. that is,
 for a stationary process, it must have -1 &lt; <em>Ø<sub>1</sub></em>
 &lt; 1. This is a necessary and sufficient condition for this type of
-weak stationarity.<br><br></p>
+weak stationarity.</p>
 </div>
 <div id="choosing-parameters-for-an-arp-model" class="section level4">
 <h4>Choosing parameters for an AR(p) model</h4>
@@ -754,10 +754,10 @@ hypotheses:</p>
 <li>H0: the data do not show serial correlation;</li>
 <li>H1: the data show serial correlation;</li>
 </ul>
-<p><br><br></p>
-</div>
-<div id="box-ljung-test" class="section level5">
-<h5>Box-Ljung Test</h5>
+<p>This test is often applied to the AR model (and in general ARIMA),
+and, more specifically, to the model fit residuals, rather than the
+model itself:</p>
+<p><br><br> ##### Box-Ljung Test</p>
 </div>
 <div id="test-results" class="section level5">
 <h5>- Test Results</h5>
@@ -766,6 +766,31 @@ hypotheses:</p>
 <li><strong>Data</strong>: <code>est.1$residuals</code></li>
 <li><strong>X-squared</strong>: 9.3261</li>
 <li><strong>Degrees of Freedom (df)</strong>:</li>
+</ul>
+<p>We applied the Ljung-Box test to our <em>est.1</em> model to evaluate
+the goodness of fit. We cannot reject the null hypothesis that the data
+do not show serial correlation. This is confirmation of what we just
+discovered by plotting ACF of the residuals. <br><br></p>
+</div>
+<div id="forecasting-with-an-ar-process-p" class="section level5">
+<h5>Forecasting with an AR process (<em>p</em>)</h5>
+<p>In the next developments, we will illustrate how to make predictions
+with AR processes. First, we will explore the one-step-ahead case, and
+then we will analyze how the multiple-step-ahead prediction differs from
+the other case. The good news is that little changes from a programming
+perspective, although the underlying math is more complicated in the
+latter case.</p>
+</div>
+<div id="predictions-one-step-ahead" class="section level5">
+<h5>- Predictions one step ahead:</h5>
+<ul>
+<li>first, we will consider the case where we want to predict one step
+ahead with a known (or estimated) AR model. In this case, we have all
+the information we need;</li>
+<li>we will continue working with the model based on demand data, with
+the lag coefficient -1 restricted to 0 (set as <em>est.1</em>). We will
+plot the forecast using the <em>filtered()</em> function from the
+<strong>forecast</strong> package;</li>
 </ul>
 </div>
 </div>
