@@ -253,6 +253,11 @@ coefficients <- data.frame(
 knitr::kable(coefficients, col.names = c("Term", "Estimate", "Std. Error"), caption = "ARIMA Model Coefficients")
 ```
 
+We will now inspect the performance of our model on our training data in order to evaluate the goodness of fit of our model. We can do this in two ways:
+- plotting the ACF of the residuals (of errors) to analyze whether there is an autocorrelation pattern that our model does not address;
+- another test normally performed is the *Ljung-Box test*, a general test of the randomness of a **time series**;
+
+First, we will plot the residuals ACF:
 
 
 
