@@ -29,3 +29,6 @@ est.1
 
 ## plotting residuals ACF
 acf(est.1$residuals)
+
+## applying box-ljung test
+Box.test(est.1$residuals, lag = 10, type = 'Ljung', fitdf = 3)
