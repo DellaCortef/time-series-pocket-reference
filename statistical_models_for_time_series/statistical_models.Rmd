@@ -288,7 +288,7 @@ The Box-Ljung test was conducted on the residuals.
 - **X-squared**: 9.3261
 - **Degrees of Freedom (df)**: 
 
-
+We applied the Ljung-Box test to our *est.1* model to evaluate the goodness of fit. We cannot reject the null hypothesis that the data do not show serial correlation. This is confirmation of what we just discovered by plotting ACF of the residuals.
 
 
 
