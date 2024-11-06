@@ -263,7 +263,8 @@ First, we will plot the residuals ACF:
 ![Alt text](https://github.com/DellaCortef/time-series-pocket-reference/blob/main/statistical_models_for_time_series/images/acf-residuals-ar-adjusted.R.png?raw=true)
 
 None of the ACF values exceed the significance threshold. Obviously we should not blindly give in to a significance threshold to evaluate or reject it, but this observation is a useful 
-data point in a model that we believe is satisfactory for other reasons. We do not see a pattern of autocorrelation between the residuals (i.e., the error terms). If we had seen this pattern, we would likely return to our original model, considering the inclusion of additional terms to add complexity and explain the significant autocorrelation of the residuals.
+data point in a model that we believe is satisfactory for other reasons. We do not see a pattern of autocorrelation between the residuals (i.e., the error terms). If we had seen this 
+pattern, we would likely return to our original model, considering the inclusion of additional terms to add complexity and explain the significant autocorrelation of the residuals.
 
 The other commonly used test is *Ljung-Box test*, a general test of the randomness of a **time series**. In formal terms, this test lists the following null and alternative hypotheses:
 
