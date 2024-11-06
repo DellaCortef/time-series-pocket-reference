@@ -226,7 +226,7 @@ coefficients <- data.frame(
 knitr::kable(coefficients, col.names = c("Term", "Estimate", "Std. Error"), caption = "ARIMA Model Coefficients")
 ```
 
-
+To introduce knowledge into our model, we can constrain a coefficient to 0. For example, if we want to constrain lag -1 to 0 in our model, we will use the following call:
 
 
 
