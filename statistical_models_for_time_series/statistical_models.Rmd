@@ -290,6 +290,15 @@ The Box-Ljung test was conducted on the residuals.
 
 We applied the Ljung-Box test to our *est.1* model to evaluate the goodness of fit. We cannot reject the null hypothesis that the data do not show serial correlation. This is 
 confirmation of what we just discovered by plotting ACF of the residuals.
+<br><br>
+
+##### Forecasting with an AR process (*p*)
+
+In the next developments, we will illustrate how to make predictions with AR processes. First, we will explore the one-step-ahead case, and then we will analyze how the multiple-step-ahead prediction differs from the other case. The good news is that little changes from a programming perspective, although the underlying math is more complicated in the latter case.
+
+##### - Predictions one step ahead:
+- first, we will consider the case where we want to predict one step ahead with a known (or estimated) AR model. In this case, we have all the information we need;
+- we will continue working with the model based on demand data, with the lag coefficient -1 restricted to 0 (set as *est.1*). We will plot the forecast using the *filtered()* function from the **forecast** package;
 
 
 
