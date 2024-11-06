@@ -179,7 +179,7 @@ output: html_document
 ##### - Call
 `ar(x = demand_banking, method = "mle")`
 
-##### - Coefficients
+##### - ar() Coefficients
 ```{r, echo=FALSE}
 # Define the coefficients in a data frame
 coefficients <- data.frame(
@@ -200,7 +200,31 @@ whether we want to include a coefficient for the lag -1 term or whether we shoul
 used for significance. In this case, we can use the *arima()* function, also from the **stats** package.
 
 Next, we will demonstrate how to call the function to adjust an AR (3) by setting the ordering parameter to c(3, 0, 0), where 3 refers to the order of the AR component:
+<br><br>
 
+---
+title: "ARIMA Model Output"
+output: html_document
+---
+
+##### ARIMA Model Results
+
+##### - Call
+`arima(x = demand_banking, order = c(3, 0, 0))`
+
+##### - arima() Coefficients Table
+
+```{r, echo=FALSE}
+# Define the coefficients and standard errors in a data frame
+coefficients <- data.frame(
+  Term = c("ar1", "ar2", "ar3", "intercept"),
+  Estimate = c(-0.1358, -0.2013, -0.3176, 79075.350),
+  `Std. Error` = c(0.1299, 0.1289, 0.1296, 2981.124)
+)
+
+# Display the table with knitr::kable
+knitr::kable(coefficients, col.names = c("Term", "Estimate", "Std. Error"), caption = "ARIMA Model Coefficients")
+```
 
 
 
