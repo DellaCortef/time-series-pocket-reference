@@ -32,3 +32,8 @@ acf(est.1$residuals)
 
 ## applying box-ljung test
 Box.test(est.1$residuals, lag = 10, type = 'Ljung', fitdf = 3)
+
+## plotting the forecast one step ahead
+require(forecast)
+plot(demand_banking, type = 'l')
+lines(fitted(est.1), col = 3, lwd = 2) # using forecast package
