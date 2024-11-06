@@ -259,7 +259,7 @@ We will now inspect the performance of our model on our training data in order t
 
 First, we will plot the residuals ACF:
 
-
+![Alt text](https://github.com/DellaCortef/time-series-pocket-reference/blob/main/statistical_models_for_time_series/images/acf-residuals-ar-adjusted.R.png?raw=true)
 
 
 
