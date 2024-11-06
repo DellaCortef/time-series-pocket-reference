@@ -91,11 +91,13 @@ identical in form to a simple *linear regression* model with just one explanator
 traditional notation, which uses Ø to represent autoregression coefficients:
 *y<sub>(t)</sub> = Ø + Ø<sub>(1)</sub> x y<sub>(t-1)</sub> + Ø<sub>(2)</sub> x y<sub>(t-2)</sub> + ... + + Ø<sub>(p)</sub> x y<sub>(t-p)</sub> + e<sub>(t)</sub>*
 
-As we analyzed previously, stationarity is a fundamental concept in the analysis of **time series**, as it is the requirement of many models, including AR models. We can determine the conditions for an AR model to be stationary from the definition of stationarity:
+As we analyzed previously, stationarity is a fundamental concept in the analysis of **time series**, as it is the requirement of many models, including AR models. We can determine the 
+conditions for an AR model to be stationary from the definition of stationarity:
 
 *y<sub>(t)</sub> = Ø<sub>(0)</sub> + Ø<sub>(1)</sub> x y<sub>(t-1)</sub> + e<sub>(t)</sub>*
 
-We assume that the process is stationary. So we work “one step backward” to see how this impacts the coefficients. First, based on the assumption of stationarity, we know that the expected value of the process must be the same at all times. We can rewrite y<sub>(t)</sub>:
+We assume that the process is stationary. So we work “one step backward” to see how this impacts the coefficients. First, based on the assumption of stationarity, we know that the 
+expected value of the process must be the same at all times. We can rewrite y<sub>(t)</sub>:
 
 *E(y<sub>(t)</sub>) = μ = E(y<sub>(t-1)</sub>)*
 
@@ -108,7 +110,8 @@ Simplified to:
 *μ = Ø<sub>(0)</sub> = Ø<sub>(1)</sub> μ*
 
 Thus, we find a relationship between the process mean and the underlying AR(1) coefficients. <br><br>
-We can follow a similar approach to see how constant variance and covariance impose conditions on the Ø coefficients. Replacing the value of Ø<sub>(0)</sub>, deriving the previous equation:
+We can follow a similar approach to see how constant variance and covariance impose conditions on the Ø coefficients. Replacing the value of Ø<sub>(0)</sub>, deriving the 
+previous equation:
 
 *Ø<sub>0</sub> = μ x (1 - Ø<sub>1</sub>)*<br>
 *y<sub>t</sub> = Ø<sub>0</sub> + Ø<sub>1</sub> x y<sub>(t-1)</sub> + e<sub>t</sub>*<br>
@@ -135,7 +138,8 @@ Instead of working on *y<sub>(t-1)</sub>*, we will work on *y<sub>(t-2)</sub>*:
 With this, we can conclude more generally that  **y<sub>t</sub> - μ = $\sum_{i=1}^{\infty}$ Ø<sub>1</sub>$^i$ x e<sub>(t-1)</sub>**<br><br>
 
 
-This result can then be used to calculate the expected *E[(y<sub>t</sub> - μ) x e<sub>(t+1)</sub>] = 0*, given that the values of *e<sub>t+1</sub>* at different values of *t* they are independent. From this, we can conclude that the covariance of *y<sub>(t-1)</sub>* e *e<sub>t</sub>* is 0, as it should be. We can use similar logic to calculate the variance of *y<sub>t</sub>* squaring this equation:
+This result can then be used to calculate the expected *E[(y<sub>t</sub> - μ) x e<sub>(t+1)</sub>] = 0*, given that the values of *e<sub>t+1</sub>* at different values of *t* they are 
+independent. From this, we can conclude that the covariance of *y<sub>(t-1)</sub>* e *e<sub>t</sub>* is 0, as it should be. We can use similar logic to calculate the variance of *y<sub>t</sub>* squaring this equation:
 
 *y<sub>t</sub> - μ = Ø<sub>1</sub>(y<sub>(t-1)</sub> - μ + e<sub>t</sub>*
 
@@ -157,3 +161,5 @@ In contrast, an AR process will not have an informative autocorrelation function
 Let's analyze this with some real data. We will use demand forecast data published by the **UCI Machine Learning Repository** (*https://perma.cc/B7EQ-DNLU*). First, we will plot the data in chronological order:
 
 ![Alt text](https://github.com/DellaCortef/time-series-pocket-reference/blob/main/statistical_models_for_time_series/images/pacf-banking-orders-2-demand.R.png?raw=true/pacf-banking-orders-2-demand.R.png)
+We can observe that the PACF value exceeds the significance threshold of 5% in lag 3. This is compatible with the results of the *ar()* function available in the **stats** package of **R**. The *ar()* function automatically chooses the order of an autoregressive model if none is specified:
+
