@@ -180,7 +180,6 @@ output: html_document
 `ar(x = demand_banking, method = "mle")`
 
 ##### - Coefficients
-
 ```{r, echo=FALSE}
 # Define the coefficients in a data frame
 coefficients <- data.frame(
@@ -190,3 +189,23 @@ coefficients <- data.frame(
 
 # Display the table with knitr::kable
 knitr::kable(coefficients, col.names = c("Order", "Coefficient"))
+```
+
+Se examinarmos a documentação da função *ar()* (*https://perma.cc/8H8Z-CX9R*), podemos ver que a ordem selecionada é determinada (com parâmetros padrã0 que não alteramos) mostra que a seleção visual que fizemos examinando PACF é compatível com a seleção que seria feita minimizando um critério de informação. Apesar de serem duas formas diferentes de escolher a ordem do modelo, aqui elas são compatíveis.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
