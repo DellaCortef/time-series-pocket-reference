@@ -227,6 +227,32 @@ knitr::kable(coefficients, col.names = c("Term", "Estimate", "Std. Error"), capt
 ```
 
 To introduce knowledge into our model, we can constrain a coefficient to 0. For example, if we want to constrain lag -1 to 0 in our model, we will use the following call:
+<br><br>
+
+---
+title: "ARIMA Model Output"
+output: html_document
+---
+
+##### ARIMA Model Results
+
+##### - Call
+`arima(x = demand_banking, order = c(3, 0, 0), transform.pars = FALSE, fixed = c(0, NA, NA, NA))`
+
+##### - arima() Coefficients Table
+
+```{r, echo=FALSE}
+# Create a data frame for coefficients and standard errors
+coefficients <- data.frame(
+  Term = c("ar1", "ar2", "ar3", "intercept"),
+  Estimate = c(0, -0.1831, -0.3031, 79190.705),
+  `Std. Error` = c(0, 0.1289, 0.1298, 3345.253)
+)
+
+# Display the table using knitr::kable
+knitr::kable(coefficients, col.names = c("Term", "Estimate", "Std. Error"), caption = "ARIMA Model Coefficients")
+```
+
 
 
 
