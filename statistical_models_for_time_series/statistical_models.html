@@ -13,7 +13,7 @@
 
 <meta name="date" content="2024-11-05" />
 
-<title>Box-Ljung Test Output</title>
+<title>Forecast Output</title>
 
 <script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
 // be compatible with the behavior of Pandoc < 2.8).
@@ -350,7 +350,7 @@ display: none;
 
 
 
-<h1 class="title toc-ignore">Box-Ljung Test Output</h1>
+<h1 class="title toc-ignore">Forecast Output</h1>
 <h4 class="author">Della</h4>
 <h4 class="date">2024-11-05</h4>
 
@@ -784,8 +784,8 @@ the other case. The good news is that little changes from a programming
 perspective, although the underlying math is more complicated in the
 latter case.</p>
 </div>
-<div id="predictions-one-step-ahead" class="section level5">
-<h5>- Predictions one step ahead:</h5>
+<div id="one-step-ahead-forecast" class="section level5">
+<h5>- one-step ahead forecast</h5>
 <ul>
 <li>first, we will consider the case where we want to predict one step
 ahead with a known (or estimated) AR model. In this case, we have all
@@ -801,7 +801,7 @@ plot the forecast using the <em>filtered()</em> function from the
 series</strong> on the solid line and, on the dashed line, the adjusted
 <strong>time series</strong>.</div>
 </div>
-<p><br> Now we will think about the quality of the forecast. If we
+<p><br><br> Now we will think about the quality of the forecast. If we
 calculate the correlation between the predicted value and the actual
 value, we get 0.29. Depending on the context, this isn’t so bad, but
 remember that sometimes differentiating the data ends up removing
@@ -810,6 +810,91 @@ random. This can especially occur if the data is not actually stationary
 when we fit it, so that an unidentified trend can be masked as good
 model performance, when in fact it is just a quirk of the data that
 should be addressed before modeling.</p>
+<p><br><br></p>
+</div>
+<div id="multi-step-ahead-forecast" class="section level5">
+<h5>- Multi-step ahead forecast</h5>
+<ul>
+<li>to predict 2 steps ahead, for example, we would first need to
+predict one step ahead and then use the results to predict the next step
+forward;</li>
+<li>for our case, we do not need to implement this dynamic, since the
+value of <em>y<sub>(t-1)</sub></em> is not used to predict
+<em>y<sub>(t+1)</sub></em>;</li>
+<li>however, if we want to go further, we will need to generate
+predicted futures as inputs into our prediction. Let’s predict
+<em>y<sub>(t+3)</sub></em>. A model with dependent coefficients
+<em>y<sub>(t+1)</sub></em> and y<sub>t</sub>* will be required. So we
+will need to predict these two values ​​- <em>y<sub>(t+1)</sub></em> and
+<em>y<sub>t</sub></em> - and then use them in predicting y<sub>
+(t+3)</sub>. As before, we can use the <em>fitted()</em> function from
+the <strong>forecast</strong> package;</li>
+</ul>
+<p>Using the <em>fitted()</em> function with an additional parameter
+<em>h</em> for the horizon. It is worth remembering that our object
+<em>est.1</em> represents an AR (3) process with lag coefficient -1
+(time - 1) restricted to 0:</p>
+<p>fitted(est.1, h = 3) NULL</p>
+<p>We can use the facility to predict many steps ahead, generating
+multiple predictions of several steps ahead for different horizons. In
+the next example, we can look at the variance of predictions made
+further and further into the distant future from the same underlying
+model.</p>
+<p>As we can see in the next figure, the forecast variance decreases
+with the increase in the horizon ahead. The reason for this - which is a
+salient limitation of the model - is that the further we go in time, the
+less the actual data matters, as the coefficients for the input data
+only consider a finite prior set of time points. In other words, the
+most distant predictions in time converge to the unconditional
+prediction - that is, not conditioned on data. The future prediction
+approaches the mean value of the series as the time horizon increases,
+so the variance of both the error term and the predicted values
+decreases to 0, as the predicted values tend to converge to the
+unconditional mean value:</p>
+</div>
+<div id="forecast-results" class="section level5">
+<h5>Forecast Results</h5>
+<p>Here is the forecast output with the point estimates and confidence
+intervals.</p>
+<table>
+<caption>Forecast Output with Confidence Intervals</caption>
+<thead>
+<tr class="header">
+<th align="right">Step</th>
+<th align="right">Point.Forecast</th>
+<th align="right">Lo.80</th>
+<th align="right">Hi.80</th>
+<th align="right">Lo.95</th>
+<th align="right">Hi.95</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">5</td>
+<td align="right">0</td>
+<td align="right">-50743.49</td>
+<td align="right">50743.49</td>
+<td align="right">-77605.47</td>
+<td align="right">77605.47</td>
+</tr>
+<tr class="even">
+<td align="right">6</td>
+<td align="right">0</td>
+<td align="right">-50743.49</td>
+<td align="right">50743.49</td>
+<td align="right">-77605.47</td>
+<td align="right">77605.47</td>
+</tr>
+<tr class="odd">
+<td align="right">7</td>
+<td align="right">0</td>
+<td align="right">-50743.49</td>
+<td align="right">50743.49</td>
+<td align="right">-77605.47</td>
+<td align="right">77605.47</td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 </div>
