@@ -327,7 +327,29 @@ We can use the facility to predict many steps ahead, generating multiple predict
 
 As we can see in the next figure, the forecast variance decreases with the increase in the horizon ahead. The reason for this - which is a salient limitation of the model - is that the further we go in time, the less the actual data matters, as the coefficients for the input data only consider a finite prior set of time points. In other words, the most distant predictions in time converge to the unconditional prediction - that is, not conditioned on data. The future prediction approaches the mean value of the series as the time horizon increases, so the variance of both the error term and the predicted values decreases to 0, as the predicted values tend to converge to the unconditional mean value:
 
+---
+title: "Forecast Output"
+output: html_document
+---
 
+##### Forecast Results
+
+Here is the forecast output with the point estimates and confidence intervals.
+
+```{r, echo=FALSE}
+# Create a data frame for the forecast output
+forecast_results <- data.frame(
+  Step = 5:7,
+  `Point Forecast` = c(0, 0, 0),
+  `Lo 80` = c(-50743.49, -50743.49, -50743.49),
+  `Hi 80` = c(50743.49, 50743.49, 50743.49),
+  `Lo 95` = c(-77605.47, -77605.47, -77605.47),
+  `Hi 95` = c(77605.47, 77605.47, 77605.47)
+)
+
+# Display the table
+knitr::kable(forecast_results, caption = "Forecast Output with Confidence Intervals")
+```
 
 
 
