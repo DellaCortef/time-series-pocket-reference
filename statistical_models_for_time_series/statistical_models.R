@@ -9,42 +9,42 @@ demand <- read.csv("daily_demand_forecasting_orders.csv", sep=";")
 # Choosing one columns
 demand_banking <- demand[, 'Banking.orders..2.']
 
-## plotting the data in chronological order
+# plotting the data in chronological order
 plot(demand_banking, type = 'b')
 acf(demand_banking)
 pacf(demand_banking)
 
-## applying ar() function
+# applying ar() function
 fit <- ar(demand_banking, method = "mle")
 fit
 
-## applying arima() function to adjust ar()
+# applying arima() function to adjust ar()
 est <- arima(x = demand_banking, order = c(3, 0, 0))
 est
 
-## applying arima() function with knowledge
+# applying arima() function with knowledge
 est.1 <- arima(x = demand_banking, order = c(3, 0, 0), 
                fixed = c(0, NA, NA, NA), transform.pars = FALSE)
 est.1
 
-## plotting residuals ACF
+# plotting residuals ACF
 acf(est.1$residuals)
 
-## applying box-ljung test
+# applying box-ljung test
 Box.test(est.1$residuals, lag = 10, type = 'Ljung', fitdf = 3)
 
-## plotting the forecast one step ahead
+# plotting the forecast one step ahead
 require(forecast)
 plot(demand_banking, type = 'l')
 lines(fitted(est.1), col = 3, lwd = 2) # using forecast package
 
-## multi-step ahead forecasting
+# multi-step ahead forecasting
 var(fitted(est.1, h = 3), na.rm = TRUE) # it down not work
 
-## type of the object
+# type of the object
 class(est.1)
 
-## inspecting the contents
+# inspecting the contents
 str(est.1)
 
 # Remove NA values (if any)
@@ -60,9 +60,40 @@ est.1 <- est.1[[1]]
 is.numeric(est.1)  # Should return TRUE
 is.ts(est.1)       # Should return TRUE
 
-## assuming est.1 is a time series (ts object)
+# assuming est.1 is a time series (ts object)
 arima_model <- auto.arima(est.1)
 
-## three-step ahead forecasting
+# three-step ahead forecasting
 forecast_results <- forecast(arima_model, h = 3)
 print(forecast_results)
+
+# Fit an ARIMA model (or another appropriate model)
+model <- auto.arima(est.1)
+
+# Get the fitted values from the model
+fitted_values <- fitted(model)
+
+# calculating the variance of the fitted values
+var_fitted <- var(fitted_values, na.rm = TRUE)
+print(var_fitted)
+
+# Define the forecast horizons
+horizons <- c(3, 5, 10, 20, 30)
+
+# Function to get variance of forecasted values at a given horizon
+forecast_variance <- function(h) {
+  # Generate forecast
+  forecast_result <- forecast(model, h = h)
+  
+  # Extract point forecasts
+  point_forecasts <- forecast_result$mean
+  
+  # Calculate variance of the forecasted values
+  var(point_forecasts, na.rm = TRUE)
+}
+
+# Apply the function for each horizon and store results
+variances <- sapply(horizons, forecast_variance)
+
+# Display the results
+variances
