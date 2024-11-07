@@ -307,7 +307,8 @@ from the **forecast** package;
 
 <br>
 Now we will think about the quality of the forecast. If we calculate the correlation between the predicted value and the actual value, we get 0.29. Depending on the context, this isn't 
-so bad, but remember that sometimes differentiating the data ends up removing possible strong relationships and replacing them with one that is random. This can especially occur if the data is not actually stationary when we fit it, so that an unidentified trend can be masked as good model performance, when in fact it is just a quirk of the data that should be addressed before modeling.
+so bad, but remember that sometimes differentiating the data ends up removing possible strong relationships and replacing them with one that is random. This can especially occur if the 
+data is not actually stationary when we fit it, so that an unidentified trend can be masked as good model performance, when in fact it is just a quirk of the data that should be addressed before modeling.
 
 
 
