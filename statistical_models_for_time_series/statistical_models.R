@@ -38,3 +38,8 @@ require(forecast)
 plot(demand_banking, type = 'l')
 lines(fitted(est.1), col = 3, lwd = 2) # using forecast package
 
+## converting est.1 to time series
+est.1 <- ts(est.1)
+
+## three-step ahead forecasting
+fitted(est.1, h = 3)
