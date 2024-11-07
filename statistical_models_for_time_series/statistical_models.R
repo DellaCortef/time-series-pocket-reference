@@ -38,8 +38,31 @@ require(forecast)
 plot(demand_banking, type = 'l')
 lines(fitted(est.1), col = 3, lwd = 2) # using forecast package
 
-## converting est.1 to time series
-est.1 <- ts(est.1)
+## multi-step ahead forecasting
+var(fitted(est.1, h = 3), na.rm = TRUE) # it down not work
+
+## type of the object
+class(est.1)
+
+## inspecting the contents
+str(est.1)
+
+# Remove NA values (if any)
+est.1 <- na.omit(est.1)
+
+# Ensure it's purely numeric
+est.1 <- as.numeric(est.1)
+est.1 <- ts(est.1)  # Convert back to a time series if needed
+
+# Try extracting the first element if it's a time series
+est.1 <- est.1[[1]]
+
+is.numeric(est.1)  # Should return TRUE
+is.ts(est.1)       # Should return TRUE
+
+## assuming est.1 is a time series (ts object)
+arima_model <- auto.arima(est.1)
 
 ## three-step ahead forecasting
-fitted(est.1, h = 3)
+forecast_results <- forecast(arima_model, h = 3)
+print(forecast_results)
