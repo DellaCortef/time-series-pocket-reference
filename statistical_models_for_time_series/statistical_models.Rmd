@@ -320,7 +320,12 @@ addressed before modeling.
 
 Using the *fitted()* function with an additional parameter *h* for the horizon. It is worth remembering that our object *est.1* represents an AR (3) process with lag coefficient -1 (time - 1) restricted to 0:
 
+fitted(est.1, h = 3)
+NULL
 
+We can use the facility to predict many steps ahead, generating multiple predictions of several steps ahead for different horizons. In the next example, we can look at the variance of predictions made further and further into the distant future from the same underlying model.
+
+As we can see in the next figure, the forecast variance decreases with the increase in the horizon ahead. The reason for this - which is a salient limitation of the model - is that the further we go in time, the less the actual data matters, as the coefficients for the input data only consider a finite prior set of time points. In other words, the most distant predictions in time converge to the unconditional prediction - that is, not conditioned on data. The future prediction approaches the mean value of the series as the time horizon increases, so the variance of both the error term and the predicted values decreases to 0, as the predicted values tend to converge to the unconditional mean value:
 
 
 
