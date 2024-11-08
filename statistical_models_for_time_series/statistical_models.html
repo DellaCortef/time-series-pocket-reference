@@ -825,7 +825,7 @@ value of <em>y<sub>(t-1)</sub></em> is not used to predict
 predicted futures as inputs into our prediction. Let’s predict
 <em>y<sub>(t+3)</sub></em>. A model with dependent coefficients
 <em>y<sub>(t+1)</sub></em> and y<sub>t</sub>* will be required. So we
-will need to predict these two values ​​- <em>y<sub>(t+1)</sub></em> and
+will need to predict these two values - <em>y<sub>(t+1)</sub></em> and
 <em>y<sub>t</sub></em> - and then use them in predicting y<sub>
 (t+3)</sub>. As before, we can use the <em>fitted()</em> function from
 the <strong>forecast</strong> package;</li>
@@ -895,7 +895,61 @@ intervals.</p>
 </tr>
 </tbody>
 </table>
+<p><br><br></p>
 </div>
+</div>
+</div>
+</div>
+<div id="modelos-de-média-móvel" class="section level2">
+<h2>Modelos de Média Móvel</h2>
+<p>A moving average (MA) model is based on a process in which the value
+at each point in time is a function of value “error” terms from the
+recent past, each independent of the others. Let’s return to this model
+with the same steps we used to study AR models.</p>
+<div id="o-modelo" class="section level3">
+<h3>O modelo</h3>
+<p>A moving average model can be expressed similarly to an
+autoregressive model, except that the terms included in the linear
+equation refer to present and past error terms rather than present and
+past values of the process itself. Thus, an MA model of order <em>q</em>
+is expressed as:</p>
+<p><em>y<sub>t</sub> = μ + e<sub>t</sub> + θ<sub>1</sub> X
+e<sub>(t-1)</sub> + θ<sub>2</sub> x e<sub>(t-2)</sub> + … +
+θ<sub>q</sub> x e<sub>(t-q)</sub></em></p>
+<p>Economists refer to these error terms as “shocks” to the system,
+while an electrical engineer might refer to them as “impulses” and the
+model itself as an infinite impulse response filter, meaning that the
+effects of any particular impulse last only a finite period of time.
+What is important is the concept that many independent events at
+different times in the past impact the current value of the process, in
+addition to the individual contribution of each of them.</p>
+<div id="o-operador-backshift" class="section level5">
+<h5>- O Operador Backshift</h5>
+<p>The backshift operator, also known as the lag operator, operates on
+<strong>time series</strong> points and shifts them one step back each
+time it is applied. In general:</p>
+<p><em>B<span class="math inline">\(^k\)</span>y<sub>t</sub> =
+y<sub>(t-k)</sub></em></p>
+<p>The backshift operator helps simplify the expression of <strong>time
+series</strong> models. For example, an MA model can be rewritten
+as:</p>
+<p><em>y<sub>t</sub> = μ + (1 + θ<sub>1</sub> X B + θ<sub>2</sub> x
+B<span class="math inline">\(^2\)</span> + … + θ<sub>q</sub> x B<span class="math inline">\(^q\)</span>)e<sub>t</sub></em></p>
+<p>Por natureza, os modelos de MA possuem estacionariedade fraca sem a
+necessidade de impor quaisquer restrições aos seus parâmetros. Isso
+ocorre porque a média móvel e a variância de um processo MA são finitas
+e invariantes com o tempo, já que os termos de erro são considerados iid
+com a média 0. Por exemplo:</p>
+<p><em>E(y<sub>t</sub> = μ + e<sub>t</sub> + θ<sub>1</sub> X
+e<sub>(t-1)</sub> + θ<sub>2</sub> x e<sub>(t-2)</sub> + … +
+θ<sub>q</sub> x e<sub>(t-q)</sub>)</em> = <em>E(μ) + θ<sub>1</sub> x 0 +
+θ<sub>2</sub> x 0 + … = μ</em></p>
+<p>Para calcular a variância do processo, usamos o fato de que os termos
+<em>e<sub>t</sub></em> são iid, e também a propriedade estatística geral
+de que a vari6ancia da soma de duas variáveis aleatórias é igual às suas
+variâncias individuais somadas duas vezes à sua covariância. Para
+variáveis iid, a covariância é 0. Isso gera a expressão:</p>
+<p><em>Var(y<sub>t</sub>) = (1 + θ<sub>1</sub><span class="math inline">\(^2\)</span> + θ<sub>2</sub><span class="math inline">\(^2\)</span> + … + θ<sub>q</sub><span class="math inline">\(^2\)</span>) x σ<sub>e</sub><span class="math inline">\(^2\)</span></em></p>
 </div>
 </div>
 </div>
