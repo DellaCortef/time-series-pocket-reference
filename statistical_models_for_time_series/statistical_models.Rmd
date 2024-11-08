@@ -388,3 +388,7 @@ Therefore, both the mean and variance of an MA process are constant over time, r
 
 
 #### Choosing the parameters for an MA(q) process
+
+We will fit an MA model to the same data that we used to fit the AR model, and we can use ACF to determine the order of the MA process:
+
+
