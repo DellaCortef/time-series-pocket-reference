@@ -471,3 +471,45 @@ time_series_data <- matrix(
 # Display as a table
 kable(time_series_data, col.names = paste("Value", 1:8), caption = "Time Series Values")
 ```
+
+MA models exhibit strong mean reversion, so predictions quickly converge to the process mean. It makes perfect sense, given that the process is considered a function of white noise. If we predict beyond the model range established by its order, by definition of the process, the prediction will necessarily be its average. Consider an MA(1) model:
+
+*y<sub>t</sub> = μ + θ<sub>1</sub> X e<sub>(t-1)</sub> + e<sub>t</sub>*
+
+To predict a time interval in the future, our estimate for *y<sub>(t+1)</sub>* is *μ + θ<sub>1</sub> sub> + e<sub>t</sub>*. If we want to predict two time intervals in the future, our estimate is:
+
+*E(y<sub>(t+2)</sub> = μ + e<sub>(t+2)</sub> + θ<sub>1</sub> X e<sub>(t+1)</sub>) = μ + 0 + θ<sub>1</sub> x 0 = μ*
+
+With an MA(1) process we cannot present an informative prediction beyond one step forward, and for an MA(*q*) process in general we cannot present a more informative prediction beyond *q* steps than the average value generated through the process. By *informative* prediction, I mean one in which our most recent measurements impact our prediction.
+
+We can check this by generating predictions with our MA model (9) that we just tuned and for which we now look for predictions ten steps ahead:
+
+---
+title: "Forecast Output Table"
+output: html_document
+---
+<br>
+
+##### Forecast Results
+
+The following table shows the forecasted values along with their 80% and 95% confidence intervals.
+
+```{r, echo=FALSE}
+# Load necessary library
+library(knitr)
+
+# Create a data frame for the forecast output
+forecast_data <- data.frame(
+  Step = 61:70,
+  `Point Forecast` = c(76320.92, 88253.99, 91767.10, 79810.12, 79361.19, 79742.03, 79606.91, 79893.84, 79988.68, 79689.81),
+  `Lo 80` = c(28374.82, 40307.89, 43821.00, 26781.13, 26332.20, 26713.04, 26577.92, 26864.85, 26959.69, 26657.70),
+  `Hi 80` = c(124267.0, 136200.1, 139713.2, 132839.1, 132390.2, 132771.0, 132635.9, 132922.8, 133017.7, 132721.9),
+  `Lo 95` = c(2993.686, 14926.755, 18439.870, -1290.718, -1739.655, -1358.808, -1493.929, -1207.000, -1112.162, -1415.806),
+  `Hi 95` = c(149648.2, 161581.2, 165094.3, 160911.0, 160462.0, 160842.9, 160707.8, 160994.7, 161089.5, 160795.4)
+)
+
+# Display the table using knitr::kable
+kable(forecast_data, col.names = c("Step", "Point Forecast", "Lo 80", "Hi 80", "Lo 95", "Hi 95"), caption = "Forecast Output with Confidence Intervals")
+```
+
+When we try to predict ten steps ahead of time in the future, we predict the average for each time interval. We could have done this without a sophisticated statistical model.
