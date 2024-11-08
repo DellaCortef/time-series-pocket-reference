@@ -97,3 +97,7 @@ variances <- sapply(horizons, forecast_variance)
 
 # Display the results
 variances
+
+# acf to determine the order of the MA model
+acf(demand_banking)
+
