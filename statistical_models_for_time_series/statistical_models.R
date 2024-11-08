@@ -115,3 +115,9 @@ acf(ma.est$residuals)
 
 # forecasting with fitted()
 fitted(ma.est, h = 1)
+
+# generate a 10-step-ahead forecast
+forecast_results <- forecast(ma.est, h = 10)
+
+# display the forecast results
+print(forecast_results)

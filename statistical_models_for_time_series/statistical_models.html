@@ -13,7 +13,7 @@
 
 <meta name="date" content="2024-11-05" />
 
-<title>Box-Ljung Test Output</title>
+<title>Forecast Output Table</title>
 
 <script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
 // be compatible with the behavior of Pandoc < 2.8).
@@ -350,7 +350,7 @@ display: none;
 
 
 
-<h1 class="title toc-ignore">Box-Ljung Test Output</h1>
+<h1 class="title toc-ignore">Forecast Output Table</h1>
 <h4 class="author">Della</h4>
 <h4 class="date">2024-11-05</h4>
 
@@ -1187,6 +1187,130 @@ the <strong>forecast</strong> package:</p>
 </tr>
 </tbody>
 </table>
+<p>MA models exhibit strong mean reversion, so predictions quickly
+converge to the process mean. It makes perfect sense, given that the
+process is considered a function of white noise. If we predict beyond
+the model range established by its order, by definition of the process,
+the prediction will necessarily be its average. Consider an MA(1)
+model:</p>
+<p><em>y<sub>t</sub> = μ + θ<sub>1</sub> X e<sub>(t-1)</sub> +
+e<sub>t</sub></em></p>
+<p>To predict a time interval in the future, our estimate for
+<em>y<sub>(t+1)</sub></em> is <em>μ + θ<sub>1</sub> sub&gt; +
+e<sub>t</sub></em>. If we want to predict two time intervals in the
+future, our estimate is:</p>
+<p><em>E(y<sub>(t+2)</sub> = μ + e<sub>(t+2)</sub> + θ<sub>1</sub> X
+e<sub>(t+1)</sub>) = μ + 0 + θ<sub>1</sub> x 0 = μ</em></p>
+<p>With an MA(1) process we cannot present an informative prediction
+beyond one step forward, and for an MA(<em>q</em>) process in general we
+cannot present a more informative prediction beyond <em>q</em> steps
+than the average value generated through the process. By
+<em>informative</em> prediction, I mean one in which our most recent
+measurements impact our prediction.</p>
+<p>We can check this by generating predictions with our MA model (9)
+that we just tuned and for which we now look for predictions ten steps
+ahead:</p>
+<p><br></p>
+<div id="forecast-results-1" class="section level5">
+<h5>Forecast Results</h5>
+<p>The following table shows the forecasted values along with their 80%
+and 95% confidence intervals.</p>
+<table>
+<caption>Forecast Output with Confidence Intervals</caption>
+<thead>
+<tr class="header">
+<th align="right">Step</th>
+<th align="right">Point Forecast</th>
+<th align="right">Lo 80</th>
+<th align="right">Hi 80</th>
+<th align="right">Lo 95</th>
+<th align="right">Hi 95</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">61</td>
+<td align="right">76320.92</td>
+<td align="right">28374.82</td>
+<td align="right">124267.0</td>
+<td align="right">2993.686</td>
+<td align="right">149648.2</td>
+</tr>
+<tr class="even">
+<td align="right">62</td>
+<td align="right">88253.99</td>
+<td align="right">40307.89</td>
+<td align="right">136200.1</td>
+<td align="right">14926.755</td>
+<td align="right">161581.2</td>
+</tr>
+<tr class="odd">
+<td align="right">63</td>
+<td align="right">91767.10</td>
+<td align="right">43821.00</td>
+<td align="right">139713.2</td>
+<td align="right">18439.870</td>
+<td align="right">165094.3</td>
+</tr>
+<tr class="even">
+<td align="right">64</td>
+<td align="right">79810.12</td>
+<td align="right">26781.13</td>
+<td align="right">132839.1</td>
+<td align="right">-1290.718</td>
+<td align="right">160911.0</td>
+</tr>
+<tr class="odd">
+<td align="right">65</td>
+<td align="right">79361.19</td>
+<td align="right">26332.20</td>
+<td align="right">132390.2</td>
+<td align="right">-1739.655</td>
+<td align="right">160462.0</td>
+</tr>
+<tr class="even">
+<td align="right">66</td>
+<td align="right">79742.03</td>
+<td align="right">26713.04</td>
+<td align="right">132771.0</td>
+<td align="right">-1358.808</td>
+<td align="right">160842.9</td>
+</tr>
+<tr class="odd">
+<td align="right">67</td>
+<td align="right">79606.91</td>
+<td align="right">26577.92</td>
+<td align="right">132635.9</td>
+<td align="right">-1493.929</td>
+<td align="right">160707.8</td>
+</tr>
+<tr class="even">
+<td align="right">68</td>
+<td align="right">79893.84</td>
+<td align="right">26864.85</td>
+<td align="right">132922.8</td>
+<td align="right">-1207.000</td>
+<td align="right">160994.7</td>
+</tr>
+<tr class="odd">
+<td align="right">69</td>
+<td align="right">79988.68</td>
+<td align="right">26959.69</td>
+<td align="right">133017.7</td>
+<td align="right">-1112.162</td>
+<td align="right">161089.5</td>
+</tr>
+<tr class="even">
+<td align="right">70</td>
+<td align="right">79689.81</td>
+<td align="right">26657.70</td>
+<td align="right">132721.9</td>
+<td align="right">-1415.806</td>
+<td align="right">160795.4</td>
+</tr>
+</tbody>
+</table>
+</div>
 </div>
 </div>
 </div>
