@@ -107,6 +107,8 @@ ma.est <- arima(x = demand_banking,
                 fixed = c(0, 0, NA, rep(0, 5), NA, NA))
 ma.est
 
+# ljung-box test
+Box.test(ma.est$residuals, lag = 10, type = "Ljung", fitdf = 3)
 
-
-
+# residuals acf
+acf(ma.est$residuals)

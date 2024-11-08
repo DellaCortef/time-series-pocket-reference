@@ -394,10 +394,10 @@ We will fit an MA model to the same data that we used to fit the AR model, and w
 ![ACF of MA process](https://github.com/DellaCortef/time-series-pocket-reference/blob/main/statistical_models_for_time_series/images/acf-ma-process.R.png?raw=true)
 <br>
 
-##### - Os padrões ACF e PACF diferem dos processos MA e AR
-Ao contrário de um processo autorregressivo que tem uma ACF de decaimento exponencial lento, a definição do processo MA garante um cutoff acentuado da ACF para qualquer valor maior que *q*, a ordem do processo MA. Isso ocorre porque um processo autorregressivo depende de termos anteriores, e eles incorporam os impulsos anteriores ao sistema, ao passo que um modelo MA, que incorpora os impulsos diretamente por meio de seu valor, tem um mecanismo para impedir que a propagação dos impulsos progrida indefinidamente.
+##### - ACF and PACF standards differ from MA and AR processes
+Unlike an autoregressive process that has a slowly exponentially decaying ACF, the definition of the MA process guarantees a sharp cutoff of the ACF for any value greater than *q*, the order of the MA process. This is because an autoregressive process depends on previous terms, and they incorporate previous impulses into the system, whereas an MA model, which incorporates impulses directly through its value, has a mechanism to prevent the propagation of impulses from progressing indefinitely. .
 
-Podemos observar valores significatos nos lags 3 e 9, então ajustamos um modelo MA com esses lags. É necessário tomar cuidado para não restringir sem querer os coeficientes errados em 0 no modelo, o que podemos confirmar ao exibir:
+We can observe significant values ​​at lags 3 and 9, so we fit an MA model with these lags. Care must be taken not to unintentionally restrict the wrong coefficients to 0 in the model, which we can confirm by displaying:
 
 ---
 title: "ARIMA Model Output"
@@ -422,4 +422,26 @@ coefficients <- data.frame(
 # Display the table
 knitr::kable(coefficients, col.names = c("Term", "Estimate", "Std. Error"), caption = "ARIMA Model Coefficients")
 ```
+
+
+We should also check our fit, as we did in the AR model, by plotting the ACF of the model residuals and, with a second test of model performance, running the **Ljung-Box** test to check the overall randomness in any fit of the residuals. . Note that the *Box.test()* input requires us to specify the number of degrees of freedom - that is, how many model parameters were free to be estimated rather than being restricted to a specific value. In this case, the free parameters were the intercept, as well as the MA3 and MA9 terms:
+<br><br>
+
+---
+title: "Box-Ljung Test Output"
+output: html_document
+---
+
+##### Box-Ljung Test
+
+##### - Test Results
+
+- **Data**: `ma.est$residuals`
+- **X-squared**: 7.6516
+- **Degrees of Freedom (df)**: 7
+- **p-value**: 0.3643
+
+Não podemos rejeitar a hipótese nula de que não há correlação temporal entre os pontos residuais. Do mesmo modo, um gráfico ACF dos resíduos sugere nenhuma correlação temporal:
+
+![ACF residuals MA](https://github.com/DellaCortef/time-series-pocket-reference/blob/main/statistical_models_for_time_series/images/acf-residuals-ar-adjusted.R.png?raw=true)
 
