@@ -112,3 +112,6 @@ Box.test(ma.est$residuals, lag = 10, type = "Ljung", fitdf = 3)
 
 # residuals acf
 acf(ma.est$residuals)
+
+# forecasting with fitted()
+fitted(ma.est, h = 1)

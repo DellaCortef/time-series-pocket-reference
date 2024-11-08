@@ -775,8 +775,9 @@ the goodness of fit. We cannot reject the null hypothesis that the data
 do not show serial correlation. This is confirmation of what we just
 discovered by plotting ACF of the residuals. <br><br></p>
 </div>
-<div id="forecasting-with-an-ar-process-p" class="section level5">
-<h5>Forecasting with an AR process (<em>p</em>)</h5>
+</div>
+<div id="forecasting-with-an-ar-process-p" class="section level4">
+<h4>Forecasting with an AR process (<em>p</em>)</h4>
 <p>In the next developments, we will illustrate how to make predictions
 with AR processes. First, we will explore the one-step-ahead case, and
 then we will analyze how the multiple-step-ahead prediction differs from
@@ -784,8 +785,8 @@ the other case. The good news is that little changes from a programming
 perspective, although the underlying math is more complicated in the
 latter case.</p>
 </div>
-<div id="one-step-ahead-forecast" class="section level5">
-<h5>- one-step ahead forecast</h5>
+<div id="one-step-ahead-forecast" class="section level4">
+<h4>- one-step ahead forecast</h4>
 <ul>
 <li>first, we will consider the case where we want to predict one step
 ahead with a known (or estimated) AR model. In this case, we have all
@@ -812,8 +813,8 @@ model performance, when in fact it is just a quirk of the data that
 should be addressed before modeling.</p>
 <p><br><br></p>
 </div>
-<div id="multi-step-ahead-forecast" class="section level5">
-<h5>- Multi-step ahead forecast</h5>
+<div id="multi-step-ahead-forecast" class="section level4">
+<h4>- Multi-step ahead forecast</h4>
 <ul>
 <li>to predict 2 steps ahead, for example, we would first need to
 predict one step ahead and then use the results to predict the next step
@@ -851,7 +852,6 @@ approaches the mean value of the series as the time horizon increases,
 so the variance of both the error term and the predicted values
 decreases to 0, as the predicted values tend to converge to the
 unconditional mean value:</p>
-</div>
 <div id="forecast-results" class="section level5">
 <h5>Forecast Results</h5>
 <p>Here is the forecast output with the point estimates and confidence
@@ -1072,6 +1072,121 @@ resíduos sugere nenhuma correlação temporal:</p>
 <div class="figcaption">ACF residuals MA</div>
 </div>
 </div>
+</div>
+<div id="forecasting-with-a-ma-q" class="section level4">
+<h4>Forecasting with a MA (<em>q</em>)</h4>
+<p>We can once again generate a forecast using the techniques shown
+previously for an AR process, using the <em>fitted()</em> method from
+the <strong>forecast</strong> package:</p>
+<pre><code>## Warning in matrix(c(90116.64, 80626.91, 74090.45, 38321.61, 74734.77, 101153.2,
+## : data length [60] is not a sub-multiple or multiple of the number of rows [8]</code></pre>
+<table>
+<caption>Time Series Values</caption>
+<colgroup>
+<col width="12%" />
+<col width="11%" />
+<col width="12%" />
+<col width="11%" />
+<col width="12%" />
+<col width="12%" />
+<col width="12%" />
+<col width="12%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="right">Value 1</th>
+<th align="right">Value 2</th>
+<th align="right">Value 3</th>
+<th align="right">Value 4</th>
+<th align="right">Value 5</th>
+<th align="right">Value 6</th>
+<th align="right">Value 7</th>
+<th align="right">Value 8</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">90116.64</td>
+<td align="right">80626.91</td>
+<td align="right">74090.45</td>
+<td align="right">38321.61</td>
+<td align="right">74734.77</td>
+<td align="right">101153.20</td>
+<td align="right">65930.90</td>
+<td align="right">106351.80</td>
+</tr>
+<tr class="even">
+<td align="right">104138.05</td>
+<td align="right">86938.99</td>
+<td align="right">102868.16</td>
+<td align="right">80502.02</td>
+<td align="right">81466.01</td>
+<td align="right">77619.15</td>
+<td align="right">100984.93</td>
+<td align="right">81463.10</td>
+</tr>
+<tr class="odd">
+<td align="right">61622.54</td>
+<td align="right">79660.81</td>
+<td align="right">88563.91</td>
+<td align="right">65370.99</td>
+<td align="right">104679.89</td>
+<td align="right">48047.39</td>
+<td align="right">73070.29</td>
+<td align="right">115034.16</td>
+</tr>
+<tr class="even">
+<td align="right">80034.03</td>
+<td align="right">70052.29</td>
+<td align="right">70728.85</td>
+<td align="right">90437.86</td>
+<td align="right">80684.44</td>
+<td align="right">91533.59</td>
+<td align="right">101668.18</td>
+<td align="right">42273.27</td>
+</tr>
+<tr class="odd">
+<td align="right">93055.40</td>
+<td align="right">68187.65</td>
+<td align="right">75863.50</td>
+<td align="right">40195.15</td>
+<td align="right">82368.91</td>
+<td align="right">90605.60</td>
+<td align="right">69924.83</td>
+<td align="right">54032.55</td>
+</tr>
+<tr class="even">
+<td align="right">90866.20</td>
+<td align="right">85839.41</td>
+<td align="right">64932.70</td>
+<td align="right">43030.64</td>
+<td align="right">85575.32</td>
+<td align="right">76561.14</td>
+<td align="right">82047.95</td>
+<td align="right">95683.35</td>
+</tr>
+<tr class="odd">
+<td align="right">66553.13</td>
+<td align="right">89532.20</td>
+<td align="right">85102.64</td>
+<td align="right">80937.97</td>
+<td align="right">93926.74</td>
+<td align="right">47468.84</td>
+<td align="right">75223.67</td>
+<td align="right">100887.60</td>
+</tr>
+<tr class="even">
+<td align="right">92059.32</td>
+<td align="right">84459.85</td>
+<td align="right">67112.16</td>
+<td align="right">80917.23</td>
+<td align="right">90116.64</td>
+<td align="right">80626.91</td>
+<td align="right">74090.45</td>
+<td align="right">38321.61</td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 </div>

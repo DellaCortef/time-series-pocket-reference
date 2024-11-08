@@ -292,13 +292,13 @@ We applied the Ljung-Box test to our *est.1* model to evaluate the goodness of f
 confirmation of what we just discovered by plotting ACF of the residuals.
 <br><br>
 
-##### Forecasting with an AR process (*p*)
+#### Forecasting with an AR process (*p*)
 
 In the next developments, we will illustrate how to make predictions with AR processes. First, we will explore the one-step-ahead case, and then we will analyze how the 
 multiple-step-ahead prediction differs from the other case. The good news is that little changes from a programming perspective, although the underlying math is more complicated in the 
 latter case.
 
-##### - one-step ahead forecast
+#### - one-step ahead forecast
 - first, we will consider the case where we want to predict one step ahead with a known (or estimated) AR model. In this case, we have all the information we need;
 - we will continue working with the model based on demand data, with the lag coefficient -1 restricted to 0 (set as *est.1*). We will plot the forecast using the *filtered()* function 
 from the **forecast** package;
@@ -313,7 +313,7 @@ addressed before modeling.
 
 <br><br>
 
-##### - Multi-step ahead forecast
+#### - Multi-step ahead forecast
 - to predict 2 steps ahead, for example, we would first need to predict one step ahead and then use the results to predict the next step forward;
 - for our case, we do not need to implement this dynamic, since the value of *y<sub>(t-1)</sub>* is not used to predict *y<sub>(t+1)</sub >*;
 - however, if we want to go further, we will need to generate predicted futures as inputs into our prediction. Let's predict *y<sub>(t+3)</sub>*. A model with dependent coefficients *y<sub>(t+1)</sub>* and y<sub>t</sub>* will be required. So we will need to predict these two values - *y<sub>(t+1)</sub>* and *y<sub>t</sub>* - and then use them in predicting y<sub> (t+3)</sub>. As before, we can use the *fitted()* function from the **forecast** package;
@@ -445,3 +445,29 @@ Não podemos rejeitar a hipótese nula de que não há correlação temporal ent
 
 ![ACF residuals MA](https://github.com/DellaCortef/time-series-pocket-reference/blob/main/statistical_models_for_time_series/images/acf-residuals-ar-adjusted.R.png?raw=true)
 
+
+
+#### Forecasting with a MA (*q*)
+
+We can once again generate a forecast using the techniques shown previously for an AR process, using the *fitted()* method from the **forecast** package:
+
+```{r, echo=FALSE}
+# Load necessary library
+library(knitr)
+
+# Time series data as a matrix for display
+time_series_data <- matrix(
+  c(90116.64, 80626.91, 74090.45, 38321.61, 74734.77, 101153.20, 65930.90, 106351.80,
+    104138.05, 86938.99, 102868.16, 80502.02, 81466.01, 77619.15, 100984.93, 81463.10,
+    61622.54, 79660.81, 88563.91, 65370.99, 104679.89, 48047.39, 73070.29, 115034.16,
+    80034.03, 70052.29, 70728.85, 90437.86, 80684.44, 91533.59, 101668.18, 42273.27,
+    93055.40, 68187.65, 75863.50, 40195.15, 82368.91, 90605.60, 69924.83, 54032.55,
+    90866.20, 85839.41, 64932.70, 43030.64, 85575.32, 76561.14, 82047.95, 95683.35,
+    66553.13, 89532.20, 85102.64, 80937.97, 93926.74, 47468.84, 75223.67, 100887.60,
+    92059.32, 84459.85, 67112.16, 80917.23),
+  ncol = 8, byrow = TRUE
+)
+
+# Display as a table
+kable(time_series_data, col.names = paste("Value", 1:8), caption = "Time Series Values")
+```
