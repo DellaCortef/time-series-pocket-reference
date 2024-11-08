@@ -154,7 +154,7 @@ Considering that the variance must be greater than or equal to 0 by definition, 
 of the previous equation. that is, for a stationary process, it must have -1 < *Ø<sub>1</sub>* < 1. This is a necessary and sufficient condition for this type of weak stationarity.
 
 
-#### Choosing parameters for an AR(p) model
+#### Choosing parameters for an AR (p) model
 
 To evaluate the suitability of an AR model on the data, we will start by plotting the process and its *partial autocorrelation function (PACF)*. The PACF of an AR process must be 
 reduced to zero beyond the order *p* of an AR process (*p*), providing concrete and visual indications of the order of an AR process seen empirically in the data.
@@ -316,7 +316,7 @@ addressed before modeling.
 ##### - Multi-step ahead forecast
 - to predict 2 steps ahead, for example, we would first need to predict one step ahead and then use the results to predict the next step forward;
 - for our case, we do not need to implement this dynamic, since the value of *y<sub>(t-1)</sub>* is not used to predict *y<sub>(t+1)</sub >*;
-- however, if we want to go further, we will need to generate predicted futures as inputs into our prediction. Let's predict *y<sub>(t+3)</sub>*. A model with dependent coefficients *y<sub>(t+1)</sub>* and y<sub>t</sub>* will be required. So we will need to predict these two values ​​- *y<sub>(t+1)</sub>* and *y<sub>t</sub>* - and then use them in predicting y<sub> (t+3)</sub>. As before, we can use the *fitted()* function from the **forecast** package;
+- however, if we want to go further, we will need to generate predicted futures as inputs into our prediction. Let's predict *y<sub>(t+3)</sub>*. A model with dependent coefficients *y<sub>(t+1)</sub>* and y<sub>t</sub>* will be required. So we will need to predict these two values - *y<sub>(t+1)</sub>* and *y<sub>t</sub>* - and then use them in predicting y<sub> (t+3)</sub>. As before, we can use the *fitted()* function from the **forecast** package;
 
 Using the *fitted()* function with an additional parameter *h* for the horizon. It is worth remembering that our object *est.1* represents an AR (3) process with lag coefficient -1 (time - 1) restricted to 0:
 
@@ -350,9 +350,41 @@ forecast_results <- data.frame(
 # Display the table
 knitr::kable(forecast_results, caption = "Forecast Output with Confidence Intervals")
 ```
+<br><br>
 
 
+## Moving Average Models
+
+A moving average (MA) model is based on a process in which the value at each point in time is a function of value "error" terms from the recent past, each independent of the others. Let's return to this model with the same steps we used to study AR models.
 
 
+### The model
+
+A moving average model can be expressed similarly to an autoregressive model, except that the terms included in the linear equation refer to present and past error terms rather than present and past values of the process itself. Thus, an MA model of order *q* is expressed as:
+
+*y<sub>t</sub> = μ + e<sub>t</sub> + θ<sub>1</sub> X e<sub>(t-1)</sub> + θ<sub>2</sub> x e<sub>(t-2)</sub> + ... + θ<sub>q</sub> x e<sub>(t-q)</sub>*
+
+Economists refer to these error terms as "shocks" to the system, while an electrical engineer might refer to them as "impulses" and the model itself as an infinite impulse response filter, meaning that the effects of any particular impulse last only a finite period of time. What is important is the concept that many independent events at different times in the past impact the current value of the process, in addition to the individual contribution of each of them.
+
+##### - O Operador Backshift
+
+The backshift operator, also known as the lag operator, operates on **time series** points and shifts them one step back each time it is applied. In general:
+  
+*B$^k$y<sub>t</sub> = y<sub>(t-k)</sub>*
+
+The backshift operator helps simplify the expression of **time series** models. For example, an MA model can be rewritten as:
+  
+*y<sub>t</sub> = μ + (1 + θ<sub>1</sub> X B + θ<sub>2</sub> x B$^2$ + ... + θ<sub>q</sub> x B$^q$)e<sub>t</sub>*
+
+By nature, MA models have weak stationarity without the need to impose any restrictions on their parameters. This is because the moving average and variance of an MA process are finite and time invariant, as the error terms are assumed to be iid with the mean 0. For example:
+
+*E(y<sub>t</sub> = μ + e<sub>t</sub> + θ<sub>1</sub> X e<sub>(t-1)</sub> + θ<sub>2</sub> x e<sub>(t-2)</sub> + ... + θ<sub>q</sub> x e<sub>(t-q)</sub>)* = *E(μ) + θ<sub>1</sub> x 0 + θ<sub>2</sub> x 0 + ... = μ*
+
+To calculate the variance of the process, we use the fact that the terms *e<sub>t</sub>* are iid, and also the general statistical property that the variance of the sum of two random variables is equal to their individual variances. added twice to their covariance. For iid variables, the covariance is 0. This generates the expression:
+
+*Var(y<sub>t</sub>) = (1 + θ<sub>1</sub>$^2$ + θ<sub>2</sub>$^2$ + ... + θ<sub>q</sub>$^2$) x σ<sub>e</sub>$^2$*
+
+Therefore, both the mean and variance of an MA process are constant over time, regardless of the parameter values.
 
 
+#### Choosing the parameters for an MA(q) process
