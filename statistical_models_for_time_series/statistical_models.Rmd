@@ -387,8 +387,39 @@ To calculate the variance of the process, we use the fact that the terms *e<sub>
 Therefore, both the mean and variance of an MA process are constant over time, regardless of the parameter values.
 
 
-#### Choosing the parameters for an MA(q) process
+#### Choosing the parameters for an MA (q) process
 
 We will fit an MA model to the same data that we used to fit the AR model, and we can use ACF to determine the order of the MA process:
 
+![ACF of MA process](https://github.com/DellaCortef/time-series-pocket-reference/blob/main/statistical_models_for_time_series/images/acf-ma-process.R.png?raw=true)
+<br>
+
+##### - Os padrões ACF e PACF diferem dos processos MA e AR
+Ao contrário de um processo autorregressivo que tem uma ACF de decaimento exponencial lento, a definição do processo MA garante um cutoff acentuado da ACF para qualquer valor maior que *q*, a ordem do processo MA. Isso ocorre porque um processo autorregressivo depende de termos anteriores, e eles incorporam os impulsos anteriores ao sistema, ao passo que um modelo MA, que incorpora os impulsos diretamente por meio de seu valor, tem um mecanismo para impedir que a propagação dos impulsos progrida indefinidamente.
+
+Podemos observar valores significatos nos lags 3 e 9, então ajustamos um modelo MA com esses lags. É necessário tomar cuidado para não restringir sem querer os coeficientes errados em 0 no modelo, o que podemos confirmar ao exibir:
+
+---
+title: "ARIMA Model Output"
+output: html_document
+---
+
+##### ARIMA Model Results
+
+##### - Call
+`arima(x = demand_banking, order = c(0, 0, 9), fixed = c(0, 0, NA, rep(0, 5), NA, NA))`
+
+##### Coefficients Table
+
+```{r, echo=FALSE}
+# Create a data frame for the coefficients and standard errors
+coefficients <- data.frame(
+  Term = c("ma1", "ma2", "ma3", "ma4", "ma5", "ma6", "ma7", "ma8", "ma9", "intercept"),
+  Estimate = c(0, 0, -0.4725, 0, 0, 0, 0, 0, -0.0120, 79689.809),
+  `Std. Error` = c(0, 0, 0.1459, 0, 0, 0, 0, 0, 0.1444, 2674.593)
+)
+
+# Display the table
+knitr::kable(coefficients, col.names = c("Term", "Estimate", "Std. Error"), caption = "ARIMA Model Coefficients")
+```
 
