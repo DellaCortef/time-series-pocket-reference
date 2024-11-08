@@ -101,3 +101,12 @@ variances
 # acf to determine the order of the MA model
 acf(demand_banking)
 
+# tuning the MA model for lags 3 and 9
+ma.est <- arima(x = demand_banking,
+                order = c(0, 0, 9),
+                fixed = c(0, 0, NA, rep(0, 5), NA, NA))
+ma.est
+
+
+
+
