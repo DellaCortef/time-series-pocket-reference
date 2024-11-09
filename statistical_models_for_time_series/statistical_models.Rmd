@@ -513,3 +513,6 @@ kable(forecast_data, col.names = c("Step", "Point Forecast", "Lo 80", "Hi 80", "
 ```
 
 When we try to predict ten steps ahead of time in the future, we predict the average for each time interval. We could have done this without a sophisticated statistical model.
+
+
+## Integrated Autoregressive Moving Average Models
