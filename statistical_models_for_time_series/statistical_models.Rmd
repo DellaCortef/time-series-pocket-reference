@@ -331,7 +331,8 @@ predictions made further and further into the distant future from the same under
 
 As we can see in the next figure, the forecast variance decreases with the increase in the horizon ahead. The reason for this - which is a salient limitation of the model - is that the further 
 we go in time, the less the actual data matters, as the coefficients for the input data only consider a finite prior set of time points. In other words, the most distant predictions in time 
-converge to the unconditional prediction - that is, not conditioned on data. The future prediction approaches the mean value of the series as the time horizon increases, so the variance of both the error term and the predicted values decreases to 0, as the predicted values tend to converge to the unconditional mean value:
+converge to the unconditional prediction - that is, not conditioned on data. The future prediction approaches the mean value of the series as the time horizon increases, so the variance of both 
+the error term and the predicted values decreases to 0, as the predicted values tend to converge to the unconditional mean value:
 
 ---
 title: "Forecast Output"
@@ -542,7 +543,8 @@ After analyzing the AR and MA models individually, we will examine the autoregre
 have the dynamics of the underlying AR and MA models. This alone would lead us to an ARMA model, but we will cover the ARIMA model, which takes differentiation into account, a way to remove 
 trends and make a **time series** stationary.
 
-ARIMA models continue to perform at par with the latest, especially when dealing with small data sets where the most sophisticated machine learning or deep learning models are not the best. However, even ARIMA models present risks of overfitting, despite their relative simplicity.
+ARIMA models continue to perform at par with the latest, especially when dealing with small data sets where the most sophisticated machine learning or deep learning models are not the best. 
+However, even ARIMA models present risks of overfitting, despite their relative simplicity.
 
 ### The model
 
