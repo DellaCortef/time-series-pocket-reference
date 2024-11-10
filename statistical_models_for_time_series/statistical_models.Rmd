@@ -516,3 +516,5 @@ When we try to predict ten steps ahead of time in the future, we predict the ave
 
 
 ## Integrated Autoregressive Moving Average Models
+
+After analyzing the AR and MA models individually, we will examine the autoregressive integrated moving average (ARIMA) model that combines them, recognizing that the same **time series** can have the dynamics of the underlying AR and MA models. This alone would lead us to an ARMA model, but we will cover the ARIMA model, which takes differentiation into account, a way to remove trends and make a **time series** stationary.
