@@ -320,7 +320,8 @@ addressed before modeling.
 - however, if we want to go further, we will need to generate predicted futures as inputs into our prediction. Let's predict *y<sub>(t+3)</sub>*. A model with dependent coefficients 
 *y<sub>(t+1)</sub>* and y<sub>t</sub>* will be required. So we will need to predict these two values - *y<sub>(t+1)</sub>* and *y<sub>t</sub>* - and then use them in predicting y<sub> (t+3)</sub>. As before, we can use the *fitted()* function from the **forecast** package;
 
-Using the *fitted()* function with an additional parameter *h* for the horizon. It is worth remembering that our object *est.1* represents an AR (3) process with lag coefficient -1 (time - 1) restricted to 0:
+Using the *fitted()* function with an additional parameter *h* for the horizon. It is worth remembering that our object *est.1* represents an AR (3) process with lag coefficient -1 (time - 1) 
+restricted to 0:
 
 fitted(est.1, h = 3)
 NULL
@@ -329,7 +330,8 @@ We can use the facility to predict many steps ahead, generating multiple predict
 predictions made further and further into the distant future from the same underlying model.
 
 As we can see in the next figure, the forecast variance decreases with the increase in the horizon ahead. The reason for this - which is a salient limitation of the model - is that the further 
-we go in time, the less the actual data matters, as the coefficients for the input data only consider a finite prior set of time points. In other words, the most distant predictions in time converge to the unconditional prediction - that is, not conditioned on data. The future prediction approaches the mean value of the series as the time horizon increases, so the variance of both the error term and the predicted values decreases to 0, as the predicted values tend to converge to the unconditional mean value:
+we go in time, the less the actual data matters, as the coefficients for the input data only consider a finite prior set of time points. In other words, the most distant predictions in time 
+converge to the unconditional prediction - that is, not conditioned on data. The future prediction approaches the mean value of the series as the time horizon increases, so the variance of both the error term and the predicted values decreases to 0, as the predicted values tend to converge to the unconditional mean value:
 
 ---
 title: "Forecast Output"
@@ -371,7 +373,8 @@ past values of the process itself. Thus, an MA model of order *q* is expressed a
 *y<sub>t</sub> = μ + e<sub>t</sub> + θ<sub>1</sub> X e<sub>(t-1)</sub> + θ<sub>2</sub> x e<sub>(t-2)</sub> + ... + θ<sub>q</sub> x e<sub>(t-q)</sub>*
 
 Economists refer to these error terms as "shocks" to the system, while an electrical engineer might refer to them as "impulses" and the model itself as an infinite impulse response filter, 
-meaning that the effects of any particular impulse last only a finite period of time. What is important is the concept that many independent events at different times in the past impact the current value of the process, in addition to the individual contribution of each of them.
+meaning that the effects of any particular impulse last only a finite period of time. What is important is the concept that many independent events at different times in the past impact the 
+current value of the process, in addition to the individual contribution of each of them.
 
 ##### - O Operador Backshift
 
@@ -384,7 +387,8 @@ The backshift operator helps simplify the expression of **time series** models. 
   
 *y<sub>t</sub> = μ + (1 + θ<sub>1</sub> X B + θ<sub>2</sub> x B$^2$ + ... + θ<sub>q</sub> x B$^q$)e<sub>t</sub>*
 
-By nature, MA models have weak stationarity without the need to impose any restrictions on their parameters. This is because the moving average and variance of an MA process are finite and time invariant, as the error terms are assumed to be iid with the mean 0. For example:
+By nature, MA models have weak stationarity without the need to impose any restrictions on their parameters. This is because the moving average and variance of an MA process are finite and time 
+invariant, as the error terms are assumed to be iid with the mean 0. For example:
 
 *E(y<sub>t</sub> = μ + e<sub>t</sub> + θ<sub>1</sub> X e<sub>(t-1)</sub> + θ<sub>2</sub> x e<sub>(t-2)</sub> + ... + θ<sub>q</sub> x e<sub>(t-q)</sub>)* = *E(μ) + θ<sub>1</sub> x 0 + θ<sub>2</sub> x 0 + ... = μ*
 
@@ -405,7 +409,8 @@ We will fit an MA model to the same data that we used to fit the AR model, and w
 
 ##### - ACF and PACF standards differ from MA and AR processes
 Unlike an autoregressive process that has a slowly exponentially decaying ACF, the definition of the MA process guarantees a sharp cutoff of the ACF for any value greater than *q*, the order of 
-the MA process. This is because an autoregressive process depends on previous terms, and they incorporate previous impulses into the system, whereas an MA model, which incorporates impulses directly through its value, has a mechanism to prevent the propagation of impulses from progressing indefinitely. .
+the MA process. This is because an autoregressive process depends on previous terms, and they incorporate previous impulses into the system, whereas an MA model, which incorporates impulses 
+directly through its value, has a mechanism to prevent the propagation of impulses from progressing indefinitely. .
 
 We can observe significant values at lags 3 and 9, so we fit an MA model with these lags. Care must be taken not to unintentionally restrict the wrong coefficients to 0 in the model, which we 
 can confirm by displaying:
@@ -435,8 +440,9 @@ knitr::kable(coefficients, col.names = c("Term", "Estimate", "Std. Error"), capt
 ```
 
 
-We should also check our fit, as we did in the AR model, by plotting the ACF of the model residuals and, with a second test of model performance, running the **Ljung-Box** test to check the overall 
-randomness in any fit of the residuals. . Note that the *Box.test()* input requires us to specify the number of degrees of freedom - that is, how many model parameters were free to be estimated rather than being restricted to a specific value. In this case, the free parameters were the intercept, as well as the MA3 and MA9 terms:
+We should also check our fit, as we did in the AR model, by plotting the ACF of the model residuals and, with a second test of model performance, running the **Ljung-Box** test to check the 
+overall randomness in any fit of the residuals. . Note that the *Box.test()* input requires us to specify the number of degrees of freedom - that is, how many model parameters were free to be 
+estimated rather than being restricted to a specific value. In this case, the free parameters were the intercept, as well as the MA3 and MA9 terms:
 <br><br>
 
 ---
@@ -533,4 +539,10 @@ When we try to predict ten steps ahead of time in the future, we predict the ave
 ## Integrated Autoregressive Moving Average Models
 
 After analyzing the AR and MA models individually, we will examine the autoregressive integrated moving average (ARIMA) model that combines them, recognizing that the same **time series** can 
-have the dynamics of the underlying AR and MA models. This alone would lead us to an ARMA model, but we will cover the ARIMA model, which takes differentiation into account, a way to remove trends and make a **time series** stationary.
+have the dynamics of the underlying AR and MA models. This alone would lead us to an ARMA model, but we will cover the ARIMA model, which takes differentiation into account, a way to remove 
+trends and make a **time series** stationary.
+
+ARIMA models continue to perform at par with the latest, especially when dealing with small data sets where the most sophisticated machine learning or deep learning models are not the best. However, even ARIMA models present risks of overfitting, despite their relative simplicity.
+
+### The model
+
