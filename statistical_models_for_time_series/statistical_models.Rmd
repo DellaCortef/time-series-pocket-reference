@@ -68,7 +68,8 @@ hierarchical modeling.
 The autoregressive (AR) model is based on the intuition that the past predicts the future. In this way, they presuppose a **series process temporal** in which the value at a point in 
 time *t* is a function of the series values at previous points in time.
 
-And so that we have an idea of how statisticians use these methods and its properties, our analysis will be thorough. Therefore, we will start with a comprehensive theoretical overview. If you are not interested in technicality of how the properties of statistical models are calculated in **time series**, just take a look at this section.<br><br>
+And so that we have an idea of how statisticians use these methods and its properties, our analysis will be thorough. Therefore, we will start with a comprehensive theoretical overview. If you 
+are not interested in technicality of how the properties of statistical models are calculated in **time series**, just take a look at this section.<br><br>
 
 #### Using algebra to understand constraints in AR processes
 
@@ -316,16 +317,19 @@ addressed before modeling.
 #### - Multi-step ahead forecast
 - to predict 2 steps ahead, for example, we would first need to predict one step ahead and then use the results to predict the next step forward;
 - for our case, we do not need to implement this dynamic, since the value of *y<sub>(t-1)</sub>* is not used to predict *y<sub>(t+1)</sub >*;
-- however, if we want to go further, we will need to generate predicted futures as inputs into our prediction. Let's predict *y<sub>(t+3)</sub>*. A model with dependent coefficients *y<sub>(t+1)</sub>* and y<sub>t</sub>* will be required. So we will need to predict these two values - *y<sub>(t+1)</sub>* and *y<sub>t</sub>* - and then use them in predicting y<sub> (t+3)</sub>. As before, we can use the *fitted()* function from the **forecast** package;
+- however, if we want to go further, we will need to generate predicted futures as inputs into our prediction. Let's predict *y<sub>(t+3)</sub>*. A model with dependent coefficients 
+*y<sub>(t+1)</sub>* and y<sub>t</sub>* will be required. So we will need to predict these two values - *y<sub>(t+1)</sub>* and *y<sub>t</sub>* - and then use them in predicting y<sub> (t+3)</sub>. As before, we can use the *fitted()* function from the **forecast** package;
 
 Using the *fitted()* function with an additional parameter *h* for the horizon. It is worth remembering that our object *est.1* represents an AR (3) process with lag coefficient -1 (time - 1) restricted to 0:
 
 fitted(est.1, h = 3)
 NULL
 
-We can use the facility to predict many steps ahead, generating multiple predictions of several steps ahead for different horizons. In the next example, we can look at the variance of predictions made further and further into the distant future from the same underlying model.
+We can use the facility to predict many steps ahead, generating multiple predictions of several steps ahead for different horizons. In the next example, we can look at the variance of 
+predictions made further and further into the distant future from the same underlying model.
 
-As we can see in the next figure, the forecast variance decreases with the increase in the horizon ahead. The reason for this - which is a salient limitation of the model - is that the further we go in time, the less the actual data matters, as the coefficients for the input data only consider a finite prior set of time points. In other words, the most distant predictions in time converge to the unconditional prediction - that is, not conditioned on data. The future prediction approaches the mean value of the series as the time horizon increases, so the variance of both the error term and the predicted values decreases to 0, as the predicted values tend to converge to the unconditional mean value:
+As we can see in the next figure, the forecast variance decreases with the increase in the horizon ahead. The reason for this - which is a salient limitation of the model - is that the further 
+we go in time, the less the actual data matters, as the coefficients for the input data only consider a finite prior set of time points. In other words, the most distant predictions in time converge to the unconditional prediction - that is, not conditioned on data. The future prediction approaches the mean value of the series as the time horizon increases, so the variance of both the error term and the predicted values decreases to 0, as the predicted values tend to converge to the unconditional mean value:
 
 ---
 title: "Forecast Output"
@@ -355,20 +359,24 @@ knitr::kable(forecast_results, caption = "Forecast Output with Confidence Interv
 
 ## Moving Average Models
 
-A moving average (MA) model is based on a process in which the value at each point in time is a function of value "error" terms from the recent past, each independent of the others. Let's return to this model with the same steps we used to study AR models.
+A moving average (MA) model is based on a process in which the value at each point in time is a function of value "error" terms from the recent past, each independent of the others. Let's return 
+to this model with the same steps we used to study AR models.
 
 
 ### The model
 
-A moving average model can be expressed similarly to an autoregressive model, except that the terms included in the linear equation refer to present and past error terms rather than present and past values of the process itself. Thus, an MA model of order *q* is expressed as:
+A moving average model can be expressed similarly to an autoregressive model, except that the terms included in the linear equation refer to present and past error terms rather than present and 
+past values of the process itself. Thus, an MA model of order *q* is expressed as:
 
 *y<sub>t</sub> = μ + e<sub>t</sub> + θ<sub>1</sub> X e<sub>(t-1)</sub> + θ<sub>2</sub> x e<sub>(t-2)</sub> + ... + θ<sub>q</sub> x e<sub>(t-q)</sub>*
 
-Economists refer to these error terms as "shocks" to the system, while an electrical engineer might refer to them as "impulses" and the model itself as an infinite impulse response filter, meaning that the effects of any particular impulse last only a finite period of time. What is important is the concept that many independent events at different times in the past impact the current value of the process, in addition to the individual contribution of each of them.
+Economists refer to these error terms as "shocks" to the system, while an electrical engineer might refer to them as "impulses" and the model itself as an infinite impulse response filter, 
+meaning that the effects of any particular impulse last only a finite period of time. What is important is the concept that many independent events at different times in the past impact the current value of the process, in addition to the individual contribution of each of them.
 
 ##### - O Operador Backshift
 
-The backshift operator, also known as the lag operator, operates on **time series** points and shifts them one step back each time it is applied. In general:
+The backshift operator, also known as the lag operator, operates on **time series** points and shifts them one step back each time 
+it is applied. In general:
   
 *B$^k$y<sub>t</sub> = y<sub>(t-k)</sub>*
 
@@ -380,7 +388,8 @@ By nature, MA models have weak stationarity without the need to impose any restr
 
 *E(y<sub>t</sub> = μ + e<sub>t</sub> + θ<sub>1</sub> X e<sub>(t-1)</sub> + θ<sub>2</sub> x e<sub>(t-2)</sub> + ... + θ<sub>q</sub> x e<sub>(t-q)</sub>)* = *E(μ) + θ<sub>1</sub> x 0 + θ<sub>2</sub> x 0 + ... = μ*
 
-To calculate the variance of the process, we use the fact that the terms *e<sub>t</sub>* are iid, and also the general statistical property that the variance of the sum of two random variables is equal to their individual variances. added twice to their covariance. For iid variables, the covariance is 0. This generates the expression:
+To calculate the variance of the process, we use the fact that the terms *e<sub>t</sub>* are iid, and also the general statistical property that the variance of the sum of two random variables 
+is equal to their individual variances. added twice to their covariance. For iid variables, the covariance is 0. This generates the expression:
 
 *Var(y<sub>t</sub>) = (1 + θ<sub>1</sub>$^2$ + θ<sub>2</sub>$^2$ + ... + θ<sub>q</sub>$^2$) x σ<sub>e</sub>$^2$*
 
@@ -395,9 +404,11 @@ We will fit an MA model to the same data that we used to fit the AR model, and w
 <br>
 
 ##### - ACF and PACF standards differ from MA and AR processes
-Unlike an autoregressive process that has a slowly exponentially decaying ACF, the definition of the MA process guarantees a sharp cutoff of the ACF for any value greater than *q*, the order of the MA process. This is because an autoregressive process depends on previous terms, and they incorporate previous impulses into the system, whereas an MA model, which incorporates impulses directly through its value, has a mechanism to prevent the propagation of impulses from progressing indefinitely. .
+Unlike an autoregressive process that has a slowly exponentially decaying ACF, the definition of the MA process guarantees a sharp cutoff of the ACF for any value greater than *q*, the order of 
+the MA process. This is because an autoregressive process depends on previous terms, and they incorporate previous impulses into the system, whereas an MA model, which incorporates impulses directly through its value, has a mechanism to prevent the propagation of impulses from progressing indefinitely. .
 
-We can observe significant values ​​at lags 3 and 9, so we fit an MA model with these lags. Care must be taken not to unintentionally restrict the wrong coefficients to 0 in the model, which we can confirm by displaying:
+We can observe significant values at lags 3 and 9, so we fit an MA model with these lags. Care must be taken not to unintentionally restrict the wrong coefficients to 0 in the model, which we 
+can confirm by displaying:
 
 ---
 title: "ARIMA Model Output"
@@ -424,7 +435,8 @@ knitr::kable(coefficients, col.names = c("Term", "Estimate", "Std. Error"), capt
 ```
 
 
-We should also check our fit, as we did in the AR model, by plotting the ACF of the model residuals and, with a second test of model performance, running the **Ljung-Box** test to check the overall randomness in any fit of the residuals. . Note that the *Box.test()* input requires us to specify the number of degrees of freedom - that is, how many model parameters were free to be estimated rather than being restricted to a specific value. In this case, the free parameters were the intercept, as well as the MA3 and MA9 terms:
+We should also check our fit, as we did in the AR model, by plotting the ACF of the model residuals and, with a second test of model performance, running the **Ljung-Box** test to check the overall 
+randomness in any fit of the residuals. . Note that the *Box.test()* input requires us to specify the number of degrees of freedom - that is, how many model parameters were free to be estimated rather than being restricted to a specific value. In this case, the free parameters were the intercept, as well as the MA3 and MA9 terms:
 <br><br>
 
 ---
@@ -472,15 +484,18 @@ time_series_data <- matrix(
 kable(time_series_data, col.names = paste("Value", 1:8), caption = "Time Series Values")
 ```
 
-MA models exhibit strong mean reversion, so predictions quickly converge to the process mean. It makes perfect sense, given that the process is considered a function of white noise. If we predict beyond the model range established by its order, by definition of the process, the prediction will necessarily be its average. Consider an MA(1) model:
+MA models exhibit strong mean reversion, so predictions quickly converge to the process mean. It makes perfect sense, given that the process is considered a function of white noise. If we 
+predict beyond the model range established by its order, by definition of the process, the prediction will necessarily be its average. Consider an MA(1) model:
 
 *y<sub>t</sub> = μ + θ<sub>1</sub> X e<sub>(t-1)</sub> + e<sub>t</sub>*
 
-To predict a time interval in the future, our estimate for *y<sub>(t+1)</sub>* is *μ + θ<sub>1</sub> sub> + e<sub>t</sub>*. If we want to predict two time intervals in the future, our estimate is:
+To predict a time interval in the future, our estimate for *y<sub>(t+1)</sub>* is *μ + θ<sub>1</sub> sub> + e<sub>t</sub>*. If we want to predict two time intervals in the future, 
+our estimate is:
 
 *E(y<sub>(t+2)</sub> = μ + e<sub>(t+2)</sub> + θ<sub>1</sub> X e<sub>(t+1)</sub>) = μ + 0 + θ<sub>1</sub> x 0 = μ*
 
-With an MA(1) process we cannot present an informative prediction beyond one step forward, and for an MA(*q*) process in general we cannot present a more informative prediction beyond *q* steps than the average value generated through the process. By *informative* prediction, I mean one in which our most recent measurements impact our prediction.
+With an MA(1) process we cannot present an informative prediction beyond one step forward, and for an MA(*q*) process in general we cannot present a more informative prediction beyond *q* steps 
+than the average value generated through the process. By *informative* prediction, I mean one in which our most recent measurements impact our prediction.
 
 We can check this by generating predictions with our MA model (9) that we just tuned and for which we now look for predictions ten steps ahead:
 
@@ -517,4 +532,5 @@ When we try to predict ten steps ahead of time in the future, we predict the ave
 
 ## Integrated Autoregressive Moving Average Models
 
-After analyzing the AR and MA models individually, we will examine the autoregressive integrated moving average (ARIMA) model that combines them, recognizing that the same **time series** can have the dynamics of the underlying AR and MA models. This alone would lead us to an ARMA model, but we will cover the ARIMA model, which takes differentiation into account, a way to remove trends and make a **time series** stationary.
+After analyzing the AR and MA models individually, we will examine the autoregressive integrated moving average (ARIMA) model that combines them, recognizing that the same **time series** can 
+have the dynamics of the underlying AR and MA models. This alone would lead us to an ARMA model, but we will cover the ARIMA model, which takes differentiation into account, a way to remove trends and make a **time series** stationary.
