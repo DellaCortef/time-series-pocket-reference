@@ -594,6 +594,10 @@ There are heuristics for choosing the parameters of an ARIMA model, in which *pa
 2. Estimate the parameters according to your training data;
 3. Evaluate your model's performance based on your training data and adjust model parameters to address gaps that you identify in your performance diagnostics;
 
+We will generate our data from an ARMA process:
+
+
+
 
 
 
