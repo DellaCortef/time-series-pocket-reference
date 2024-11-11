@@ -132,5 +132,9 @@ y <- arima.sim(n = 1000, list(ar = 0.5, ma = 0.5))
 # basic time series plot
 plot(y, main = "Simulated Time Series", ylab = "Values", xlab = "Time")
 
+# acf to determine the order of the ARMA model
+acf(y)
 
-                               
+# pacf to determine the order of the ARMA model
+pacf(y)
+
