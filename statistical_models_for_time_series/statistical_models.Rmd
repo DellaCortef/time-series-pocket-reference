@@ -565,11 +565,34 @@ More traditional statistical notation, applying negative signs to the MA process
 
 *y<sub>t</sub> = Ø<sub>0</sub> + $\sum_{}{}$(Ø<sub>i</sub> x r<sub>(t-1)</sub>) + e<sub>t</sub> - $\sum_{}{}$(θ<sub>i</sub> x e<sub>(t-1)</sub>)*
 
+The stationarity of the ARMA process comes down to the stationarity of its AR component, being controlled by the same characteristic equation that controls whether an AR model is stationary. The transition from an ARMA model to an ARIMA model is simple. The difference between an ARMA model and an ARIMA model includes the term *integrated*, which refers to how many times the modeled **time series** must be differentiated to generate stationarity.
 
+In practice, ARIMA models are more widely implemented, especially in the field of academic research and forecasting problems, than AR, MA and ARMA models.
+Varieties of problems with ARIMA application:
+- passengers arriving by plane;
+- energy demand by types of fuel;
+- daily wholesale sales;
+- demand for emergency services in countries;
 
+It is worth mentioning that the order of differentiation should not be too large. In general, the value of each parameter of an ARIMA model (*p, d, q*) should be as small as possible in order to avoid unwarranted complexity and excessive fit to the sample data. As a practical but not generalized rule, you should be suspicious of *d* values when they are above 2 and *p* and *q* values when they are above 5 or close to it. Furthermore, the value of *p* and *q* is expected to be larger and *d* to be relatively smaller. 
 
+#### Selecting parameters
 
+The ARIMA model is specified in terms of parameters (*p, d, q*). We will select the appropriate values of *p*, *d*, and *q* according to the data we have. ARIMA model examples from Wikipedia:
 
+- ARIMA (0, 0, 0) is a white noise model;
+- ARIMA (0, 1, 0) is a random walk and ARIMA (0, 1, 0) with a non-zero constant is a random walk with displacement;
+- ARIMA (0, 1, 1) is an exponential smoothing model; and an ARIMA (0, 2, 2) is the same as the Holt linear method, which extends exponential smoothing to data with a trend so that it can be used to predict data with an underlying trend;
+
+We will choose the order of our model based on a combination of domain knowledge, various fit assessment metrics (such as AIC), and general knowledge of how PACF and ACF should figure in a given underlying process. Afterwards, we will demonstrate the adjustment of an ARIMA model using a manual iterative process based on PACF and ACF and also an automated parameter selection tool using the *auto.arima()* function from the **forecast** package.
+
+#### - Adjusting a model manually
+
+There are heuristics for choosing the parameters of an ARIMA model, in which *parsimony is fundamental*. A popular and long-advocated method is the Box-Jenkins method, an iterative process with steps:
+
+1. Use your data, visualizations, and underlying knowledge to select a model class appropriate to your data;
+2. Estimate the parameters according to your training data;
+3. Evaluate your model's performance based on your training data and adjust model parameters to address gaps that you identify in your performance diagnostics;
 
 
 

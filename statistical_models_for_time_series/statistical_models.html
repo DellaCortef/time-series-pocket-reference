@@ -1380,14 +1380,70 @@ covariance and stationary can be expressed as the sum of two
 stochastic. Based on this theorem, we can also claim that a stationary
 process can be reasonably approximated by an ARMA model, although it is
 very difficult to identify the appropriate model.</p>
-<p>Notação estatística mais tradicional, aplicando sinais negativos aos
-coeficientes do processo MA:</p>
-<p>*y<sub>t</sub> = Ø<sub>0</sub> + _({Ø<sub>i</sub> x
-r<sub>(t-1)</sub>) + e<sub>t</sub> - (θ<sub>i</sub> x
-e<sub>(t-1)</sub>)*</p>
+<p>More traditional statistical notation, applying negative signs to the
+MA process coefficients:</p>
 <p><em>y<sub>t</sub> = Ø<sub>0</sub> + <span class="math inline">\(\sum_{}{}\)</span>(Ø<sub>i</sub> x
 r<sub>(t-1)</sub>) + e<sub>t</sub> - <span class="math inline">\(\sum_{}{}\)</span>(θ<sub>i</sub> x
 e<sub>(t-1)</sub>)</em></p>
+<p>The stationarity of the ARMA process comes down to the stationarity
+of its AR component, being controlled by the same characteristic
+equation that controls whether an AR model is stationary. The transition
+from an ARMA model to an ARIMA model is simple. The difference between
+an ARMA model and an ARIMA model includes the term <em>integrated</em>,
+which refers to how many times the modeled <strong>time series</strong>
+must be differentiated to generate stationarity.</p>
+<p>In practice, ARIMA models are more widely implemented, especially in
+the field of academic research and forecasting problems, than AR, MA and
+ARMA models. Varieties of problems with ARIMA application: - passengers
+arriving by plane; - energy demand by types of fuel; - daily wholesale
+sales; - demand for emergency services in countries;</p>
+<p>It is worth mentioning that the order of differentiation should not
+be too large. In general, the value of each parameter of an ARIMA model
+(<em>p, d, q</em>) should be as small as possible in order to avoid
+unwarranted complexity and excessive fit to the sample data. As a
+practical but not generalized rule, you should be suspicious of
+<em>d</em> values when they are above 2 and <em>p</em> and <em>q</em>
+values when they are above 5 or close to it. Furthermore, the value of
+<em>p</em> and <em>q</em> is expected to be larger and <em>d</em> to be
+relatively smaller.</p>
+</div>
+<div id="selecting-parameters" class="section level4">
+<h4>Selecting parameters</h4>
+<p>The ARIMA model is specified in terms of parameters (<em>p, d,
+q</em>). We will select the appropriate values of <em>p</em>,
+<em>d</em>, and <em>q</em> according to the data we have. ARIMA model
+examples from Wikipedia:</p>
+<ul>
+<li>ARIMA (0, 0, 0) is a white noise model;</li>
+<li>ARIMA (0, 1, 0) is a random walk and ARIMA (0, 1, 0) with a non-zero
+constant is a random walk with displacement;</li>
+<li>ARIMA (0, 1, 1) is an exponential smoothing model; and an ARIMA (0,
+2, 2) is the same as the Holt linear method, which extends exponential
+smoothing to data with a trend so that it can be used to predict data
+with an underlying trend;</li>
+</ul>
+<p>We will choose the order of our model based on a combination of
+domain knowledge, various fit assessment metrics (such as AIC), and
+general knowledge of how PACF and ACF should figure in a given
+underlying process. Afterwards, we will demonstrate the adjustment of an
+ARIMA model using a manual iterative process based on PACF and ACF and
+also an automated parameter selection tool using the
+<em>auto.arima()</em> function from the <strong>forecast</strong>
+package.</p>
+</div>
+<div id="adjusting-a-model-manually" class="section level4">
+<h4>- Adjusting a model manually</h4>
+<p>There are heuristics for choosing the parameters of an ARIMA model,
+in which <em>parsimony is fundamental</em>. A popular and long-advocated
+method is the Box-Jenkins method, an iterative process with steps:</p>
+<ol style="list-style-type: decimal">
+<li>Use your data, visualizations, and underlying knowledge to select a
+model class appropriate to your data;</li>
+<li>Estimate the parameters according to your training data;</li>
+<li>Evaluate your model’s performance based on your training data and
+adjust model parameters to address gaps that you identify in your
+performance diagnostics;</li>
+</ol>
 </div>
 </div>
 </div>
