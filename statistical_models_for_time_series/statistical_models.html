@@ -967,7 +967,7 @@ terms, and they incorporate previous impulses into the system, whereas
 an MA model, which incorporates impulses directly through its value, has
 a mechanism to prevent the propagation of impulses from progressing
 indefinitely. .</p>
-<p>We can observe significant values ​​at lags 3 and 9, so we fit an MA
+<p>We can observe significant values at lags 3 and 9, so we fit an MA
 model with these lags. Care must be taken not to unintentionally
 restrict the wrong coefficients to 0 in the model, which we can confirm
 by displaying:</p>
@@ -1310,7 +1310,84 @@ and 95% confidence intervals.</p>
 </tr>
 </tbody>
 </table>
+<p>When we try to predict ten steps ahead of time in the future, we
+predict the average for each time interval. We could have done this
+without a sophisticated statistical model.</p>
 </div>
+</div>
+</div>
+</div>
+<div id="integrated-autoregressive-moving-average-models" class="section level2">
+<h2>Integrated Autoregressive Moving Average Models</h2>
+<p>After analyzing the AR and MA models individually, we will examine
+the autoregressive integrated moving average (ARIMA) model that combines
+them, recognizing that the same <strong>time series</strong> can have
+the dynamics of the underlying AR and MA models. This alone would lead
+us to an ARMA model, but we will cover the ARIMA model, which takes
+differentiation into account, a way to remove trends and make a
+<strong>time series</strong> stationary.</p>
+<p>ARIMA models continue to perform at par with the latest, especially
+when dealing with small data sets where the most sophisticated machine
+learning or deep learning models are not the best. However, even ARIMA
+models present risks of overfitting, despite their relative
+simplicity.</p>
+<div id="the-model-1" class="section level3">
+<h3>The model</h3>
+<p>As you can see, we just fitted the same data to an AR and MA process.
+With that in mind, wouldn’t it be better to incorporate both behaviors
+in the same model?</p>
+<table>
+<colgroup>
+<col width="29%" />
+<col width="29%" />
+<col width="29%" />
+<col width="11%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">Chart type</th>
+<th align="center">AR (<em>p</em>)</th>
+<th align="center">MA (<em>q</em>)</th>
+<th align="center">ARMA</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">ACF Behavior</td>
+<td align="center">Slow fall</td>
+<td align="center">Sharp drop after lag = <em>q</em></td>
+<td align="center">No sharp cutoff</td>
+</tr>
+<tr class="even">
+<td align="center">PACF Behavior</td>
+<td align="center">Sharp drop after lag = <em>p</em></td>
+<td align="center">Slow fall</td>
+<td align="center">No sharp cutoff</td>
+</tr>
+</tbody>
+</table>
+<p>This leads us to an autoregressive moving average (ARMA) model,
+applied to cases in which neither the terms AR nor MA are sufficient to
+represent the empirical dynamics. This can occur when the diagnostics
+for AR and MA order statistics (PACF and ACF, respectively) signal
+non-zero values, indicating a term of a certain order for an AR or MA
+term. They can be combined with a ARMA model.</p>
+<div id="wolds-theorem" class="section level5">
+<h5>- Wold’s theorem</h5>
+<p>Wold’s theorem states that every <strong>time series</strong> with
+covariance and stationary can be expressed as the sum of two
+<strong>time series</strong>, one deterministic and the other
+stochastic. Based on this theorem, we can also claim that a stationary
+process can be reasonably approximated by an ARMA model, although it is
+very difficult to identify the appropriate model.</p>
+<p>Notação estatística mais tradicional, aplicando sinais negativos aos
+coeficientes do processo MA:</p>
+<p>*y<sub>t</sub> = Ø<sub>0</sub> + _({Ø<sub>i</sub> x
+r<sub>(t-1)</sub>) + e<sub>t</sub> - (θ<sub>i</sub> x
+e<sub>(t-1)</sub>)*</p>
+<p><em>y<sub>t</sub> = Ø<sub>0</sub> + <span class="math inline">\(\sum_{}{}\)</span>(Ø<sub>i</sub> x
+r<sub>(t-1)</sub>) + e<sub>t</sub> - <span class="math inline">\(\sum_{}{}\)</span>(θ<sub>i</sub> x
+e<sub>(t-1)</sub>)</em></p>
 </div>
 </div>
 </div>

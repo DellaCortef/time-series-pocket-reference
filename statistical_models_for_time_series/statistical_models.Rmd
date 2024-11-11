@@ -548,3 +548,29 @@ However, even ARIMA models present risks of overfitting, despite their relative 
 
 ### The model
 
+As you can see, we just fitted the same data to an AR and MA process. With that in mind, wouldn’t it be better to incorporate both behaviors in the same model?
+
+| Chart type    | AR (*p*)      | MA (*q*)      | ARMA |
+|:-------------:|:-------------:|:-------------:|:----:|
+| ACF  Behavior | Slow fall                  | Sharp drop after lag = *q* | No sharp cutoff |
+| PACF Behavior | Sharp drop after lag = *p* | Slow fall                  | No sharp cutoff |
+
+This leads us to an autoregressive moving average (ARMA) model, applied to cases in which neither the terms AR nor MA are sufficient to represent the empirical dynamics. This can occur when the diagnostics for AR and MA order statistics (PACF and ACF, respectively) signal non-zero values, indicating a term of a certain order for an AR or MA term. They can be combined with a ARMA model.
+
+##### - Wold's theorem
+
+Wold's theorem states that every **time series** with covariance and stationary can be expressed as the sum of two **time series**, one deterministic and the other stochastic. Based on this theorem, we can also claim that a stationary process can be reasonably approximated by an ARMA model, although it is very difficult to identify the appropriate model.
+
+More traditional statistical notation, applying negative signs to the MA process coefficients:
+
+*y<sub>t</sub> = Ø<sub>0</sub> + $\sum_{}{}$(Ø<sub>i</sub> x r<sub>(t-1)</sub>) + e<sub>t</sub> - $\sum_{}{}$(θ<sub>i</sub> x e<sub>(t-1)</sub>)*
+
+
+
+
+
+
+
+
+
+
