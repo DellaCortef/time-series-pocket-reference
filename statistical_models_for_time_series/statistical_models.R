@@ -121,3 +121,16 @@ forecast_results <- forecast(ma.est, h = 10)
 
 # display the forecast results
 print(forecast_results)
+
+# arma () process
+require(forecast)
+set.seed(1017)
+
+# hidden arima model order
+y <- arima.sim(n = 1000, list(ar = 0.5, ma = 0.5))
+
+# basic time series plot
+plot(y, main = "Simulated Time Series", ylab = "Values", xlab = "Time")
+
+
+                               
