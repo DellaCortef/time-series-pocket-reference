@@ -13,7 +13,7 @@
 
 <meta name="date" content="2024-11-05" />
 
-<title>Forecast Output Table</title>
+<title>ARIMA Model Output</title>
 
 <script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
 // be compatible with the behavior of Pandoc < 2.8).
@@ -350,7 +350,7 @@ display: none;
 
 
 
-<h1 class="title toc-ignore">Forecast Output Table</h1>
+<h1 class="title toc-ignore">ARIMA Model Output</h1>
 <h4 class="author">Della</h4>
 <h4 class="date">2024-11-05</h4>
 
@@ -1552,7 +1552,121 @@ coefficients:</p>
 </tr>
 </tbody>
 </table>
-<p>Ajustar um modelo</p>
+<p>Tuning an ARIMA model manually is more complex than just the steps
+taken here. We must not forget that there are valid criticisms about
+“manual” tuning of an ARIMA process. Manually adjusting a model can be a
+process that leaves something to be desired in terms of specification,
+as the analyst’s representation ends up under a lot of pressure, takes
+time and depends on the final result.</p>
+<div id="using-automated-model-tuning" class="section level5">
+<h5>- Using automated model tuning</h5>
+<p>Nowadays, we can forego a manual interactive adjustment process and
+use, depending on the case, an automated model. Model selection will
+depend on several information loss criteria, such as the AIC seen
+briefly through the <em>auto.arima()</em> function in the
+<strong>forecast</strong> package:<br><br></p>
+</div>
+<div id="arima-model-results-3" class="section level5">
+<h5>ARIMA Model Results</h5>
+</div>
+<div id="model-information" class="section level5">
+<h5>- Model Information</h5>
+<ul>
+<li><strong>Series</strong>: demand_banking</li>
+<li><strong>Model</strong>: ARIMA(0,0,3) with non-zero mean</li>
+</ul>
+</div>
+<div id="coefficients-table-1" class="section level5">
+<h5>- Coefficients Table</h5>
+<table>
+<caption>ARIMA Model Coefficients</caption>
+<thead>
+<tr class="header">
+<th align="left">Term</th>
+<th align="right">Estimate</th>
+<th align="right">Std. Error</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">ma1</td>
+<td align="right">-0.0645</td>
+<td align="right">0.1327</td>
+</tr>
+<tr class="even">
+<td align="left">ma2</td>
+<td align="right">-0.1144</td>
+<td align="right">0.1150</td>
+</tr>
+<tr class="odd">
+<td align="left">ma3</td>
+<td align="right">-0.4796</td>
+<td align="right">0.1915</td>
+</tr>
+<tr class="even">
+<td align="left">mean</td>
+<td align="right">79914.7830</td>
+<td align="right">1897.4070</td>
+</tr>
+</tbody>
+</table>
+<p>We use a one-liner with prior knowledge from our previous exploration
+to define the inputs. That is, we specified the maximum order of the AR
+and MA process that we were prepared to accept, and in fact model
+selection chose a more parsimonious model than we specified, without any
+AR terms. However, this model fits well and we should not resort to data
+snooping unless we have a justified reason to do so. Note that,
+according to the AIC criteria, our previously chosen manually MA model
+performs slightly better than the automatically chosen model, but when
+we look at the graphs, the difference does not seem significant.</p>
+<p>Podemos analisar como o <em>auto.arima()</em> seria executado no
+modelo que geramos anteriormente:</p>
+</div>
+<div id="arima-model-results-4" class="section level5">
+<h5>ARIMA Model Results</h5>
+</div>
+<div id="model-information-1" class="section level5">
+<h5>- Model Information</h5>
+<ul>
+<li><strong>Series</strong>: y</li>
+<li><strong>Model</strong>: ARIMA(3,0,1) with zero mean</li>
+</ul>
+</div>
+<div id="coefficients-table-2" class="section level5">
+<h5>- Coefficients Table</h5>
+<table>
+<caption>ARIMA Model Coefficients</caption>
+<thead>
+<tr class="header">
+<th align="left">Term</th>
+<th align="right">Estimate</th>
+<th align="right">Std. Error</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">ar1</td>
+<td align="right">0.6242</td>
+<td align="right">0.0847</td>
+</tr>
+<tr class="even">
+<td align="left">ar2</td>
+<td align="right">-0.3537</td>
+<td align="right">0.0384</td>
+</tr>
+<tr class="odd">
+<td align="left">ar3</td>
+<td align="right">-0.0526</td>
+<td align="right">0.0473</td>
+</tr>
+<tr class="even">
+<td align="left">ma1</td>
+<td align="right">-0.5586</td>
+<td align="right">0.0798</td>
+</tr>
+</tbody>
+</table>
+</div>
 </div>
 </div>
 </div>

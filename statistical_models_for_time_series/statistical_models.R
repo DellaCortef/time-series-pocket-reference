@@ -170,3 +170,18 @@ cor(y, ar2.ma2.model$fitted)
 # comparing the original adjusted coefficients with the adjusted coefficients
 y = arima.sim(n = 1000, list(ar = c(0.8, -0.4), ma = c(-0.7)))
 ar2.ma1.model$coef
+
+# using automated model tuning
+est = auto.arima(demand_banking,
+                 stepwise = FALSE, ## too slow, but it allows completed search
+                 max.p = 3, max.q = 9)
+est
+
+# applying automated *auto.arima()*
+auto.model = auto.arima(y)
+auto.model
+
+
+
+
+
