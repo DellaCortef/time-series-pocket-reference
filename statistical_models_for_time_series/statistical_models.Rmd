@@ -609,4 +609,6 @@ We can see that neither the ACF function nor the PACF have a sharp cutoff, sugge
 
 Os resíduos mostram valores PACF enormes, sugerindo que não representamo totalmente o comportamento autorregressivo. por isso, criamos o modelo adicionando um componente AR de ordem superior, testamos um modelo ARIMA (2, 0, 1) no código a seguir e, depois, plotaremos a ACF e PACF dos resíduos desse modelo mais complexo:
 
+![AR2MA1 model](https://github.com/DellaCortef/time-series-pocket-reference/blob/main/statistical_models_for_time_series/images/arma-testing-model.R.png?raw=true)
 
+![ACF and PACF model](https://github.com/DellaCortef/time-series-pocket-reference/blob/main/statistical_models_for_time_series/images/ar2ma1-acf-pacf-model.R.png?raw=true)
