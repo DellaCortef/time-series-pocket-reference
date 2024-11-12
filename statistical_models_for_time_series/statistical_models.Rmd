@@ -607,8 +607,13 @@ We can see that neither the ACF function nor the PACF have a sharp cutoff, sugge
 
 ![ARMA () ACF and PACF model](https://github.com/DellaCortef/time-series-pocket-reference/blob/main/statistical_models_for_time_series/images/arma-acf-pacf-model.R.png?raw=true)
 
-Os resíduos mostram valores PACF enormes, sugerindo que não representamo totalmente o comportamento autorregressivo. por isso, criamos o modelo adicionando um componente AR de ordem superior, testamos um modelo ARIMA (2, 0, 1) no código a seguir e, depois, plotaremos a ACF e PACF dos resíduos desse modelo mais complexo:
+The residuals show huge PACF values, suggesting that we do not fully represent the autoregressive behavior. Therefore, we create the model by adding a higher-order AR component, test an ARIMA (2, 0, 1) model in the following code, and then plot the ACF and PACF of the residuals from this more complex model:
 
 ![AR2MA1 model](https://github.com/DellaCortef/time-series-pocket-reference/blob/main/statistical_models_for_time_series/images/arma-testing-model.R.png?raw=true)
 
 ![ACF and PACF model](https://github.com/DellaCortef/time-series-pocket-reference/blob/main/statistical_models_for_time_series/images/ar2ma1-acf-pacf-model.R.png?raw=true)
+
+Os resíduos não mostram mais valores enormes para as respectivas ACF e pACF. Dada nossa vontade de um modelo parcimonioso e os riscos de sobreajustes de um modelo ARIMA, um analista sábio pararia por aqui mesmo, já que não temos nenhum comportamento adicional nos resíduos que precisem ser ajustados por meio de um componente autorregressivo, de média móvel ou diferenciação. Podemos trazer mais complexidade ajustando MA (2) para nosso modelo:
+
+
+
