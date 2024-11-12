@@ -641,3 +641,80 @@ With this, we can observe how well the adjustment performed, comparing the origi
 Tuning an ARIMA model manually is more complex than just the steps taken here. We must not forget that there are valid criticisms about "manual" tuning of an ARIMA process. Manually adjusting a model can be a process that leaves something to be desired in terms of specification, as the analyst's representation ends up under a lot of pressure, takes time and depends on the final result.
 
 ##### - Using automated model tuning
+
+Nowadays, we can forego a manual interactive adjustment process and use, depending on the case, an automated model. Model selection will depend on several information loss criteria, such as the AIC seen briefly through the *auto.arima()* function in the **forecast** package:<br><br>
+
+---
+title: "ARIMA Model Output"
+output: html_document
+---
+
+---
+title: "ARIMA Model Output"
+output: html_document
+---
+
+##### ARIMA Model Results
+
+##### - Model Information
+
+- **Series**: demand_banking
+- **Model**: ARIMA(0,0,3) with non-zero mean
+
+##### - Coefficients Table
+
+```{r, echo=FALSE}
+# Load the knitr library for table formatting
+library(knitr)
+
+# Create a data frame for the coefficients and standard errors
+coefficients <- data.frame(
+  Term = c("ma1", "ma2", "ma3", "mean"),
+  Estimate = c(-0.0645, -0.1144, -0.4796, 79914.783),
+  `Std. Error` = c(0.1327, 0.1150, 0.1915, 1897.407)
+)
+
+# Display the table with knitr::kable
+kable(coefficients, col.names = c("Term", "Estimate", "Std. Error"), caption = "ARIMA Model Coefficients")
+```
+
+We use a one-liner with prior knowledge from our previous exploration to define the inputs. That is, we specified the maximum order of the AR and MA process that we were prepared to accept, and in fact model selection chose a more parsimonious model than we specified, without any AR terms. However, this model fits well and we should not resort to data snooping unless we have a justified reason to do so. Note that, according to the AIC criteria, our previously chosen manually MA model performs slightly better than the automatically chosen model, but when we look at the graphs, the difference does not seem significant.
+
+We can analyze how *auto.arima()* would be executed in the model we generated previously:<br><br>
+
+---
+title: "ARIMA Model Output"
+output: html_document
+---
+
+##### ARIMA Model Results
+
+##### - Model Information
+
+- **Series**: y
+- **Model**: ARIMA(3,0,1) with zero mean
+
+##### - Coefficients Table
+
+```{r, echo=FALSE}
+# Load knitr for table formatting
+library(knitr)
+
+# Create a data frame for the coefficients and standard errors
+coefficients <- data.frame(
+  Term = c("ar1", "ar2", "ar3", "ma1"),
+  Estimate = c(0.6242, -0.3537, -0.0526, -0.5586),
+  `Std. Error` = c(0.0847, 0.0384, 0.0473, 0.0798)
+)
+
+# Display the table with knitr::kable
+kable(coefficients, col.names = c("Term", "Estimate", "Std. Error"), caption = "ARIMA Model Coefficients")
+```
+
+We didn't even use the optional parameters to suggest to *auto.arima()* where it should start its model search, and yet, it converged on the same solution with different methodologies.
+
+We perform our analysis by observing the ACF and PACF of residuals from simpler models in order to develop more complex models, while *auto.arima()* is largely driven by grid search that minimizes AIC. Obviously, since we generated the original data from an ARIMA process, this represents a simpler case than many real-world data. In this case, our manual adjustments and automatic model selection do not always reach the same conclusion.
+
+<br><br>
+
+## Vector Autoregression
