@@ -596,8 +596,13 @@ There are heuristics for choosing the parameters of an ARIMA model, in which *pa
 
 We will generate our data from an ARMA process:
 
+![Time Series ARMA model](https://github.com/DellaCortef/time-series-pocket-reference/blob/main/statistical_models_for_time_series/images/arima-time-series-simulation.R.png?raw=true)
+
+![ACF process of ARMA model](https://github.com/DellaCortef/time-series-pocket-reference/blob/main/statistical_models_for_time_series/images/arima-acf-arma-model.R.png?raw=true)
+
+![PACF process of ARMA model](https://github.com/DellaCortef/time-series-pocket-reference/blob/main/statistical_models_for_time_series/images/arima-pacf-arma-model.R.png?raw=true)
 
 
-
+Podemos ver que nem a função ACF tampouco a PACF possuem um cutoff acentuado, sugerindo que temos um processo ARMA. Começaremos ajustando um modelo ARIMA (1, 0, 1) relativamente simples, pois não vemos necessidade de diferenciação e nenhuma evidência:
 
 
