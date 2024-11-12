@@ -153,5 +153,15 @@ par(mfrow = c(2, 1))
 acf(ar2.ma1.model$residuals)
 pacf(ar2.ma1.model$residuals)
 
+# arma() model (2, 0, 2)
+ar2.ma2.model = Arima(y, order = c(2, 0, 2))
+plot(y, type = "l")
+lines(ar2.ma2.model$fitted, col = 2)
+plot(y, ar2.ma2.model$fitted)
+par(mfrow = c(2, 1))
+acf(ar2.ma2.model$residuals)
+pacf(ar2.ma2.model$residuals)
 
+arma-ar2ma2-model.R
+arma-ar2ma2-acf-pacf.R
 
