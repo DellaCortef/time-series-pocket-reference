@@ -162,6 +162,11 @@ par(mfrow = c(2, 1))
 acf(ar2.ma2.model$residuals)
 pacf(ar2.ma2.model$residuals)
 
-arma-ar2ma2-model.R
-arma-ar2ma2-acf-pacf.R
+# model comparison
+cor(y, ar1.ma1.model$fitted)
+cor(y, ar2.ma1.model$fitted)
+cor(y, ar2.ma2.model$fitted)
 
+# comparing the original adjusted coefficients with the adjusted coefficients
+y = arima.sim(n = 1000, list(ar = c(0.8, -0.4), ma = c(-0.7)))
+ar2.ma1.model$coef
