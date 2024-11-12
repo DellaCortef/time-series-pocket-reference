@@ -613,7 +613,31 @@ The residuals show huge PACF values, suggesting that we do not fully represent t
 
 ![ACF and PACF model](https://github.com/DellaCortef/time-series-pocket-reference/blob/main/statistical_models_for_time_series/images/ar2ma1-acf-pacf-model.R.png?raw=true)
 
-Os resíduos não mostram mais valores enormes para as respectivas ACF e pACF. Dada nossa vontade de um modelo parcimonioso e os riscos de sobreajustes de um modelo ARIMA, um analista sábio pararia por aqui mesmo, já que não temos nenhum comportamento adicional nos resíduos que precisem ser ajustados por meio de um componente autorregressivo, de média móvel ou diferenciação. Podemos trazer mais complexidade ajustando MA (2) para nosso modelo:
+The residuals no longer show huge values ​​for the respective ACF and pACF. Given our desire for a parsimonious model and the risks of overfitting an ARIMA model, a wise analyst would stop right here, as we do not have any additional behavior in the residuals that would need to be adjusted through an autoregressive, moving average, or differencing component. . We can bring more complexity by adjusting MA(2) to our model:
 
+![AR2MA2 model](https://github.com/DellaCortef/time-series-pocket-reference/blob/main/statistical_models_for_time_series/images/arma-ar2ma2-model.R.png?raw=true)
 
+![ACF and PACF model](https://github.com/DellaCortef/time-series-pocket-reference/blob/main/statistical_models_for_time_series/images/arma-ar2ma2-acf-pacf.R.png?raw=true)
 
+There is a quick way to compare models, in which we will check how the predictions of a fitted model correlate with the actual values:
+
+| Model    | COR       | 
+|:--------:|:---------:|
+| AR1MA1   | 0.7797449 |
+| AR2MA1   | 0.7800458 |
+| AR2MA2   | 0.7802289 |
+
+We observed little substantial improvement in the transition from an ARIMA (1, 0, 1) model to an ARIMA (2, 0, 1) model. On the other hand, as we added more complexity, we did not see any substantial improvement in correlation. This validates that previously the ARIMA (2, 0, 1) model represented the model behavior well, without the need to add more AR or MA components to improve the fit.
+
+With this, we can observe how well the adjustment performed, comparing the original adjusted coefficients with the adjusted coefficients:
+
+| Model     | COR       | 
+|:--------: |:---------:|
+| ar1       |  0.58357893 |
+| ar2       | -0.06148804 |
+| ma1       |  0.48787662 |
+| intercept | -0.04732098 |
+
+Tuning an ARIMA model manually is more complex than just the steps taken here. We must not forget that there are valid criticisms about "manual" tuning of an ARIMA process. Manually adjusting a model can be a process that leaves something to be desired in terms of specification, as the analyst's representation ends up under a lot of pressure, takes time and depends on the final result.
+
+##### - Using automated model tuning
