@@ -138,3 +138,9 @@ acf(y)
 # pacf to determine the order of the ARMA model
 pacf(y)
 
+# arma() model
+ar1.ma1.model = Arima(y, order = c(1, 0, 1))
+par(mfrow = c(2, 1))
+acf(ar1.ma1.model$residuals)
+pacf(ar1.ma1.model$residuals)
+
