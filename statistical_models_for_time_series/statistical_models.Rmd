@@ -603,6 +603,10 @@ We will generate our data from an ARMA process:
 ![PACF process of ARMA model](https://github.com/DellaCortef/time-series-pocket-reference/blob/main/statistical_models_for_time_series/images/arima-pacf-arma-model.R.png?raw=true)
 
 
-Podemos ver que nem a função ACF tampouco a PACF possuem um cutoff acentuado, sugerindo que temos um processo ARMA. Começaremos ajustando um modelo ARIMA (1, 0, 1) relativamente simples, pois não vemos necessidade de diferenciação e nenhuma evidência:
+We can see that neither the ACF function nor the PACF have a sharp cutoff, suggesting that we have an ARMA process. We will start by fitting a relatively simple ARIMA (1, 0, 1) model, as we see no need for differentiation and no evidence:
+
+![ARMA () ACF and PACF model](https://github.com/DellaCortef/time-series-pocket-reference/blob/main/statistical_models_for_time_series/images/arma-acf-pacf-model.R.png?raw=true)
+
+Os resíduos mostram valores PACF enormes, sugerindo que não representamo totalmente o comportamento autorregressivo. por isso, criamos o modelo adicionando um componente AR de ordem superior, testamos um modelo ARIMA (2, 0, 1) no código a seguir e, depois, plotaremos a ACF e PACF dos resíduos desse modelo mais complexo:
 
 

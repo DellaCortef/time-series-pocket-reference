@@ -138,9 +138,23 @@ acf(y)
 # pacf to determine the order of the ARMA model
 pacf(y)
 
-# arma() model
+# arma() model (1, 0, 1)
 ar1.ma1.model = Arima(y, order = c(1, 0, 1))
 par(mfrow = c(2, 1))
 acf(ar1.ma1.model$residuals)
 pacf(ar1.ma1.model$residuals)
+
+# arma() model (2, 0, 1)
+ar2.ma1.model = Arima(y, order = c(2, 0, 1))
+plot(y, type = "l")
+lines(ar2.ma1.model$fitted, col = 2)
+plot(y, ar2.ma1.model$fitted)
+par(mfrow = c(2, 1))
+acf(ar2.ma1.model$residuals)
+pacf(ar2.ma1.model$residuals)
+
+arma-testing-model.R
+ar2ma1-acf-pacf-model.R
+
+
 
