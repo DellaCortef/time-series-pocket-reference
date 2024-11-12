@@ -153,8 +153,5 @@ par(mfrow = c(2, 1))
 acf(ar2.ma1.model$residuals)
 pacf(ar2.ma1.model$residuals)
 
-arma-testing-model.R
-ar2ma1-acf-pacf-model.R
-
 
 
