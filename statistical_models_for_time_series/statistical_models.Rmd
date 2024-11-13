@@ -718,3 +718,31 @@ We perform our analysis by observing the ACF and PACF of residuals from simpler 
 <br><br>
 
 ## Vector Autoregression
+
+In practice, we sometimes have a variety of parallel **time series** presented in relation to each other. We've already looked at how to clean and align this data, and now we can learn how to make the most of it. It is possible to do this by generating an AR model (*p*) for the case of multiple variables. The fun of this model is that it predicts the fact that variables influence each other and are in turn influenced - that is, there is no privileged y while everything else is designated as x. On the contrary, the adjustment is symmetric in all variables. Note that differentiation can be applied as in other previous models, if the **time series** is not stationary.
+
+Since each **time series** predicts all others as well as itself, we will have one option per variable. Let's say we have three **time series**: we will represent their value at time *t* as *y<sub>1, t</sub>* and *y<sub>2, t</sub>* and * y<sub>3, t</sub>*. Thus, we can write the geometric autoregression equations (VAR) of order 2 (factoring 2 time lags) as:
+
+*y<sub>1, t</sub> = Ø<sub>01</sub> + Ø<sub>11,1</sub> x y<sub>(1, t-1)</sub> + Ø<sub>12,1</sub> x y<sub>(2, t-1)</sub> + Ø<sub>13,1</sub> x y<sub>(3, t-1)</sub> + Ø<sub>11,2</sub> x y<sub>(1, t-2)</sub> + Ø<sub>12,1</sub> x y<sub>(2, t-1)</sub> + Ø<sub>13,1</sub> x y<sub>(3, t-1)</sub>*
+
+*y<sub>2, t</sub> = Ø<sub>02</sub> + Ø<sub>21,1</sub> x y<sub>(1, t-1)</sub> + Ø<sub>22,1</sub> x y<sub>(2, t-1)</sub> + Ø<sub>23,1</sub> x y<sub>(3, t-1)</sub> + Ø<sub>21,2</sub> x y<sub>(1, t-2)</sub> + Ø<sub>22,1</sub> x y<sub>(2, t-1)</sub> + Ø<sub>23,1</sub> x y<sub>(3, t-1)</sub>*
+
+*y<sub>2, t</sub> = Ø<sub>03</sub> + Ø<sub>31,1</sub> x y<sub>(1, t-1)</sub> + Ø<sub>32,1</sub> x y<sub>(2, t-1)</sub> + Ø<sub>33,1</sub> x y<sub>(3, t-1)</sub> + Ø<sub>31,2</sub> x y<sub>(1, t-2)</sub> + Ø<sub>32,1</sub> x y<sub>(2, t-1)</sub> + Ø<sub>33,1</sub> x y<sub>(3, t-1)</sub>*
+
+##### - Multiplicação de Matriz
+
+Express the relationships shown in the previous three equations via matrix notation. It is possible to write a VAR in a very similar way to an AR. In matrix form, the three equations can be expressed as:
+
+*y = Ø<sub>0</sub> + Ø<sub>1</sub> x y<sub>(t-1)</sub> + Ø<sub>2</sub> x y<sub>( t-2)</sub>*
+
+where *y* and *Ø* are 3 x 1 matrices and the other matrices *Ø* are 3 x 3
+
+Even in a simple case, we notice that the number of parameters in the model grows dramatically. For example, if we have lag *p* and variables *N*, we can see that the predictor equation for each variable is 1 + *p* x *N*. As we will have *N* values to predict, this translates into the total variables *N* + *p* x *$N^2$*, meaning that the number of variables grows in proportion O($N^2$) to the number of **time series** studied. Therefore, we should not use **time series** lightly simply because we have data. We should reserve this method for when we are in a relationship.
+
+VAR models are most frequently used in econometrics. They receive criticism because they have no structure other than the hypothesis that all values ​​influence each other. It is precisely for this reason that the quality of model fit can be difficult to assess. However, VAR models still have a use - for example, to test whether one variable causes another variable. They are also useful for situations where it is necessary to predict several variables that we do not have domain knowledge in order to assert any specific type of relationship. They can also sometimes serve to determine how much variance in a prediction of a value is attributable to its underlying "causes."
+
+We will analyze the underlying UCI demand information and consider using a second column to predict bank orders instead of your own data (note that we will also predict this column due to the symmetric way in which the variables are handled). We will use orders from the traffic control department. Apparently, they should be different, so they can provide an independent source of information in relation to previous orders from the tax sector itself. We can also imagine that each column provides underlying information about economic progress and whether demand will increase or decrease in the future
+
+To determine which parameters to use, we will use the **vars** package, which has the *VARselect()* method:
+
+

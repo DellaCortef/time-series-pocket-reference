@@ -181,6 +181,7 @@ est
 auto.model = auto.arima(y)
 auto.model
 
+# using VARselect () method:
 
 
 
