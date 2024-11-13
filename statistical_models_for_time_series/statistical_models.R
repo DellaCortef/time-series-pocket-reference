@@ -216,3 +216,16 @@ plot(demand_banking, type = "l")
 lines(fitted(est.var)[, 1], col = 2)
 plot(demand_banking3, type = "l")
 lines(fitted(est.var)[, 2], col = 2)
+
+# len() method
+length(demand_banking)
+length(fitted(est.var)[, 1])
+
+# truncating the longer object to match the shorter one
+n <- min(length(demand_banking), length(fitted(est.var)[, 1]))
+residuals <- demand_banking[1:n] - fitted(est.var)[1:n, 1]
+
+# plotting acf of banking2 and banking3
+par(mfrow = c(2, 1))
+acf(demand_banking - fitted(est.var)[, 1])
+acf(demand_banking3 - fitted(est.var)[, 1])

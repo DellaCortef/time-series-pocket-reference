@@ -785,9 +785,6 @@ criteria <- data.frame(
 kable(criteria, caption = "VAR Model Criteria for Different Lags")
 ```
 
-We can observe that the function allows a variety of information criteria to be chosen. Also note that we indicated that we wanted to adjust a "*const*" term to accommodate a non-zero mean. We could also choose to fit a *drift* term, both, or neither, but the "*const*" option seems to be the best for our data. 
-We will analyze three lags:
-
 ---
 title: "VAR Estimation Results"
 output: html_document
@@ -833,6 +830,12 @@ kable(coefficients_2, col.names = c("Term", "Estimate"), caption = "Estimated Co
 | Banking.orders..2..l3  | -0.004107863   |
 | Banking.orders..3..l3  | -0.268197900   |
 | const                  | -2320.958000   |
+
+
+We can observe that the function allows a variety of information criteria to be chosen. Also note that we indicated that we wanted to adjust a "*const*" term to accommodate a non-zero mean. We could also choose to fit a *drift* term, both, or neither, but the "*const*" option seems to be the best for our data. 
+We will analyze three lags:
+
+![Demand banking adjusted model](https://github.com/DellaCortef/time-series-pocket-reference/blob/main/statistical_models_for_time_series/images/demand-banking-adjusted-model.R.png?raw=true)
 
 
 
