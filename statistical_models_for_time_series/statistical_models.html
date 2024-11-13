@@ -13,7 +13,7 @@
 
 <meta name="date" content="2024-11-05" />
 
-<title>ARIMA Model Output</title>
+<title>VAR Estimation Results</title>
 
 <script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
 // be compatible with the behavior of Pandoc < 2.8).
@@ -350,7 +350,7 @@ display: none;
 
 
 
-<h1 class="title toc-ignore">ARIMA Model Output</h1>
+<h1 class="title toc-ignore">VAR Estimation Results</h1>
 <h4 class="author">Della</h4>
 <h4 class="date">2024-11-05</h4>
 
@@ -1681,8 +1681,8 @@ always reach the same conclusion.</p>
 </div>
 </div>
 </div>
-<div id="vector-autoregression" class="section level2">
-<h2>Vector Autoregression</h2>
+<div id="section" class="section level2">
+<h2></h2>
 <p>In practice, we sometimes have a variety of parallel <strong>time
 series</strong> presented in relation to each other. We’ve already
 looked at how to clean and align this data, and now we can learn how to
@@ -1714,9 +1714,9 @@ t-1)</sub></em></p>
 t-1)</sub> + Ø<sub>32,1</sub> x y<sub>(2, t-1)</sub> + Ø<sub>33,1</sub>
 x y<sub>(3, t-1)</sub> + Ø<sub>31,2</sub> x y<sub>(1, t-2)</sub> +
 Ø<sub>32,1</sub> x y<sub>(2, t-1)</sub> + Ø<sub>33,1</sub> x y<sub>(3,
-t-1)</sub></em></p>
-<div id="multiplicação-de-matriz" class="section level5">
-<h5>- Multiplicação de Matriz</h5>
+t-1)</sub></em> <br><br></p>
+<div id="matrix-multiplication" class="section level5">
+<h5>- Matrix Multiplication</h5>
 <p>Express the relationships shown in the previous three equations via
 matrix notation. It is possible to write a VAR in a very similar way to
 an AR. In matrix form, the three equations can be expressed as:</p>
@@ -1724,13 +1724,223 @@ an AR. In matrix form, the three equations can be expressed as:</p>
 Ø<sub>2</sub> x y<sub>( t-2)</sub></em></p>
 <p>where <em>y</em> and <em>Ø</em> are 3 x 1 matrices and the other
 matrices <em>Ø</em> are 3 x 3</p>
-<p>Mesmo em um caso simples, percebemos que o número de parâmetros no
-modelo cresce vertiginosamente. Por exemplo, se tivermos lag <em>p</em>
-e variáveis <em>N</em>, poderemos ver que a equação preditora para cada
-variável é 1 + <em>p</em> x <em>N</em>. Como teremos <em>N</em> valores
-para predizer, isso se traduz nas variáveis totais <em>N</em> +
-<em>p</em> x <em><span class="math inline">\(N^2\)</span></em>,
-significando que o número de variáveis cresce em proporção O(<span class="math inline">\(N^2\)</span>)</p>
+<p>Even in a simple case, we notice that the number of parameters in the
+model grows dramatically. For example, if we have lag <em>p</em> and
+variables <em>N</em>, we can see that the predictor equation for each
+variable is 1 + <em>p</em> x <em>N</em>. As we will have <em>N</em>
+values to predict, this translates into the total variables <em>N</em> +
+<em>p</em> x <em><span class="math inline">\(N^2\)</span></em>, meaning
+that the number of variables grows in proportion O(<span class="math inline">\(N^2\)</span>) to the number of <strong>time
+series</strong> studied. Therefore, we should not use <strong>time
+series</strong> lightly simply because we have data. We should reserve
+this method for when we are in a relationship.</p>
+<p>VAR models are most frequently used in econometrics. They receive
+criticism because they have no structure other than the hypothesis that
+all values influence each other. It is precisely for this reason that
+the quality of model fit can be difficult to assess. However, VAR models
+still have a use - for example, to test whether one variable causes
+another variable. They are also useful for situations where it is
+necessary to predict several variables that we do not have domain
+knowledge in order to assert any specific type of relationship. They can
+also sometimes serve to determine how much variance in a prediction of a
+value is attributable to its underlying “causes.”</p>
+<p>We will analyze the underlying UCI demand information and consider
+using a second column to predict bank orders instead of your own data
+(note that we will also predict this column due to the symmetric way in
+which the variables are handled). We will use orders from the traffic
+control department. Apparently, they should be different, so they can
+provide an independent source of information in relation to previous
+orders from the tax sector itself. We can also imagine that each column
+provides underlying information about economic progress and whether
+demand will increase or decrease in the future</p>
+<p>To determine which parameters to use, we will use the
+<strong>vars</strong> package, which has the <em>VARselect()</em>
+method:</p>
+</div>
+<div id="var-model-selection" class="section level5">
+<h5>VAR Model Selection</h5>
+</div>
+<div id="selection-summary" class="section level5">
+<h5>- Selection Summary</h5>
+<p>The following table shows the selected lags based on different
+criteria.</p>
+<table>
+<thead>
+<tr class="header">
+<th>Criterion</th>
+<th>Selected Lag</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>AIC(n)</td>
+<td>3</td>
+</tr>
+<tr class="even">
+<td>HQ(n)</td>
+<td>3</td>
+</tr>
+<tr class="odd">
+<td>SC(n)</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td>FPE(n)</td>
+<td>3</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="criteria-table" class="section level5">
+<h5>- Criteria Table</h5>
+<p>The following table displays the values of the AIC, HQ, SC, and FPE
+criteria for different lag lengths.</p>
+<table>
+<caption>VAR Model Criteria for Different Lags</caption>
+<thead>
+<tr class="header">
+<th align="right">Lag</th>
+<th align="right">AIC.n.</th>
+<th align="right">HQ.n.</th>
+<th align="right">SC.n.</th>
+<th align="right">FPE.n.</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">1</td>
+<td align="right">39.75854</td>
+<td align="right">39.84267</td>
+<td align="right">39.97554</td>
+<td align="right">1.849280e+17</td>
+</tr>
+<tr class="even">
+<td align="right">2</td>
+<td align="right">39.67373</td>
+<td align="right">39.81395</td>
+<td align="right">40.03540</td>
+<td align="right">1.700189e+17</td>
+</tr>
+<tr class="odd">
+<td align="right">3</td>
+<td align="right">39.57496</td>
+<td align="right">39.77126</td>
+<td align="right">40.08130</td>
+<td align="right">1.542863e+17</td>
+</tr>
+<tr class="even">
+<td align="right">4</td>
+<td align="right">39.68281</td>
+<td align="right">39.93521</td>
+<td align="right">40.33382</td>
+<td align="right">1.723729e+17</td>
+</tr>
+</tbody>
+</table>
+<p>We can observe that the function allows a variety of information
+criteria to be chosen. Also note that we indicated that we wanted to
+adjust a “<em>const</em>” term to accommodate a non-zero mean. We could
+also choose to fit a <em>drift</em> term, both, or neither, but the
+“<em>const</em>” option seems to be the best for our data. We will
+analyze three lags:</p>
+</div>
+<div id="var-estimation-results" class="section level5">
+<h5>VAR Estimation Results</h5>
+</div>
+<div id="estimated-coefficients-for-equation-banking.orders..2." class="section level5">
+<h5>- Estimated Coefficients for Equation:
+<code>Banking.orders..2.</code></h5>
+<p>The following equation was estimated:</p>
+<p><strong>Call:</strong></p>
+<p><span class="math display">\[
+\text{Banking.orders..2.} = \text{Banking.orders..2..l1} +
+\text{Banking.orders..3..l1} + \text{Banking.orders..2..l2} +
+\text{Banking.orders..3..l2} + \text{Banking.orders..2..l3} +
+\text{Banking.orders..3..l3} + \text{const}
+\]</span></p>
+</div>
+<div id="coefficients-table-for-banking.orders..2." class="section level5">
+<h5>- Coefficients Table for <code>Banking.orders..2.</code></h5>
+<table>
+<caption>Estimated Coefficients for Banking.orders..2.</caption>
+<thead>
+<tr class="header">
+<th align="left">Term</th>
+<th align="right">Estimate</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Banking.orders..2..l1</td>
+<td align="right">-2.134351e-01</td>
+</tr>
+<tr class="even">
+<td align="left">Banking.orders..3..l1</td>
+<td align="right">-1.070454e+00</td>
+</tr>
+<tr class="odd">
+<td align="left">Banking.orders..2..l2</td>
+<td align="right">-3.332590e-02</td>
+</tr>
+<tr class="even">
+<td align="left">Banking.orders..3..l2</td>
+<td align="right">6.778114e-01</td>
+</tr>
+<tr class="odd">
+<td align="left">Banking.orders..2..l3</td>
+<td align="right">-2.378322e-01</td>
+</tr>
+<tr class="even">
+<td align="left">Banking.orders..3..l3</td>
+<td align="right">8.626345e-01</td>
+</tr>
+<tr class="odd">
+<td align="left">const</td>
+<td align="right">1.055717e+05</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="estimated-coefficients-for-banking.orders..3." class="section level5">
+<h5>Estimated Coefficients for Banking.orders..3.</h5>
+<table>
+<thead>
+<tr class="header">
+<th>Term</th>
+<th>Estimate</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Banking.orders..2..l1</td>
+<td>0.0998519500</td>
+</tr>
+<tr class="even">
+<td>Banking.orders..3..l1</td>
+<td>0.4954869000</td>
+</tr>
+<tr class="odd">
+<td>Banking.orders..2..l2</td>
+<td>0.0381905300</td>
+</tr>
+<tr class="even">
+<td>Banking.orders..3..l2</td>
+<td>0.4288644000</td>
+</tr>
+<tr class="odd">
+<td>Banking.orders..2..l3</td>
+<td>-0.0041078630</td>
+</tr>
+<tr class="even">
+<td>Banking.orders..3..l3</td>
+<td>-0.2681979000</td>
+</tr>
+<tr class="odd">
+<td>const</td>
+<td>-2320.9580000</td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 </div>

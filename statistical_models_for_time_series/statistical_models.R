@@ -3,11 +3,18 @@
 # Setting the dataset path
 setwd('/Users/dellacorte/py-projects/data-science/time-series-pocket-reference/datasets/')
 
+# Installing packages
+install.packages("vars")
+
+# Loading packages
+require(vars)
+
 # Load and structure the data
 demand <- read.csv("daily_demand_forecasting_orders.csv", sep=";")
 
 # Choosing one columns
-demand_banking <- demand[, 'Banking.orders..2.']
+demand_banking  <- demand[, 'Banking.orders..2.']
+demand_banking3 <- demand[, 'Banking.orders..3.'] 
 
 # plotting the data in chronological order
 plot(demand_banking, type = 'b')
@@ -182,7 +189,30 @@ auto.model = auto.arima(y)
 auto.model
 
 # using VARselect () method:
+VARselect(demand[, 11:12], lag.max = 4, type = "const")
 
+# analyzing three lags
+est.var <- VAR(demand[, 11:12], p =3, type = "const")
+est.var
 
+# Check the structure and summary of the column
+str(demand$`Banking orders (2)`)
+summary(demand$`Banking orders (2)`)
 
+# Remove NA values for plotting
+plot(na.omit(demand$`Banking orders (2)`), type = "l", main = "Banking Orders (2)", ylab = "Orders")
 
+# Convert to numeric if needed
+demand$`Banking orders (2)` <- as.numeric(demand$`Banking orders (2)`)
+
+# Then plot
+plot(demand$`Banking orders (2)`, type = "l", main = "Banking Orders (2)", ylab = "Orders")
+
+head(demand$`Banking orders (2)`)
+
+# plotting time series
+par(mfrow = c(2, 1))
+plot(demand_banking, type = "l")
+lines(fitted(est.var)[, 1], col = 2)
+plot(demand_banking3, type = "l")
+lines(fitted(est.var)[, 2], col = 2)
