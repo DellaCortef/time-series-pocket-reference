@@ -837,6 +837,49 @@ We will analyze three lags:
 
 ![Demand banking adjusted model](https://github.com/DellaCortef/time-series-pocket-reference/blob/main/statistical_models_for_time_series/images/demand-banking-adjusted-model.R.png?raw=true)
 
+In the upper part of the figure, we observe the actual values (solid line) versus. predicted values (dashed line) for bank orders (2) and, at the bottom, we observe the same for bank orders (3). Interestingly, the top graph looks more like a typical forecast, where the forecast is a little "slow" in changing relative to the actual data, whereas in the bottom graph we see that the forecast predicted changes a little before they happened. This suggests that bank orders (2) "lead" bank orders (3), which means that bank orders (2) are useful in predicting traffic controller orders, but not vice versa.
+
+![Demand banking ACFs](https://github.com/DellaCortef/time-series-pocket-reference/blob/main/statistical_models_for_time_series/images/demand-banking-acf.R.png?raw=true)
+
+We plot the autocorrelation function of the residuals for each **time series**. Note that both **time series** have a significant autocorrelation of errors at lag 3, which cannot be fully accounted for in the model.
+
+<br>
+It is not clear whether the ACF is in favor of the absence of autocorrelation in the residuals as we would like. Thus, we can also apply the *Postmanteau* test for serial correlation through the *serial.test()* method of the **vars** package. It is a test similar to the correlation tests we saw in the univariate case:
+
+---
+title: "Portmanteau Test Results"
+output: html_document
+---
+
+##### Portmanteau Test (Asymptotic)
+
+The Portmanteau test was conducted on the residuals of the VAR model (`est.var`).
+
+##### - Test Summary
+
+| Statistic   | Value     |
+|-------------|-----------|
+| Data        | Residuals of VAR object `est.var` |
+| Chi-squared | 20.463    |
+| df          | 20        |
+| p-value     | 0.4293    |
+
+##### Interpretation
+
+The test resulted in a Chi-squared statistic of 20.463 with 20 degrees of freedom, yielding a p-value of 0.4293. Based on this p-value, there is insufficient evidence to reject the null hypothesis, suggesting that the residuals of the VAR model may not exhibit significant autocorrelation.
+
+As the *p*-value is very high, we cannot reject the null hypothesis that there is no serial correlation in the residuals. This gives us more evidence that the model does an acceptable job.
+
+Since for univariate models we examined different models, resulting in the ARMA and ARIMA versions, it is possible that VARIMA exists, but it is not widely used, as VAR has relatively good performance and is quite complicated. In practice, for corporate and academic use cases, we will see the predominant use of VAR instead of VARIMA.
+
+Another class of model is CVAR, cointegrated vector autoregression. Refers to the case where individual **time series** are not stationary, but a linear combination of stationary **time series** without differentiation.
+
+
+## Variations in Statistical Models
+
+
+
+
 
 
 
