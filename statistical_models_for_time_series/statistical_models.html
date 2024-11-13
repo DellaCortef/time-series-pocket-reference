@@ -1619,8 +1619,8 @@ snooping unless we have a justified reason to do so. Note that,
 according to the AIC criteria, our previously chosen manually MA model
 performs slightly better than the automatically chosen model, but when
 we look at the graphs, the difference does not seem significant.</p>
-<p>Podemos analisar como o <em>auto.arima()</em> seria executado no
-modelo que geramos anteriormente:</p>
+<p>We can analyze how <em>auto.arima()</em> would be executed in the
+model we generated previously:<br><br></p>
 </div>
 <div id="arima-model-results-4" class="section level5">
 <h5>ARIMA Model Results</h5>
@@ -1666,8 +1666,71 @@ modelo que geramos anteriormente:</p>
 </tr>
 </tbody>
 </table>
+<p>We didn’t even use the optional parameters to suggest to
+<em>auto.arima()</em> where it should start its model search, and yet,
+it converged on the same solution with different methodologies.</p>
+<p>We perform our analysis by observing the ACF and PACF of residuals
+from simpler models in order to develop more complex models, while
+<em>auto.arima()</em> is largely driven by grid search that minimizes
+AIC. Obviously, since we generated the original data from an ARIMA
+process, this represents a simpler case than many real-world data. In
+this case, our manual adjustments and automatic model selection do not
+always reach the same conclusion.</p>
+<p><br><br></p>
 </div>
 </div>
+</div>
+</div>
+<div id="vector-autoregression" class="section level2">
+<h2>Vector Autoregression</h2>
+<p>In practice, we sometimes have a variety of parallel <strong>time
+series</strong> presented in relation to each other. We’ve already
+looked at how to clean and align this data, and now we can learn how to
+make the most of it. It is possible to do this by generating an AR model
+(<em>p</em>) for the case of multiple variables. The fun of this model
+is that it predicts the fact that variables influence each other and are
+in turn influenced - that is, there is no privileged y while everything
+else is designated as x. On the contrary, the adjustment is symmetric in
+all variables. Note that differentiation can be applied as in other
+previous models, if the <strong>time series</strong> is not
+stationary.</p>
+<p>Since each <strong>time series</strong> predicts all others as well
+as itself, we will have one option per variable. Let’s say we have three
+<strong>time series</strong>: we will represent their value at time
+<em>t</em> as <em>y<sub>1, t</sub></em> and <em>y<sub>2, t</sub></em>
+and * y<sub>3, t</sub>*. Thus, we can write the geometric autoregression
+equations (VAR) of order 2 (factoring 2 time lags) as:</p>
+<p><em>y<sub>1, t</sub> = Ø<sub>01</sub> + Ø<sub>11,1</sub> x y<sub>(1,
+t-1)</sub> + Ø<sub>12,1</sub> x y<sub>(2, t-1)</sub> + Ø<sub>13,1</sub>
+x y<sub>(3, t-1)</sub> + Ø<sub>11,2</sub> x y<sub>(1, t-2)</sub> +
+Ø<sub>12,1</sub> x y<sub>(2, t-1)</sub> + Ø<sub>13,1</sub> x y<sub>(3,
+t-1)</sub></em></p>
+<p><em>y<sub>2, t</sub> = Ø<sub>02</sub> + Ø<sub>21,1</sub> x y<sub>(1,
+t-1)</sub> + Ø<sub>22,1</sub> x y<sub>(2, t-1)</sub> + Ø<sub>23,1</sub>
+x y<sub>(3, t-1)</sub> + Ø<sub>21,2</sub> x y<sub>(1, t-2)</sub> +
+Ø<sub>22,1</sub> x y<sub>(2, t-1)</sub> + Ø<sub>23,1</sub> x y<sub>(3,
+t-1)</sub></em></p>
+<p><em>y<sub>2, t</sub> = Ø<sub>03</sub> + Ø<sub>31,1</sub> x y<sub>(1,
+t-1)</sub> + Ø<sub>32,1</sub> x y<sub>(2, t-1)</sub> + Ø<sub>33,1</sub>
+x y<sub>(3, t-1)</sub> + Ø<sub>31,2</sub> x y<sub>(1, t-2)</sub> +
+Ø<sub>32,1</sub> x y<sub>(2, t-1)</sub> + Ø<sub>33,1</sub> x y<sub>(3,
+t-1)</sub></em></p>
+<div id="multiplicação-de-matriz" class="section level5">
+<h5>- Multiplicação de Matriz</h5>
+<p>Express the relationships shown in the previous three equations via
+matrix notation. It is possible to write a VAR in a very similar way to
+an AR. In matrix form, the three equations can be expressed as:</p>
+<p><em>y = Ø<sub>0</sub> + Ø<sub>1</sub> x y<sub>(t-1)</sub> +
+Ø<sub>2</sub> x y<sub>( t-2)</sub></em></p>
+<p>where <em>y</em> and <em>Ø</em> are 3 x 1 matrices and the other
+matrices <em>Ø</em> are 3 x 3</p>
+<p>Mesmo em um caso simples, percebemos que o número de parâmetros no
+modelo cresce vertiginosamente. Por exemplo, se tivermos lag <em>p</em>
+e variáveis <em>N</em>, poderemos ver que a equação preditora para cada
+variável é 1 + <em>p</em> x <em>N</em>. Como teremos <em>N</em> valores
+para predizer, isso se traduz nas variáveis totais <em>N</em> +
+<em>p</em> x <em><span class="math inline">\(N^2\)</span></em>,
+significando que o número de variáveis cresce em proporção O(<span class="math inline">\(N^2\)</span>)</p>
 </div>
 </div>
 </div>
