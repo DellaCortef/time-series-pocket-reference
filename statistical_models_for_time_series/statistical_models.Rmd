@@ -728,6 +728,7 @@ Since each **time series** predicts all others as well as itself, we will have o
 *y<sub>2, t</sub> = Ø<sub>02</sub> + Ø<sub>21,1</sub> x y<sub>(1, t-1)</sub> + Ø<sub>22,1</sub> x y<sub>(2, t-1)</sub> + Ø<sub>23,1</sub> x y<sub>(3, t-1)</sub> + Ø<sub>21,2</sub> x y<sub>(1, t-2)</sub> + Ø<sub>22,1</sub> x y<sub>(2, t-1)</sub> + Ø<sub>23,1</sub> x y<sub>(3, t-1)</sub>*
 
 *y<sub>2, t</sub> = Ø<sub>03</sub> + Ø<sub>31,1</sub> x y<sub>(1, t-1)</sub> + Ø<sub>32,1</sub> x y<sub>(2, t-1)</sub> + Ø<sub>33,1</sub> x y<sub>(3, t-1)</sub> + Ø<sub>31,2</sub> x y<sub>(1, t-2)</sub> + Ø<sub>32,1</sub> x y<sub>(2, t-1)</sub> + Ø<sub>33,1</sub> x y<sub>(3, t-1)</sub>*
+<br><br>
 
 ##### - Matrix Multiplication
 
@@ -744,5 +745,95 @@ VAR models are most frequently used in econometrics. They receive criticism beca
 We will analyze the underlying UCI demand information and consider using a second column to predict bank orders instead of your own data (note that we will also predict this column due to the symmetric way in which the variables are handled). We will use orders from the traffic control department. Apparently, they should be different, so they can provide an independent source of information in relation to previous orders from the tax sector itself. We can also imagine that each column provides underlying information about economic progress and whether demand will increase or decrease in the future
 
 To determine which parameters to use, we will use the **vars** package, which has the *VARselect()* method:
+
+---
+title: "VAR Model Selection Criteria"
+output: html_document
+---
+
+##### VAR Model Selection
+
+##### - Selection Summary
+
+The following table shows the selected lags based on different criteria.
+
+| Criterion | Selected Lag |
+|-----------|--------------|
+| AIC(n)    | 3            |
+| HQ(n)     | 3            |
+| SC(n)     | 1            |
+| FPE(n)    | 3            |
+
+##### - Criteria Table
+
+The following table displays the values of the AIC, HQ, SC, and FPE criteria for different lag lengths.
+
+```{r, echo=FALSE}
+# Load knitr for table formatting
+library(knitr)
+
+# Create a data frame for the criteria table
+criteria <- data.frame(
+  Lag = c(1, 2, 3, 4),
+  `AIC(n)` = c(3.975854e+01, 3.967373e+01, 3.957496e+01, 3.968281e+01),
+  `HQ(n)` = c(3.984267e+01, 3.981395e+01, 3.977126e+01, 3.993521e+01),
+  `SC(n)` = c(3.997554e+01, 4.003540e+01, 4.008130e+01, 4.033382e+01),
+  `FPE(n)` = c(1.849280e+17, 1.700189e+17, 1.542863e+17, 1.723729e+17)
+)
+
+# Display the criteria table
+kable(criteria, caption = "VAR Model Criteria for Different Lags")
+```
+
+We can observe that the function allows a variety of information criteria to be chosen. Also note that we indicated that we wanted to adjust a "*const*" term to accommodate a non-zero mean. We could also choose to fit a *drift* term, both, or neither, but the "*const*" option seems to be the best for our data. 
+We will analyze three lags:
+
+---
+title: "VAR Estimation Results"
+output: html_document
+---
+
+##### VAR Estimation Results
+
+##### - Estimated Coefficients for Equation: `Banking.orders..2.`
+
+The following equation was estimated:
+
+**Call:**
+
+\[
+\text{Banking.orders..2.} = \text{Banking.orders..2..l1} + \text{Banking.orders..3..l1} + \text{Banking.orders..2..l2} + \text{Banking.orders..3..l2} + \text{Banking.orders..2..l3} + \text{Banking.orders..3..l3} + \text{const}
+\]
+
+##### - Coefficients Table for `Banking.orders..2.`
+
+```{r, echo=FALSE}
+# Load knitr for table formatting
+library(knitr)
+
+# Create a data frame for the coefficients
+coefficients_2 <- data.frame(
+  Term = c("Banking.orders..2..l1", "Banking.orders..3..l1", "Banking.orders..2..l2",
+           "Banking.orders..3..l2", "Banking.orders..2..l3", "Banking.orders..3..l3", "const"),
+  Estimate = c(-2.134351e-01, -1.070454e+00, -3.332587e-02, 6.778114e-01, -2.378322e-01, 8.626345e-01, 1.055717e+05)
+)
+
+# Display the coefficients table
+kable(coefficients_2, col.names = c("Term", "Estimate"), caption = "Estimated Coefficients for Banking.orders..2.")
+```
+
+##### Estimated Coefficients for Banking.orders..3.
+
+| Term                   | Estimate       |
+|------------------------|----------------|
+| Banking.orders..2..l1  | 0.0998519500   |
+| Banking.orders..3..l1  | 0.4954869000   |
+| Banking.orders..2..l2  | 0.0381905300   |
+| Banking.orders..3..l2  | 0.4288644000   |
+| Banking.orders..2..l3  | -0.004107863   |
+| Banking.orders..3..l3  | -0.268197900   |
+| const                  | -2320.958000   |
+
+
 
 
