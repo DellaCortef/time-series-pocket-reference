@@ -229,3 +229,6 @@ residuals <- demand_banking[1:n] - fitted(est.var)[1:n, 1]
 par(mfrow = c(2, 1))
 acf(demand_banking - fitted(est.var)[, 1])
 acf(demand_banking3 - fitted(est.var)[, 1])
+
+# applying serial.test() method
+serial.test(est.var, lags.pt = 8, type = "PT.asymptotic")
