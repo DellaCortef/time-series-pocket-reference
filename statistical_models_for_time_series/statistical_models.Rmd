@@ -1,8 +1,10 @@
 ---
 title: "Statistical Models for Time Series"
 author: "Della"
-date: "2024-11-05"
-output: html_document
+date: "2024/11/05 - 2024/11/18"
+output:
+  html_document:
+    css: custom.css
 ---
 
 ```{r setup, include=FALSE}
@@ -170,10 +172,6 @@ plot the data in chronological order:
 We can observe that the PACF value exceeds the significance threshold of 5% in lag 3. This is compatible with the results of the *ar()* function available in the **stats** package of 
 **R**. The *ar()* function automatically chooses the order of an autoregressive model if none is specified:
 
----
-title: "AR Model Output"
-output: html_document
----
 
 ##### AR Model Results
 
@@ -203,10 +201,6 @@ used for significance. In this case, we can use the *arima()* function, also fro
 Next, we will demonstrate how to call the function to adjust an AR (3) by setting the ordering parameter to c(3, 0, 0), where 3 refers to the order of the AR component:
 <br><br>
 
----
-title: "ARIMA Model Output"
-output: html_document
----
 
 ##### ARIMA Model Results
 
@@ -230,10 +224,6 @@ knitr::kable(coefficients, col.names = c("Term", "Estimate", "Std. Error"), capt
 To introduce knowledge into our model, we can constrain a coefficient to 0. For example, if we want to constrain lag -1 to 0 in our model, we will use the following call:
 <br><br>
 
----
-title: "ARIMA Model Output"
-output: html_document
----
 
 ##### ARIMA Model Results
 
@@ -273,10 +263,6 @@ The other commonly used test is *Ljung-Box test*, a general test of the randomne
 
 This test is often applied to the AR model (and in general ARIMA), and, more specifically, to the model fit residuals, rather than the model itself:
 
----
-title: "Box-Ljung Test Output"
-output: html_document
----
 <br><br>
 
 ##### Box-Ljung Test
@@ -334,10 +320,6 @@ we go in time, the less the actual data matters, as the coefficients for the inp
 converge to the unconditional prediction - that is, not conditioned on data. The future prediction approaches the mean value of the series as the time horizon increases, so the variance of both 
 the error term and the predicted values decreases to 0, as the predicted values tend to converge to the unconditional mean value:
 
----
-title: "Forecast Output"
-output: html_document
----
 
 ##### Forecast Results
 
@@ -416,10 +398,6 @@ directly through its value, has a mechanism to prevent the propagation of impuls
 We can observe significant values at lags 3 and 9, so we fit an MA model with these lags. Care must be taken not to unintentionally restrict the wrong coefficients to 0 in the model, which we 
 can confirm by displaying:
 
----
-title: "ARIMA Model Output"
-output: html_document
----
 
 ##### ARIMA Model Results
 
@@ -446,10 +424,6 @@ overall randomness in any fit of the residuals. . Note that the *Box.test()* inp
 estimated rather than being restricted to a specific value. In this case, the free parameters were the intercept, as well as the MA3 and MA9 terms:
 <br><br>
 
----
-title: "Box-Ljung Test Output"
-output: html_document
----
 
 ##### Box-Ljung Test
 
@@ -506,10 +480,6 @@ than the average value generated through the process. By *informative* predictio
 
 We can check this by generating predictions with our MA model (9) that we just tuned and for which we now look for predictions ten steps ahead:
 
----
-title: "Forecast Output Table"
-output: html_document
----
 <br>
 
 ##### Forecast Results
@@ -644,15 +614,6 @@ Tuning an ARIMA model manually is more complex than just the steps taken here. W
 
 Nowadays, we can forego a manual interactive adjustment process and use, depending on the case, an automated model. Model selection will depend on several information loss criteria, such as the AIC seen briefly through the *auto.arima()* function in the **forecast** package:<br><br>
 
----
-title: "ARIMA Model Output"
-output: html_document
----
-
----
-title: "ARIMA Model Output"
-output: html_document
----
 
 ##### ARIMA Model Results
 
@@ -682,10 +643,6 @@ We use a one-liner with prior knowledge from our previous exploration to define 
 
 We can analyze how *auto.arima()* would be executed in the model we generated previously:<br><br>
 
----
-title: "ARIMA Model Output"
-output: html_document
----
 
 ##### ARIMA Model Results
 
@@ -746,10 +703,6 @@ We will analyze the underlying UCI demand information and consider using a secon
 
 To determine which parameters to use, we will use the **vars** package, which has the *VARselect()* method:
 
----
-title: "VAR Model Selection Criteria"
-output: html_document
----
 
 ##### VAR Model Selection
 
@@ -784,11 +737,6 @@ criteria <- data.frame(
 # Display the criteria table
 kable(criteria, caption = "VAR Model Criteria for Different Lags")
 ```
-
----
-title: "VAR Estimation Results"
-output: html_document
----
 
 ##### VAR Estimation Results
 
@@ -846,10 +794,6 @@ We plot the autocorrelation function of the residuals for each **time series**. 
 <br>
 It is not clear whether the ACF is in favor of the absence of autocorrelation in the residuals as we would like. Thus, we can also apply the *Postmanteau* test for serial correlation through the *serial.test()* method of the **vars** package. It is a test similar to the correlation tests we saw in the univariate case:
 
----
-title: "Portmanteau Test Results"
-output: html_document
----
 
 ##### Portmanteau Test (Asymptotic)
 
@@ -877,9 +821,53 @@ Another class of model is CVAR, cointegrated vector autoregression. Refers to th
 
 ## Variations in Statistical Models
 
+There are many other types of statistical models developed for **time series** data. Some of them extend the ARIMA model, while others make different underlying assumptions about the temporal dynamics used in the ARIMA model.
+
+### Seasonal Arima
+
+A seasonal ARIMA (SARIMA) model assumes multiplicative seasonality. For this reason, the SARIMA model can be expressed as ARIMA (*p, d, q*) x (*P, D, Q*)*m*. The model states that seasonal behavior itself can be thought of as an ARIMA process, with *m* specifying the number of time intervals per seasonal cycle. The important thing about this factorization is that the model recognizes which adjacent points in time can influence each other, whether in the same seasonality or in different seasonalities, through the usual temporal proximity methods.
+
+Identifying a SARIMA model is even more complicated than identifying an ARIMA model because it is necessary to deal with seasonal effects. Fortunately, *auto.arima()* in the **forecast** package can handle this the same way it handles a standard ARIMA estimation task. As discussed, there are good reasons to choose automatic parameter selection, unless you have strong knowledge that suggests replacing the selected model with automated methods.
+
+### ARCH, GARCH and their analogues
+
+ARCH stands for "autoregressive conditional heteroskedasticity". This model is used almost exclusively in the financial sector. It is often covered in **time series** courses, so it is worth studying. This class of models is based on the observation that stock prices do not have constant variance, and that, in fact, the variance itself appears conditional autoregressive when compared to previous variances (for example, days of high volatility on the stock market come into groups). In these models, the variance of a process is modeled as an autoregressive process and not the process itself.
+
+### Hierarchical time series models
+
+Hierarchical **time series** are quite common in the real world, although they are not considered as such. You can easily imagine situations in which they appear:
+- total monthly demand in dollars for a company's products, which can be summarized in the SKU number (inventory control unit);
+weekly political polling data from the electorate, and then the same polling data divided by demographics (overlapping or not), such as women versus men or SP state versus RJ;
+- total number of tourists who disembark daily in the EU compared to the total number of tourists who disembark in each member country;
+
+### Hierarchical Time Series ModelsA convenient way to deal with hierarchical **time series** is through the **hts** R package. You can use this package to visualize hierarchical **time series** data and generate predictions. Forecasts can be generated with a series of different methodologies traditionally available in this package:
+
+- generate low-level forecasts (more individualized) and aggregate them to generate higher-level forecasts;
+- generate high-level forecasts and then generate lower-level forecasts based on the historical proportions of each component of the aggregate. This methodology tends to be less accurate when it comes to low-level forecasts, although this can be mitigated somewhat through a variety of techniques that predict how aggregate proportions will change over time;
+
+Hierarchical **time series** are quite common in the real world, although they are not considered as such. You can easily imagine situations in which they appear:
+- total monthly demand in dollars for a company's products, which can be summarized in the SKU number (inventory control unit);
+weekly political polling data from the electorate, and then the same polling data divided by demographics (overlapping or not), such as women versus men or SP state versus RJ;
+- total number of tourists who disembark daily in the EU compared to the total number of tourists who disembark in each member country;
+- it is possible to try to get the best of each methodology by choosing an "intermediate" approach in which a mid-level forecast is generated (assuming we have several layers of hierarchy). So, just propagate your predictions in an ascending and descending manner to make other predictions.
+
+Finally, the standard of excellence of the **hts** package allows that, at all hierarchical levels, forecasts can be aggregated independently of other hierarchy levels. Thus, **hts** combines these predictions to ensure consistency in one method, according to Hyndman et al (https://perma.cc/G4eG-6SMP).
+
+Many of the statistical models we analyzed would, in turn, be applied to the problem of forecasting whatever **time series** level was established. The hierarchical part of the analysis is often a wrapper around these fundamental models.
+
+## Advantages and Disadvantages of Statistical Methods for Time Series
+
+<u>*Advantages*</u>
+
+- these templates are simple and transparent. Thus, its parameters can be clearly understood;
+- because of the simple mathematical expressions that define these models, it is possible to derive their properties of interest in a statistically precise way;
+- we can apply these models to relatively small data sets and still obtain good results;
+- these simple models and related modifications perform excellently even compared to complicated machine learning models. This way, we obtain good performance without the risk of overfitting;
+- automated and well-developed methodologies for choosing the orders of your models and estimating their parameters simplify the generation of these predictions;
 
 
+<u>*Disadvantages*</u>
 
-
-
-
+- as these models are quite simple, they do not always improve performance when dealing with large data sets. If you are working with gigantic data sets, you may be better off using complex machine learning models and neural network methodologies;
+- these statistical models focus on point estimates of the mean value of a distribution, not the distribution. Yes, we can derive sample variances and the like as a proxy for uncertainty in predictions, however, the fundamental model only allows for limited ways of expressing uncertainty regarding all the choices we make when selecting the model;
+- by definition, these models are not created to deal with non-linear dynamics, leaving something to be desired when representing data where non-linear relationships are dominant;
