@@ -1,0 +1,102 @@
+---
+title: "state-space-models"
+author: "Della"
+date: "2024-11-18"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# State Space Models for Time Series
+
+State space models (MMEs) are similar to previous statistical models, but with a more "real and practical" motivation. They address difficulties that arise in real engineering problems, such as how to factor measurement error when making estimates and how to introduce prior knowledge or opinions into them.
+
+State space models assume a world in which the true state cannot be directly calculated, we only have an inference of what can be measured. State space models also rely on specifying the dynamics of a system, for example, how the true state of the world evolves over time due to internal dynamics and external forces applied to a system.
+
+Even though you may have never seen state space models in a mathematical context before, you have probably used them in your everyday life. For example, imagine a driver weaving through traffic. You try to determine where the driver is going and how you can best defend yourself. If the driver is drunk, you can call the police, whereas if he is distracted for a reason that will never happen again, you probably won't get involved. In the next few seconds or minutes, you would update your own state space model of that driver, before deciding what to do.
+
+A classic example of where you would use a state space model is in launching a rocket. We know Newton's Laws, so we can write down the rules for the dynamics of the system and what the movement should be like over time. We also know that our GPS, sensors, or other type of location tracking will have some measurement error, which we can quantify and try to factor into the uncertainty of our calculations. Finally, we know that we cannot measure the action of all the forces in the world on a given rocket, as the system presents many uncertainties. That is, we want it to be robust when it comes to unknown sources of noise, perhaps solar wind, terrestrial wind or both.
+
+Two different historical trends have resulted in the development of state space models and have sparked interest in the types of problems they address. Rockets and spacecraft dominated the skies, as did navigation systems for submarines and all manner of other automated inventions that required estimation of a state of the system that could not be measured. As researchers thought about how to estimate the state of the system, they began to develop state-space methods, particularly to disambiguate measurement errors from other types of uncertainty in the system. This led to the first uses of state space methods.
+
+Likewise, during this period, data recording technology and the computing associated with it also evolved. This has resulted in the creation of much larger data sets for **time series**, including measurements from large or more detailed **time series** data sets. As more **time series** data becomes available, more data-intensive methods for this same data are being developed along with new thinking about state space modeling. In this chapter, we will study the following commonly used state space methods:
+- the Kalman filter applied to a Gaussian linear model;
+- hidden Markov models;
+- Bayesian structural **time series**;
+
+In each of these cases, the use of such models is quite accessible and well implemented. For each model, we will seek some intuition for the mathematics and analyze what type of data is appropriate for the method. Lastly, we'll look at code examples for each method. In each of them, we will make a distinction between what we observe and the state that generated our observations. By estimating the underlying state based on observations, we can divide our work into different stages or categories:
+
+*<u>Filtering</u>:*
+- using the measurement at time *t* to update our estimate of the state at time *t*;
+
+*<u>Forecast</u>:*
+- using the measurement at time *t* - 1 in order to generate a prediction for the expected state at time *t* (enabling the expected measurement at time *t* as well);
+
+*<u>Smoothing</u>:*
+- using measurement over a time interval that includes *t*, both before and after, to estimate what the true state was at time *t*;
+
+The mechanisms of these operations tend to be similar, although the differences are important. Filtering is a way of deciding how to compare the most recent information to previous information when updating our state estimate. Forecasting is the prediction of the future state, without any information about the future. Smoothing is the use of past and future information to make the best estimate of the state at a given time.
+
+
+## State Space Models: Pros and Cons
+
+Data space models can be used for deterministic and stochastic applications, such as continuous samples and discrete samples of data. This alone gives us an idea of its usefulness and remarkable flexibility. The flexibility of state space models maximizes the advantages and disadvantages of this class of models.
+
+A state space model has many positive aspects. It makes it possible to model what is often most interesting in a **time series*: the dynamic process and processes that generate the noisy data being analyzed, rather than just the noisy data itself. To begin with, with a state space model, we introduce a *causality* model into the modeling process to explain what is driving a process. This is advantageous for cases where we have strong theories or reliable knowledge about how a system works and where we want our model to help us identify more details about the overall dynamics that we are already familiar with.
+
+A state space model allows coefficients and parameters to change over time, meaning it allows behavior to change over time. It is not necessary to impose a stationarity condition on our data when using a state space model. This is something totally different from the models we looked at previously, in which a stable process is assumed and modeled with just one set of coefficients, rather than time-varying coefficients. However, a state space model also has disadvantages, and often the positive aspects of this model are also its weaknesses:
+
+- because state space models are very flexible, there are many parameters to define and many forms that a state space model can take. This means that the properties of a specific state space model have often not been studied in depth. When creating a tailored state space model for your **time series** data, you will be unlikely to find statistics books or academic research articles where others have studied this same model as well. Thus, you are on less firm ground when it comes to understanding the model's performance or errors made;
+- state space models can be quite heavy in terms of computational resources, as they have many parameters. Furthermore, the high number of parameters in some types of models means we run the risk of overfitting, especially if there is not a lot of data.
+
+## The Kalman filter
+
+The Kalman filter is an advanced and widely implemented method for incorporating new information from a **time series** and intelligently integrating it with previously known information to estimate an underlying state. The Kalman filter had one of its first uses on the Apollo 11 mission - it was chosen when NASA engineers realized that onboard computing resources made other, more memory-intensive position estimation techniques unfeasible. Kalman filter is easy to calculate and does not require the storage of previous data to make present estimates or future predictions.
+
+### Overview
+
+Kalman filter has a reasonable number of quantities to track, and is an iterative, somewhat circular process, with many related quantities. For this reason, we will not derive the Kalman filter equations, rather we will take a high-level overview of these equations to get a sense of how they work.
+
+Starting with a linear Gaussian model, assuming that our state and observations have the following dynamics:
+
+*x<sub>t</sub> = F × x<sub>t-1</sub> + B × μ<sub>t</sub> + w<sub>t</sub>*
+
+*y<sub>t</sub> = A × x<sub>t</sub> + v<sub>t</sub>*
+
+That is, the state at time *t* is a function of the state at the previous time interval (*F × x<sub>t-1</sub>*), and an external force term (*B × μ< sub>t</sub>*) and a stochastic term (*w<sub>t</sub>*). Likewise, the measurement at time *t* is a function of the state at time *t* and a stochastic error term, measurement error.
+
+We see here a filtering step - that is, a decision about how to use the measurement at time *t* to update our state estimate at time *t*. Recall that we postulate a situation in which we can observe only *y<sub>t</sub>* and make inferences about the state, but we can never be sure of the exact state. We see above that the quantity *K<sub>t</sub>* establishes a balance in our estimate between the old information (*$\overset{\wedge}{x}$<sub>t-1</sub>* ) and the new ones (*y<sub>t</sub>*).
+
+Now, to detail things even more, let's define some terms. We use *P*, to represent our estimate of the covariance of our state (it can be a scalar or a matrix, it will depend on whether the state is univariate or multivariate, the latter being more common). *P$-$<sub>t</sub>* is the estimate for *t* before our measurement at time *t* is taken into account.
+
+We also use *R* to represent the variance of the measurement error, the variance of *v<sub>t</sub>*, which again can be a scalar or a covariance matrix depending on the dimensionality of the measurements. In general, *R* is used for a system as it represents the well-known physical properties of a given sensor or measuring device. The appropriate value for *w<sub>t</sub>*, *Q*, is less well defined and subject to adjustment during the modeling process.
+
+Next, we will start with a process that we know or estimate values of *x* and *P* at time 0. Then, we move forward in times after time 0, we adopt an iterative process with a prediction and update phase, with the prediction coming first, followed by the update/filtering phase and so on:
+
+*$\overset{\wedge}{x}$<sub>t</sub> = F × $\overset{\wedge}{x}$<sub>t-1</sub> + B × μ<sub>t</sub>*
+
+*P$-$<sub>t</sub> = F × P$-$<sub>t-1</sub> × \( F^T \) + Q*
+
+*<u>Filtragem</u>:*
+
+- *$\overset{\wedge}{x}$<sub>t</sub> = $\overset{\wedge}{x}-$<sub>t</sub> + K<sub>t</sub> × (y<sub>t</sub> - A × $\overset{\wedge}{x}-$<sub>t</sub>)*
+
+- *P<sub>t</sub> = (I - K<sub>t</sub> × A) × P$-$<sub>t</sub>*
+
+where *K<sub>t</sub>*, the Kalman gain is:
+
+- *K<sub>t</sub> = P$-$<sub>t</sub> × \( A^T \) × (A × P$-$<sub>t</sub> × \( A^T \) + R)\( ^-1 \)*
+
+The easiest way to understand the process is to know that there are calculations performed to predict the values at time *t*, without a measurement for *y<sub>t</sub>* (the prediction), and then the steps performed at time *t*, after the known *y<sub>t</sub>* measurement (the filtering). To get started, the following values are required:
+
+- estimates for *R* and *Q* - their covariance matrices for measurement error (easy to know) and state stochasticity (generally estimated), respectively;
+- estimates or known values for your state at time 0, *$\overset{\wedge}{x}$<sub>0</sub>* (estimated based on *y<sub>0</sub>* );
+- prior knowledge of which forces are planned to be applied at time *t* and how this impacts the states - that is, the matrix B and the value *μ<sub>t</sub>*;
+- knowledge of the dynamics of the system that determines the state transition from one time interval to another, that is, F;
+- knowledge of how the measurement depends on the state, i.e. A.
+
+## Code for the Kalman Filter
+
+Let's imagine a classic case: trying to track an object subject to Newton's laws with sensors prone to errors. We will generate a **time series** based on Newton's Laws, that is, the position of an object is a function of its speed and acceleration. We will struggle to perform discrete measurements even though the underlying movement is continuous. We will first determine a series of accelerations and then assume that position and velocity start at 0. Although this is not physically realistic, we will determine instantaneous acceleration changes at the beginning of each time interval and a constant acceleration value:
