@@ -123,11 +123,11 @@ and then the steps performed at time *t*, after the known *y<sub>t</sub>* measur
 Let's imagine a classic case: trying to track an object subject to Newton's laws with sensors prone to errors. We will generate a **time series** based on Newton's Laws, that is, the 
 position of an object is a function of its speed and acceleration. We will struggle to perform discrete measurements even though the underlying movement is continuous. We will first determine a series of accelerations and then assume that position and velocity start at 0. Although this is not physically realistic, we will determine instantaneous acceleration changes at the beginning of each time interval and a constant acceleration value:
 
-![*The position, speed and acceleration of the rocket*]Image here *** plotting-position-velocity-acceleration.R ***
+![*The position, speed and acceleration of the rocket*](https://github.com/DellaCortef/time-series-pocket-reference/blob/main/state-space-models/images/plotting-position-velocity-acceleration.R.png?raw=true)
 
 We assumed that these variables would represent a complete description of the state, but the only data available to us is the position of the object and the fact that this data is only available from a noisy sensor. This sensor is × in the following code, and we will plot how the measured value relates to the actual position:
 
-![*The true position (points) versus our noisy measurement (line). Note that the position x does not represent a perfect parabola due to the noise we inserted into the state transition equation*]Image here *** sensor-x.R ***
+![*The true position (points) versus our noisy measurement (line). Note that the position x does not represent a perfect parabola due to the noise we inserted into the state transition equation*](https://github.com/DellaCortef/time-series-pocket-reference/blob/main/state-space-models/images/sensor-x.R.png?raw=true)
 
 In the figure *plotting-position-velocity-acceleration*, we observe a constant acceleration (bottom plot) leading to a linearly increasing velocity (middle plot) to generate a shifting parabola shape (top position plot).
 
@@ -135,4 +135,58 @@ Now, we will apply the Kalman filter. First, we will write a general function to
 
 We will apply this function so that only the position of the rocket is measurable (instead of acceleration or speed):
 
-![*Kalman filtering - Position: True, Measured and Estimated*]
+![*Kalman filtering - Position: True, Measured and Estimated: Muitas grandezas relacionadas: a posição (linha sólida); a posição real/verdadeira (linha tracejada); a estimativa de filtragem da posição (ou seja, a melhor estimativa para a posição no tempo t com medição no tempo t incorporada, representada pela linha pontilhada); e a previsão da posição (ou seja, a melhor estimativa para a posição no tempo t incorporada somente à dinâmica conhecida somada às medições no tempo t - 1, não incluindo o tempo t.*](https://github.com/DellaCortef/time-series-pocket-reference/blob/main/state-space-models/images/position-true-measured-estimated-kalman-filtering.R.png?raw=true)
+
+The Kalman filter removes much of the noise from measurement error. The extent to which it does this will depend on our value for *R*, the measurement noise parameter, which depicts how much the filter should weight the most recent value relative to previous values. As we can see, the filter performs a satisfactory job of predicting the data. In particular, note that there is no lag between the predicted data and the actual data, suggesting that the method is only predicting the current value based on the last value. We just saw a simple example of the Kalman filter. The Kalman filter is widely studied, as it is very useful in a variety of applications, especially those in which the internal dynamics of the system are well understood. This makes it the ideal tool for the simple example of a rocket, in which we understand the dynamics that are guiding the system.
+
+Note that, in this simple example, all the power and usefulness of the Kalman filter are not fully used. This helps a lot when, say, we have several types of measurements and calculate different magnitudes or measure the same thing simultaneously, with different devices. Furthermore, there are other applications for the Kalman filter that are worth studying if this is a promising area for your domain of interest.
+
+One of the great benefits of the Kalman filter is its recursion. This means you don't need to look at every data point in every iteration of the process. On the contrary, in each time step, all the information from the previous time steps is already incorporated as best as possible into the few estimated parameters, i.e. the most recent state and the covariance estimate. The advantage of this method is that we can make updates intelligently just by using these "summary statistics" as measurements, and we already know how to weight them against the most recent data. This makes the Kalman filter quite an advantage in the real world, since time and computational resources are few and valuable. In many instances it is compatible with systems dynamics, where processes are relatively Markovian (no memory except the immediately preceding state), and we have a function of an underlying state that can only be computed with some error.
+
+## Hidden Markov Models
+
+Hidden Markov Models (HMMs) are quite useful and interesting to model a **time series**, as they are a rare instance of unsupervised learning in **time series** analysis. In other words, there is no correct and identified answer to consider training. An HMM is motivated by an intuition similar to the one we used when testing the Kalman filter earlier, that is, the idea that the variables we can observe may not be the most descriptive variables of the system. As with the Kalman filter applied to a linear Gaussian model, we assume the idea that the process has a state, and our observations provide information about this state. And once again an opinion is needed about how state variables influence what we can observe. In the case of HMM, we determined that the process is non-linear and characterized by jumps between discrete states.
+
+### How the Model Works
+
+An HMM postulates a system in which there are states that are not directly observable. The system is a Markov process, which means it is "memoryless" in the sense that the probabilities of future events can be fully calculated by considering only the current state of the system. In other words, knowing the current state of the system and its previous states is no more useful than knowing only its current state.
+
+Markov processes are normally represented in matrices. For example, suppose we have a system oscillating between states A and B. But regardless of the state, the statistical probability of the system remaining in the same state was greater than the change to another state in any different time interval. A system of this type would be represented by the following matrix:
+
+$$
+\begin{array}{c c c}
+   & A & B \\
+A & 0.7 & 0.3 \\
+B & 0.2 & 0.8 \\
+\end{array}
+$$
+
+Suppose our system is in state A (1, 0). State B would be (0, 1). In this case, the probability of the system remaining in state A is 0.7, while the probability of the system reversing is 0.3. It is not necessary to know what states the system was in before its most recent time. A Markov process means just that.
+
+A hidden Markov model represents the same type of system, except that we cannot directly influence the state of the system from our observations. Instead, our observations provide clues as to the state of the system.
+
+Real use cases:
+
+- identification of process changes in financial markets (https://perma.cc/JRT2-ZDVJ);
+- classification, prediction and correction of DNA sequencing information (https://perma.cc/4V4A-53TZ);
+- recognition of sleep stages as depicted in ECG data (https://perma.cc/G37Y-XBQH);
+
+### How we fit the model
+
+We are assuming that there is a state that we cannot directly measure, and there is no way to get a demonstrably correct answer in many of the data sets we could use this technique on. There is no magic formula for deriving the most likely sequence of hidden states to explain the observations, but it is possible to approach an estimate once we have fully specified the system. In an HMM, we postulate that the system is fully described with the following information:
+
+- the *transition probability* of going *x(t)* to *x(t) + 1*. This is equivalent to specifying a matrix like the one just mentioned: the transition between states A and B. The size of the matrix would depend on the number of hypothetical states;
+- the *emission probability* or the *observation probability y(t)* given *x(t)*;
+- the initial state of the system;
+
+In more concrete terms, see the list of variables necessary to characterize and adjust an HMM process:
+
+- *Q = q<sub>1</sub>, q<sub>2</sub>, ..., q<sub>N</sub>*: the different states of the system;
+- *A = a<sub>i,j</sub> = a<sub>1,1</sub>, a<sub>1,2</sub>, ..., a<sub>n, m</sub>*: transition probability matrix indicating the transition in any time interval given the change from state *i* to state *j*;
+- *O = o<sub>1</sub>, o<sub>2</sub>, ..., o<sub>T</sub>*: a sequence of observations sampled from this process in order , which is a **time series** of observations;
+- *b<sub>i(ot)</sub>* indicating the emission probabilities, that is, the probabilities of seeing a given observation value, *o<sub>t</sub>* if the state is *q <sub>i</sub>*;
+- *p = p<sub>1</sub>, p<sub>2</sub>, ..., p<sub>N*: the initial probability distributions, i.e. the probability that the system will start in the state *q<sub>1</sub>, q<sub>2</sub>, ..., q<sub>N</sub>*, respectively;
+
+However, with real data, generally none of these variables are known. All that is known is the actual sequence of observables *y<sub>1</sub>, y<sub>2</sub>, ..., y<sub>T</sub>*.
+
+#### Baum-Welch Algorithm

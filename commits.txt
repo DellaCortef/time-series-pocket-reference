@@ -2,4 +2,10 @@
 git commit -m "creating state-space-models folder + creating state-space-models r markdown, R script + State Space Models for Time Series explanation + State Space Models: Pros and Cons + The Kalman filter + Overview + Code for the Kalman Filter block + starting developing the code for Kalman filter block"
 
 -- commit 04
+git commit -m "separating R Markdown + plotting position-velocity-acceleration.R + creating kalman filter + plotting kalman filter to Position: True, Measured and Estimated"
+
+-- commit 05
+git commit -m "adding images to R Markdown + Kalman filter explanation after applying + Hidden Markov Models introduction + Hidden Markov Models how it works + how to fit the model explanation + Baum-Welch Algorithm block"
+
+-- commit 06
 git commit -m ""

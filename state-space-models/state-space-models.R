@@ -137,5 +137,5 @@ lines(z, col = "red", lwd = 2, lty = 2)
 lines(t, col = "green", lwd = 2, lty = 3)
 
 # Add caption
-legend("topright", legend = c("Verdadeira", "Medida", "Estimada"), 
+legend("topright", legend = c("True", "Measured", "Estimated"), 
        col = c("blue", "red", "green"), lty = c(1, 2, 3), lwd = 2)
