@@ -4,10 +4,10 @@
 setwd('/Users/dellacorte/py-projects/data-science/time-series-pocket-reference/datasets/')
 
 # Installing packages
-
+install.packages("igraph")
 
 # Loading packages
-
+library(igraph)
 
 # rocket will take 100 time slots
 ts.length <- 100
@@ -139,3 +139,107 @@ lines(t, col = "green", lwd = 2, lty = 3)
 # Add caption
 legend("topright", legend = c("True", "Measured", "Estimated"), 
        col = c("blue", "red", "green"), lty = c(1, 2, 3), lwd = 2)
+
+# Viterbi Algorithm example
+# Define HMM parameters
+states <- c("Rainy", "Sunny")
+observations <- c("Walk", "Shop", "Clean")
+start_probs <- c(0.6, 0.4)  # Start probabilities
+transition_probs <- matrix(c(0.7, 0.3, 0.4, 0.6), nrow = 2, byrow = TRUE,
+                           dimnames = list(states, states))
+emission_probs <- matrix(c(0.1, 0.4, 0.5, 0.6, 0.3, 0.1), nrow = 2, byrow = TRUE,
+                         dimnames = list(states, observations))
+obs_seq <- c("Walk", "Shop", "Clean")  # Observation sequence
+
+# Viterbi Algorithm
+viterbi <- function(obs_seq, states, start_probs, transition_probs, emission_probs) {
+  n_obs <- length(obs_seq)
+  n_states <- length(states)
+  
+  # Initialize matrices for probabilities and paths
+  v <- matrix(0, nrow = n_states, ncol = n_obs)
+  path <- matrix(0, nrow = n_states, ncol = n_obs)
+  
+  # Initialization step
+  for (i in 1:n_states) {
+    v[i, 1] <- start_probs[i] * emission_probs[i, obs_seq[1]]
+    path[i, 1] <- i
+  }
+  
+  # Recursion step
+  for (t in 2:n_obs) {
+    for (i in 1:n_states) {
+      probs <- v[, t - 1] * transition_probs[, i] * emission_probs[i, obs_seq[t]]
+      v[i, t] <- max(probs)
+      path[i, t] <- which.max(probs)
+    }
+  }
+  
+  # Termination step
+  final_state <- which.max(v[, n_obs])
+  most_probable_path <- numeric(n_obs)
+  most_probable_path[n_obs] <- final_state
+  
+  for (t in (n_obs - 1):1) {
+    most_probable_path[t] <- path[most_probable_path[t + 1], t + 1]
+  }
+  
+  return(states[most_probable_path])
+}
+
+# Run the Viterbi algorithm
+obs_indices <- match(obs_seq, observations)  # Convert obs_seq to indices
+result <- viterbi(obs_indices, states, start_probs, transition_probs, emission_probs)
+print(result)  # Most probable state sequence
+
+# Plot the observation and hidden states
+plot_states <- function(obs_seq, states_seq) {
+  time_steps <- seq_along(obs_seq)
+  plot(time_steps, rep(1, length(obs_seq)), type = "n", xaxt = "n", yaxt = "n",
+       xlab = "Time", ylab = "State/Observation", ylim = c(0.5, 2.5))
+  axis(1, at = time_steps, labels = time_steps)
+  axis(2, at = c(1, 2), labels = c("Observation", "State"))
+  
+  # Add observation labels
+  text(time_steps, rep(1, length(obs_seq)), labels = obs_seq, col = "blue", cex = 1.2)
+  
+  # Add state labels
+  text(time_steps, rep(2, length(states_seq)), labels = states_seq, col = "red", cex = 1.2)
+  
+  # Connect observations and states
+  for (i in time_steps) {
+    arrows(i, 1.2, i, 1.8, col = "gray", lty = 2)
+  }
+}
+
+plot_states(obs_seq, result)
+
+# Improved Plot Function
+plot_states <- function(obs_seq, states_seq) {
+  time_steps <- seq_along(obs_seq)
+  
+  # Plot observations as a time series
+  plot(time_steps, rep(1, length(obs_seq)), type = "b", col = "blue", lwd = 2, 
+       xlab = "Time", ylab = "State/Observation", ylim = c(0.5, 2.5),
+       main = "Time Series: Observations and Hidden States", pch = 16, xaxt = "n", yaxt = "n")
+  
+  # Customize axes
+  axis(1, at = time_steps, labels = paste("Day", time_steps))
+  axis(2, at = c(1, 2), labels = c("Observation", "State"))
+  
+  # Add state sequence as a time series
+  points(time_steps, rep(2, length(states_seq)), type = "b", col = "red", lwd = 2, pch = 17)
+  
+  # Add arrows to connect observations to states
+  for (i in time_steps) {
+    arrows(i, 1.2, i, 1.8, col = "gray", lty = 3)
+  }
+  
+  # Add legend
+  legend("top", legend = c("Observations", "Hidden States"), col = c("blue", "red"), 
+         pch = c(16, 17), lty = 1, lwd = 2, bty = "n")
+}
+
+# Call the function with observation sequence and result
+plot_states(obs_seq, result)
+
