@@ -8,4 +8,7 @@ git commit -m "separating R Markdown + plotting position-velocity-acceleration.R
 git commit -m "adding images to R Markdown + Kalman filter explanation after applying + Hidden Markov Models introduction + Hidden Markov Models how it works + how to fit the model explanation + Baum-Welch Algorithm block"
 
 -- commit 06
-git commit -m "adding Baum-Welch Algorithm explanation + Viterbi Algorithm explanation + Viterbi Algorithm example + plotting and savinf the Viterbi Algorithm + "
+git commit -m "adding Baum-Welch Algorithm explanation + Viterbi Algorithm explanation + Viterbi Algorithm example + plotting and savinf the Viterbi Algorithm + Installing packages igraph + loading packages igraph + plotting viterbi-algorithm-time-series.R + plotting viterbi-algorithm-possible-observations-states.R"
+
+-- commit 07
+git commit -m ""

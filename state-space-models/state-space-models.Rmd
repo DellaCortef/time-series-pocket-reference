@@ -231,5 +231,8 @@ Assume we have two hidden states (**Rainy** and **Sunny**) and three possible ob
 
 ##### - Overview of the Viterbi Algorithm
 
-The Viterbi Algorithm is used to compute the most probable sequence of hidden states given the observ
+The Viterbi Algorithm is used to compute the most probable sequence of hidden states given the observ:
 
+![Viterbi Algorithm: Possible Observations States](https://github.com/DellaCortef/time-series-pocket-reference/blob/main/state-space-models/images/viterbi-algorithm-possible-observations-states.R.png?raw=true)
+
+![Viterbi Algorithm: Time Series: The Viterbi algorithm searches for all possible paths to explain a given observed time series, where a path indicates which state was occupied in each time interval](https://github.com/DellaCortef/time-series-pocket-reference/blob/main/state-space-models/images/viterbi-algorithm-time-series.R.png?raw=true)
