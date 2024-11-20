@@ -190,3 +190,46 @@ In more concrete terms, see the list of variables necessary to characterize and 
 However, with real data, generally none of these variables are known. All that is known is the actual sequence of observables *y<sub>1</sub>, y<sub>2</sub>, ..., y<sub>T</sub>*.
 
 #### Baum-Welch Algorithm
+
+When estimating the parameters of a hidden Markov model, we use the *Baum-Welch algorithm*. It guides us in our complex task of estimating the values of all parameters.
+
+In the case of two interrelated tasks, parameter estimation and probability maximization, we can use the *expectation-maximization* algorithm to iterate between two steps until an acceptable solution is found.
+
+The first step in applying the Baum-Welch algorithm is to specify the likelihood function, which is the probability of observing a given sequence given the hypothesized parameters. In our case, the hypothetical parameters would be the mathematical parameters per postulated state.
+
+For example, if we assume that states generate Gaussian outputs with means and standard deviations different from the observed values that depended on the state, and if we assume a two-state model, we can represent the model as *μ<sub>1</sub> , σ<sub>1</sub>*, *μ<sub>2</sub>* and *σ<sub>2</sub>* with *μ<sub>μ=i</sub>* indicating the average of *i-th* state and the *two-th* state indicating the standard deviation of the *i-th* state. This could describe the emission probabilities, and we represent them collectively as *θ*. We could also assume the sequence of states like *x<sub>1</sub>, x<sub>2</sub>, ..., x<sub>t</sub>* that we were not able to observe.
+
+Then the likelihood function would describe the probability of observing the sequence we observed by considering the emission probability parameters (i.e. the probability of a given observation in a specific state) and the sequence of hidden states as an integral of all possible *Xsub>t</sub>* from *p(y<sub>1</sub>, y<sub>2</sub>, ..., y<sub>t</sub> | μ<sub >1</sub>, σ<sub>1</sub>, μ<sub>2</sub>, σ<sub>2</sub>, ..., μ<sub>N</sub>, σ<sub>Nt</sub>) = p(y<sub>1</sub>, y<sub>2</sub>, ..., y<sub>t</sub> | μ<sub>1</sub>, σ<sub>1</sub>, μ<sub>2</sub>, σ<sub>2</sub>, ..., μ<sub>N</sub>, σ<sub>N</sub>)*
+
+#### Viterbi Algorithm
+
+Once the parameters of an HMM process have been estimated, such as using the Baum-Welch algorithm, it is necessary to analyze the most likely series of underlying states considering the measured **time series** of observable values. Unlike the Baum-Welch algorithm, the Viterbi algorithm guarantees you the best solution to the questions asked. This is because it is a dynamic programming algorithm designed to fully and efficiently explore the range of possible adjustments so that, as the algorithm's path lengthens, there is no need to recalculate all possible paths for all durations. of the path.
+
+##### - Example: Weather Prediction
+
+Assume we have two hidden states (**Rainy** and **Sunny**) and three possible observations (**Walk**, **Shop**, and **Clean**) over three days.
+
+##### 1. Define Model Parameters
+
+- **States**:
+  - Rainy
+  - Sunny
+
+- **Observations**:
+  - Walk
+  - Shop
+  - Clean
+
+- **Start Probabilities**:
+  - Probability of the first day being Rainy or Sunny.
+
+- **Transition Probabilities**:
+  - Likelihood of changing states (e.g., Rainy → Sunny).
+
+- **Emission Probabilities**:
+  - Likelihood of observations given a state (e.g., Rainy → Walk).
+
+##### - Overview of the Viterbi Algorithm
+
+The Viterbi Algorithm is used to compute the most probable sequence of hidden states given the observ
+
