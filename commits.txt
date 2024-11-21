@@ -11,4 +11,7 @@ git commit -m "adding images to R Markdown + Kalman filter explanation after app
 git commit -m "adding Baum-Welch Algorithm explanation + Viterbi Algorithm explanation + Viterbi Algorithm example + plotting and savinf the Viterbi Algorithm + Installing packages igraph + loading packages igraph + plotting viterbi-algorithm-time-series.R + plotting viterbi-algorithm-possible-observations-states.R"
 
 -- commit 07
+git commit -m "tuning an HMM + tunning HMM explanation + applying HMM model into marketshare example"
+
+-- commit 08
 git commit -m ""

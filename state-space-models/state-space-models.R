@@ -243,3 +243,52 @@ plot_states <- function(obs_seq, states_seq) {
 # Call the function with observation sequence and result
 plot_states(obs_seq, result)
 
+# Defining a seed
+set.seed(123)
+
+# Definition of parameters for the distribution of each state we want to represent
+bull_mu <- 0.1
+bull_sd <- 0.1
+
+neutral_mu <- 0.02
+neutral_sd <- 0.08
+
+bear_mu <- 0.03
+bear_sd <- 0.2
+
+panic_mu <- 0.1
+panic_sd <- 0.3
+
+# Collecting these parameters into vectors to facilitate indexing
+mus <- c(bull_mu, neutral_mu, bear_mu, panic_mu)
+sds <- c(bull_sd, neutral_sd, bear_sd, panic_sd)
+
+# Defining some constants to represent the time series we will generate
+NUM.PERIODS     <- 10
+SMALLEST.PERIOD <- 20
+LONGEST.PERIOD  <- 40
+
+# Stochastically determining a series of day counts
+days <- sample(SMALLEST.PERIOD:LONGEST.PERIOD, NUM.PERIODS, replace = TRUE)
+
+# For each number of days in the vector, we will generate a time series for a given market state
+returns   <- numeric()
+true.mean <- numeric()
+for (d in days) {
+  idx = sample(1:4, 1, prob = c(0.2, 0.6, 0.18, 0.02))
+  returns <- c(returns, rnorm(d, mean = mus[idx], sd = sds[idx]))
+  true.mean <- c(true.mean, rep(mus[idx], d))
+}
+
+# Frequency of each state
+table(true.mean)
+
+# Create a data frame for the frequency table
+freq_table <- data.frame(
+  true.mean = c(0.02, 0.03, 0.10),
+  Frequency = c(142, 66, 111)
+)
+
+# Display the table with knitr::kable
+knitr::kable(freq_table, caption = "Frequency Table of true.mean")
+

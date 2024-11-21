@@ -236,3 +236,17 @@ The Viterbi Algorithm is used to compute the most probable sequence of hidden st
 ![Viterbi Algorithm: Possible Observations States](https://github.com/DellaCortef/time-series-pocket-reference/blob/main/state-space-models/images/viterbi-algorithm-possible-observations-states.R.png?raw=true)
 
 ![Viterbi Algorithm: Time Series: The Viterbi algorithm searches for all possible paths to explain a given observed time series, where a path indicates which state was occupied in each time interval](https://github.com/DellaCortef/time-series-pocket-reference/blob/main/state-space-models/images/viterbi-algorithm-time-series.R.png?raw=true)
+
+### Tuning an HMM
+
+We will use the **depmixS4** package. First, you need to define an appropriate **time series**:
+
+We seek to use the stock market as an example through bull market (rising shares), bear market (falling shares), neutral market (stable shares), and panic market scenarios. A random number of days for a state to persist is selected, as are variables representing the emission probability distribution for each state (i.e., the variables *_mu* and *_sd*, indicating what type of values we expect to see measured in a given state).
+
+We can get a sense of what our generated **time series** looks like and the frequency of each state by looking at how many days in the sample correspond to each *true.mean*, the variable we are using to track the state:
+
+| true.mean | Frequency |
+|-----------|-----------|
+| 0.02      | 142       |
+| 0.03      | 66        |
+| 0.10      | 111       |
