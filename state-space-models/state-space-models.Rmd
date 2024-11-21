@@ -250,3 +250,76 @@ We can get a sense of what our generated **time series** looks like and the freq
 | 0.02      | 142       |
 | 0.03      | 66        |
 | 0.10      | 111       |
+
+Although we intended to include four states in the simulated series, only three were included. Probably the fourth state had a very low probability of inclusion (0.02). We see that the least likely state was not even selected to be included in the series. We cannot always know this in a given **time series** - that not all possible states have been included -, a fact that highlights part of the reason why tuning HMMs is difficult and why things are somewhat unfair with the algorithm. However, we will continue with the analysis specifying four groups, to see what we are provided with.
+
+We still need to tune an HMM. The resulting HMM will provide us with a **time series** of posterior probabilities for each state and for all states we will indicate. Consistent with the previous description of the EM algorithm, it is necessary to specify nothing more than the number of purative states. The rest will be determined gradually through an iterative back-and-forth process.
+
+As is often the case, with the right package, the hard part of the analysis is actually very easy in terms of the amount of code that needs to be written. In this case, we will use the R package **depmixS4$^4$**. The model will be adjusted in two steps. First, it is specified with the *depmix()* function, which signals the expected distribution, the number of states and the input data to be used in the adjustment. The model is then fitted using the *fit()* function, which takes the model specification as its input. Finally, to generate the posterior distribution of state labels according to the fit to the data, we will use the *posterior()* function. At this point, the model itself has already been tuned, so we will have a separate task to label the data, now that the parameters representing the state distributions and transition probabilities have been estimated.
+
+We generate a *hmm.model*, indicating that the observable is the *returns* vector. We also indicate the number of states (4) and that the emission probabilities come in a Gaussian distribution through our specification of the *family* parameter. We fit a model using the *fit()* function and then calculate the posterior probabilities with the *posterior()* function. Posterior probabilities give us the probability of a given state in a given time for the model parameters we defined with the tuning process.
+
+Now, we can visualize the states together with the measured values as follows:
+
+![HMM State Probabilities - In this graph, the background indicates a distinct state and the solid black line represents the actual values. The vertical white line object types are actually very narrow portions representing times, in which the process is estimated to be in what turns out to be the rarest of the four states]()
+
+We can access information about the hypothetical distribution parameters that the model determined through its attributes. When we analyze this, we cannot forget our original parameters that generated the data.
+
+If we were to combine, it would appear that, of the states actually present in the data, the following groups were roughly correlated:
+
+| State | Model Type       | Formula          | Intercept   | Standard Deviation (SD) |
+|-------|------------------|------------------|-------------|--------------------------|
+| 1     | Gaussian (identity) | returns ~ 1   | 0.01985006  | 0.07124668              |
+| 2     | Gaussian (identity) | returns ~ 1   | -0.00317996 | 0.20188430              |
+| 3     | Gaussian (identity) | returns ~ 1   | 0.11859950  | 0.08632639              |
+| 4     | Gaussian (identity) | returns ~ 1   | 0.05881051  | 0.12016770              |
+
+- **State 1** --> *Could be consistent with panic model*
+  - Model Type: Gaussian (identity)
+  - Formula: returns ~ 1
+  - Intercept: 0.01985006
+  - Standard Deviation (SD): 0.07124668
+
+- **State 2** --> *Could be consistent with bear market model*
+  - Model Type: Gaussian (identity)
+  - Formula: returns ~ 1
+  - Intercept: -0.00317996
+  - Standard Deviation (SD): 0.20188430
+
+- **State 3** --> *Could be consistent with bull market model*
+  - Model Type: Gaussian (identity)
+  - Formula: returns ~ 1
+  - Intercept: 0.11859950
+  - Standard Deviation (SD): 0.08632639
+
+- **State 4** --> *Could be consistent with neutral market model*
+  - Model Type: Gaussian (identity)
+  - Formula: returns ~ 1
+  - Intercept: 0.05881051
+  - Standard Deviation (SD): 0.12016770
+
+<br>
+One possible reason why the fit does not better align with our baseline hidden states is that we did not use a suitable transition matrix, whereas the model used one for the fit. Our transitions between states were not truly Markovian, and this may impact the fit. Furthermore, we fit a relatively short **time series** with few transitions between states, while HMMs will perform better on longer **time series** with more opportunities to observe/infer state transitions.
+
+HMMs are used to analyze many types of data. They have been used to model financial market booms or busts, determine what stage protein folding is at within a cell, and describe human movement (before the advent of deep learning). These models remain useful, but they are more useful for understanding the dynamics of a system than for making predictions. What's more, HMMs provide more than just a point estimate or forecast. Lastly, we can introduce prior knowledge or prior opinion into our model by specifying the number of states used to fit our HMM. Thus, we will reap the fruits of statistical methods, as well as the parameters to parameterize our previous knowledge about the system.
+
+Like a Kalman filter, HMMs can be used in a variety of tasks. In practice, the variety of inference problems related to HMM systems is even more complex due to the increased complexity of discrete states, each with its own emission probability. You may come across the following tasks:
+
+- determine the most likely description of states by generating a series of observations. This involves estimating the emission probabilities of these states, as well as the transmission matrix that represents the probability of one state leading to another;
+- determine the most likely sequence of states given a series of observations and a description of the states and their emission and transition probabilities. We say this as part of the previous task. People often refer to this as the "most likely explanation", and it is usually calculated with the Viterbi algorithm;
+- filtering and smoothing. In this scenario, filtering would estimate the hidden state of the most recent time interval given the most recent observation. Smoothing would be to determine the most likely distribution of the hidden state in a given time interval, given observations before, during, and after that time interval;
+
+
+## Bayesian Structural Time Series
+
+Bayesian structural time series (BSTS) are related to the linear Gaussian model we used previously with Kalman filtering. The main difference is that Bayesian structural time series provide a way to use preexisting components to create more complex model models, which can depict known facts or interesting hypotheses about a system. In this way, we can then design the structure, use robust tuning techniques with the aim of estimating parameters for the model created in the case of our data, and analyze how well the model does in describing and predicting the behavior of a system.
+
+Compared to the linear Gaussian model that we will cover in our analysis of the Kalman filter, the mathematical calculations of the BSTS model are extremely complicated and, in computational terms, heavy. For this reason, we will focus on the overview and code:
+
+1. a structural model is defined, including the specification of *a priori* distributions;
+2. a Kalman filter is applied to update state estimates based on observed data;
+3. the spike-and-slab method is used to select variables within the structural model;
+4. Bayesian model averaging is applied to combine results to generate a prediction.
+
+In the next example, we'll just focus on steps 1 and 2, where we'll define a flexible model of preexisting modular components and then use it to fit our data with a Bayesian method that updates the parameter estimate as time passes.
+

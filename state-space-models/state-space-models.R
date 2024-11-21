@@ -4,10 +4,16 @@
 setwd('/Users/dellacorte/py-projects/data-science/time-series-pocket-reference/datasets/')
 
 # Installing packages
+install.packages("bsts")
 install.packages("igraph")
+install.packages("depmixS4")
+install.packages("data.table")
 
 # Loading packages
+library(bsts)
 library(igraph)
+library(depmixS4)
+library(data.table)
 
 # rocket will take 100 time slots
 ts.length <- 100
@@ -292,3 +298,27 @@ freq_table <- data.frame(
 # Display the table with knitr::kable
 knitr::kable(freq_table, caption = "Frequency Table of true.mean")
 
+# tunning HMM explanation
+hmm.model  <- depmix(returns ~ 1, family = gaussian(),
+                    nstates = 4, data=data.frame(returns=returns))
+model.fit  <- fit(hmm.model)
+post_probs <- posterior(model.fit)
+
+# Visualizing the states with the measured values
+plot(returns, type = 'l', lwd = 3, col = 1, 
+     yaxt = "n", xaxt = "n", ylab = "",
+     ylim = c(-0.6, 0.6))
+
+# Example setup for the plot
+plot(1:length(returns), type = "n", ylim = c(-1, 1), xlab = "Time", ylab = "Returns")
+
+# Ensure 'post_probs$state' contains valid values for alpha (0-1 range)
+lapply(0:(length(returns) - 1), function(i) {
+  ## Add a rectangle with the appropriate background color to indicate the state during the interval
+  rect(i, -0.6, i + 1, 0.6,
+       col = rgb(0.0, 0.0, 0.0, alpha = 0.2 * post_probs$state[i + 1]),
+       border = NA)
+})
+
+# Extracts the "response" attribute from the model.fit object, which contains the fitted sub-models for each hidden state.
+attr(model.fit, "response")
