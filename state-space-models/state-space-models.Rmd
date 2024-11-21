@@ -261,7 +261,7 @@ We generate a *hmm.model*, indicating that the observable is the *returns* vecto
 
 Now, we can visualize the states together with the measured values as follows:
 
-![HMM State Probabilities - In this graph, the background indicates a distinct state and the solid black line represents the actual values. The vertical white line object types are actually very narrow portions representing times, in which the process is estimated to be in what turns out to be the rarest of the four states]()
+![HMM State Probabilities - In this graph, the background indicates a distinct state and the solid black line represents the actual values. The vertical white line object types are actually very narrow portions representing times, in which the process is estimated to be in what turns out to be the rarest of the four states](https://github.com/DellaCortef/time-series-pocket-reference/blob/main/state-space-models/images/hmm-state-probabilities.R.png?raw=true)
 
 We can access information about the hypothetical distribution parameters that the model determined through its attributes. When we analyze this, we cannot forget our original parameters that generated the data.
 
