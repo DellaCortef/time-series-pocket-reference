@@ -15,3 +15,6 @@ git commit -m "tuning an HMM + tunning HMM explanation + applying HMM model into
 
 -- commit 08
 git commit -m "tunning HMM explanation + installing and loading depmixS4 package + plotting hmm-state-probabilities.R image and saving + Extracting the "response" attribute from the model.fit object, which contains the fitted sub-models for each hidden state + tunning HMM examples explanation + creating Bayesian Structural Time Series block + Bayesian Structural Time Series explanation + creating"
+
+-- commit 09
+git commit -m "saving image into r markdown"
