@@ -3,6 +3,7 @@
 .Rproj.user
 
 # files
+.RData
 .DS_Store
 .Rproj.user
 .Rhistory

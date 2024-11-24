@@ -23,4 +23,4 @@ git commit -m "saving image into r markdown"
 git commit -m "creating generating-selecting-features folder + generating selecting features explanation + applytin generating selecting features to a simple example + ## General Considerations when Calculating Characteristics explanation + adding The Nature of Time Series + adding The Nature of Time Series + Time series size + Domain Knowledge + External Considerations + Open Source Libraries for Generating Time Series Features explanation + Python tsfresh module lib + The Cesium time series analysis platform + The tsfeatures package in R explanation"
 
 -- commit 11
-git commit -m ""
+git commit -m "adding .RData into .gitigonre file + checkpoint autosaving"
