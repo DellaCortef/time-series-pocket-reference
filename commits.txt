@@ -24,3 +24,6 @@ git commit -m "creating generating-selecting-features folder + generating select
 
 -- commit 11
 git commit -m "adding .RData into .gitigonre file + checkpoint autosaving"
+
+-- commit 12
+git commit -m "Examples of Domain Specific Characteristics + How to Select Traits after Generating Them + creating generating-and-selecting-features-for-stime-series.R file + applying *recursive feature elimination* (RFE) + applying ranking wth RFE and SVC + *FRESH* algorithm explanation + adding final reflections"
