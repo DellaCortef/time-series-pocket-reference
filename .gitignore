@@ -8,3 +8,6 @@
 .Rproj.user
 .Rhistory
 .commits.txt
+
+# envs
+cesium_env
