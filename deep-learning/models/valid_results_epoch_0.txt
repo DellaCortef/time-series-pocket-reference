@@ -1,2 +1,2 @@
 Epoch: 0
-Correlation (COR): -0.068126
+Correlation (COR): -0.041049
