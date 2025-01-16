@@ -1,0 +1,2 @@
+Epoch: 4
+Correlation (COR): -0.142715
