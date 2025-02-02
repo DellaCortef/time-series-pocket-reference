@@ -1,0 +1,67 @@
+---
+title: "applications-in-the-field-of-medical-care"
+author: "Della"
+date: "2025-02-01"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Now, we will examine **time series** analysis in the context of healthcare, starting from two case studies: influenza prediction and nowcasting and blood glycemic index prediction. Both uses are important for detecting common health problems. Furthermore, in both cases, these are not solved problems, but rather topics of ongoing research in academia and healthcare.
+    
+## Predicting the Flu
+
+Predicting the weekly flu rate in a given geographic area is a long-standing and ongoing problem. Infectious disease experts and global security professionals agree that infectious diseases pose a significant risk to human well-being. This is the case with influenza, which affects vulnerable people around the world, causing hundreds of deaths every year, especially among the very young and very old. It is crucial, from both a health care and national security perspective, to develop accurate models of how the flu will develop in a given season. Flu prediction models help predict the virus specifically and also help researchers explore general theories about how infectious diseases travel geographically.
+
+### Case Study on Flu in a Metropolitan Area
+
+We will look at a dataset of weekly flu reports from a variety of administrative regions in France, corresponding to the years 2004 to 2013. We will predict the flu rate in Île-de-France, the Paris metropolitan region. You can download the data from Kaggle (https://perma.cc/W9VQ-UUJC).
+
+#### Data exploration and cleansing
+
+We will start by familiarizing ourselves with the raw data by first analyzing it in its tabular format:
+
+```{r, echo=FALSE}
+library(knitr)
+library(data.table)
+
+# Sample dataset
+flu <- data.table(
+  Id = c(3235, 3236, 3237, 3238, 3239, 3240),
+  week = rep(201352, 6),
+  region_code = c(42, 72, 83, 25, 26, 53),
+  region_name = c("ALSACE", "AQUITAINE", "AUVERGNE", "BASSE-NORMANDIE", "BOURGOGNE", "BRETAGNE"),
+  TauxGrippe = c(7, 0, 88, 15, 0, 67),
+  flu_rate = c(7, 0, 88, 15, 0, 67)
+)
+
+# Create a clean table
+kable(flu, caption = "Flu Data Table")
+```
+
+We also did some basic quality checks, like looking for NA in our variables of interest. We may not know where these NA values come from, but we will need to consider them:
+
+```R
+> nrow(flu[is.na(flu.rate)]) / nrow(flu)
+[1] 0
+> unique(flu[is.na(flu.rate)]$region_name)
+character(0)
+```
+
+The overall index of NA data points is 0. Furthermore, our region of interest, Île-de-France, is not included in the list of regions with NA values. We did some data cleaning, separating the week and year portion of the timestamp column (which is currently in character format, not numeric or timestamp format):
+
+```R
+flu[, year := as.numeric(substr(week, 1, 4))]
+flu[, wk   := as.numeric(substr(week, 5, 6))]
+```
+
+We will add a *Date* class column so that we can have better plotting axes for time than if we treated the data without a timestamp:
+
+```R
+flu[, date := ISOweek2date(paste0(substr(as.character(week), 1, 4), "-W", substr(as.character(week), 5, 6), "-1"))]
+```
+
+This line of code is a little complicated. To convert month/week combinations into dates, we add a component that indicates the day. This is the purpose of *paste0()*, which marks each date as the first day of the week, placing a "1" in a string that already designates the year and week (out of the 52 weeks of the year). Note the %U and %u in the format string: they have to do with marking time according to the week of the year and the day of the week, a somewhat unusual timestamp format. We then split the data relating specifically to Paris and sorted it by date:
+
