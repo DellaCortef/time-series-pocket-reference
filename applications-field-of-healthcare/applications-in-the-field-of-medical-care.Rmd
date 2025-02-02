@@ -135,3 +135,6 @@ Next, we look at the differentiated series, as illustrated in the last graph. No
 
 While we may be tempted to continue differentiating, we need to remember that real-world data will never fit perfectly into a SARIMA model. Instead, we will look for a reasonable way to model the data. We can consider seasonal differentiation once again, or adopt a different tactic and differentiate in linear time. We will plot each of these possibilities:
 
+![](https://github.com/DellaCortef/time-series-pocket-reference/blob/main/applications-field-of-healthcare/images/plot-diff-diff-paris-flu-rate-52.png?raw=true)
+
+![Plot two differentiating versions of our series to get an idea of the seasonal behavior of the data](https://github.com/DellaCortef/time-series-pocket-reference/blob/main/applications-field-of-healthcare/images/plot-diff-diff-paris-flu-rate-1.png?raw=true)
