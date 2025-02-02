@@ -65,3 +65,41 @@ flu[, date := ISOweek2date(paste0(substr(as.character(week), 1, 4), "-W", substr
 
 This line of code is a little complicated. To convert month/week combinations into dates, we add a component that indicates the day. This is the purpose of *paste0()*, which marks each date as the first day of the week, placing a "1" in a string that already designates the year and week (out of the 52 weeks of the year). Note the %U and %u in the format string: they have to do with marking time according to the week of the year and the day of the week, a somewhat unusual timestamp format. We then split the data relating specifically to Paris and sorted it by date:
 
+```{r, echo=FALSE}
+library(knitr)
+library(data.table)
+
+# Sample dataset
+flu <- data.table(
+  week = c(200401, 200402, 200403, 200404, 200405, 201348, 201349, 201350, 201351, 201352),
+  date = as.Date(c("2003-12-29", "2004-01-05", "2004-01-12", "2004-01-19", "2004-01-26",
+                   "2013-11-25", "2013-12-02", "2013-12-09", "2013-12-16", "2013-12-23")),
+  flu.rate = c(66, 74, 88, 26, 17, 12, 10, 13, 49, 24)
+)
+
+# Create a formatted table
+kable(flu, caption = "Flu Data Table")
+```
+
+If you've been paying attention, you'll be surprised by the line count. If there are 52 weeks in a year and we have 10 years of data, why do we have 522 rows? We expected 52 weeks x 10 years = 520 lines. Likewise, why are there two NA dates? If we go back to the original data, we have an explanation. Apparently it has a 53˚ for both 2004 and 2009. From time to time there is a year with 53 weeks instead of 52.
+
+Next, we'll check that the data covers a full, regularly sampled date range by first making sure that each year has the same number of data points:
+
+```{r, echo=FALSE}
+library(knitr)
+library(data.table)
+
+# Sample dataset
+paris.flu <- data.table(
+  year = c(2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013),
+  N = c(53, 52, 52, 52, 52, 53, 52, 52, 52, 52)
+)
+
+# Create a formatted table
+kable(paris.flu, caption = "Paris Flu Data - Weekly Observations per Year")
+```
+
+We can see that the data is as expected; that is, each year (except the two we just looked at) has 52 weeks, and each year-to-week label has 10 data points, one for each year (except week 53). Since we consider the timestamps of the data, we will inspect the actual values of the **time series** (so far we have only considered time indexing). Is there a trend? We will analyze:
+
+![/Users/dellacorte/py-projects/data-science/time-series-pocket-reference/applications-field-of-healthcare/images/flu-paris-ts.R.png](By plotting the flu rate time series, we can see the seasonality of the flu rate)
+
