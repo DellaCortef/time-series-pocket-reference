@@ -101,5 +101,13 @@ kable(paris.flu, caption = "Paris Flu Data - Weekly Observations per Year")
 
 We can see that the data is as expected; that is, each year (except the two we just looked at) has 52 weeks, and each year-to-week label has 10 data points, one for each year (except week 53). Since we consider the timestamps of the data, we will inspect the actual values of the **time series** (so far we have only considered time indexing). Is there a trend? We will analyze:
 
-![https://github.com/DellaCortef/time-series-pocket-reference/blob/main/applications-field-of-healthcare/images/flu-paris-ts.R.png?raw=true](By plotting the flu rate time series, we can see the seasonality of the flu rate)
+![By plotting the flu rate time series, we can see the seasonality of the flu rate](https://github.com/DellaCortef/time-series-pocket-reference/blob/main/applications-field-of-healthcare/images/flu-paris-ts.R.png?raw=true)
+
+A partir de um simples gráfico de linhas, fica claro que há uma sazonalidade considerável (algo que você provavelmente já viu em sua própria comunidade). Esse gráfico sugere um forte componente sazonal, porém não sugere um drift temporal além da sazonalidade.
+
+Things get complicated in the seasonal behavior of the 53rd week. If we want to fit a seasonal model, we need to define seasonality in weeks of the year and we cannot have variable seasonal sizes. While we can imagine some creative solutions to the 53rd week problem, we will choose to exclude this data:
+
+```R
+paris.flu <- paris.flu[week != 53]  
+```
 
