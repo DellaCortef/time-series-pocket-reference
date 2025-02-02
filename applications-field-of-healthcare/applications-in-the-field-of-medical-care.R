@@ -63,3 +63,6 @@ acf(diff(paris.flu$flu.rate, 52), lag.max = 104)
 plot(diff(diff(paris.flu$flu.rate, 52), 52))
 plot(diff(diff(paris.flu$flu.rate, 52),  1))
 
+par(mfrow = c(2, 1))
+acf (diff(diff(paris.flu$flu.rate, 52), 1), lag.max = 104)
+pacf(diff(diff(paris.flu$flu.rate, 52), 1), lag.max = 104)
