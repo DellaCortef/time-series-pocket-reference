@@ -101,5 +101,5 @@ kable(paris.flu, caption = "Paris Flu Data - Weekly Observations per Year")
 
 We can see that the data is as expected; that is, each year (except the two we just looked at) has 52 weeks, and each year-to-week label has 10 data points, one for each year (except week 53). Since we consider the timestamps of the data, we will inspect the actual values of the **time series** (so far we have only considered time indexing). Is there a trend? We will analyze:
 
-![/Users/dellacorte/py-projects/data-science/time-series-pocket-reference/applications-field-of-healthcare/images/flu-paris-ts.R.png](By plotting the flu rate time series, we can see the seasonality of the flu rate)
+![https://github.com/DellaCortef/time-series-pocket-reference/blob/main/applications-field-of-healthcare/images/flu-paris-ts.R.png?raw=true](By plotting the flu rate time series, we can see the seasonality of the flu rate)
 
