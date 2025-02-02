@@ -122,3 +122,16 @@ This **time series** is a good example of how we can go wrong if we rely too muc
 ![](https://github.com/DellaCortef/time-series-pocket-reference/blob/main/applications-field-of-healthcare/images/acf-paris-flu-rate.png?raw=true)
 
 ![In the first graph, we plot the autocorrelation function for the Paris flu index, and in the second graph, we plot the differentiated Paris flu index. We only analyzed a limited range of lag values.](https://github.com/DellaCortef/time-series-pocket-reference/blob/main/applications-field-of-healthcare/images/acf-diff-paris-flu-rate.png?raw=true)
+
+![](https://github.com/DellaCortef/time-series-pocket-reference/blob/main/applications-field-of-healthcare/images/acf-paris-flu-lag-max.png?raw=true)
+
+![In the first graph, we plot the autocorrelation function for the Paris flu index and, in the second graph, we plot the differentiated Paris flu index. We now examine a wider range of lag values.](https://github.com/DellaCortef/time-series-pocket-reference/blob/main/applications-field-of-healthcare/images/acf-diff-paris-flu-lag-max.png?raw=true)
+
+This gives us a more realistic picture of the autocorrelation of our **time series**. As we can see, there are substantial autocorrelations at various lags, and this makes sense (at least in my experience) in a four-season climate. Flu rates will have a strong correlation with neighboring weeks - that is, close to the time of measurement.
+
+They will also have a strong correlation, given seasonality, with lag periods around 52 or around 104, as this indicates annual seasonality. However, flu rates also have a very strong relationship with lag time periods due to intermediate values, such as half a year (26 weeks), as these lags are also related to seasonal differences and predictable meteorological variations. For example, we know that in half a year the flu value will probably have changed a little. If it was high before, it must now be low and vice versa, again due to seasonality. All of this is represented in the upper graph of the last figures.
+
+Next, we look at the differentiated series, as illustrated in the last graph. Now we see that a considerable part of the **time series** autocorrelation has decreased. However, there is some autocorrelation across a range of values, not only at 52 or 104 weeks (one or two years), but also at intermediate values.
+
+While we may be tempted to continue differentiating, we need to remember that real-world data will never fit perfectly into a SARIMA model. Instead, we will look for a reasonable way to model the data. We can consider seasonal differentiation once again, or adopt a different tactic and differentiate in linear time. We will plot each of these possibilities:
+
