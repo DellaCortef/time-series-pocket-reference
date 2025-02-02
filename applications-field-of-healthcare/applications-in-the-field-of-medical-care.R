@@ -54,3 +54,6 @@ paris.flu[, plot(date, flu.rate,
 
 paris.flu <- paris.flu[week != 53]           
 
+acf(paris.flu$flu.rate,        )
+acf(diff(paris.flu$flu.rate, 52))
+    
