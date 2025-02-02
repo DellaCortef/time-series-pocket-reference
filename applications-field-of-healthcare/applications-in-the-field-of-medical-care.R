@@ -40,3 +40,17 @@ flu[, wk   := as.numeric(substr(week, 5, 6))]
 
 flu[, date := ISOweek2date(paste0(substr(as.character(week), 1, 4), "-W", substr(as.character(week), 5, 6), "-1"))]
 
+# Lets focus on Paris
+paris.flu = flu[region_name == "ILE-DE-FRANCE"]
+paris.flu = paris.flu[order(date, decreasing = FALSE)]
+
+paris.flu[, .(week, date, flu.rate)]
+
+paris.flu[, .N, year]
+
+paris.flu[, plot(date, flu.rate,
+                 type = "l", xlab = "Date",
+                 ylab = "Flu rate")]
+
+paris.flu <- paris.flu[week != 53]           
+

@@ -449,6 +449,165 @@ analyzing it in its tabular format:</p>
 </tr>
 </tbody>
 </table>
+<p>We also did some basic quality checks, like looking for NA in our
+variables of interest. We may not know where these NA values come from,
+but we will need to consider them:</p>
+<pre class="r"><code>&gt; nrow(flu[is.na(flu.rate)]) / nrow(flu)
+[1] 0
+&gt; unique(flu[is.na(flu.rate)]$region_name)
+character(0)</code></pre>
+<p>The overall index of NA data points is 0. Furthermore, our region of
+interest, Île-de-France, is not included in the list of regions with NA
+values. We did some data cleaning, separating the week and year portion
+of the timestamp column (which is currently in character format, not
+numeric or timestamp format):</p>
+<pre class="r"><code>flu[, year := as.numeric(substr(week, 1, 4))]
+flu[, wk   := as.numeric(substr(week, 5, 6))]</code></pre>
+<p>We will add a <em>Date</em> class column so that we can have better
+plotting axes for time than if we treated the data without a
+timestamp:</p>
+<pre class="r"><code>flu[, date := ISOweek2date(paste0(substr(as.character(week), 1, 4), &quot;-W&quot;, substr(as.character(week), 5, 6), &quot;-1&quot;))]</code></pre>
+<p>This line of code is a little complicated. To convert month/week
+combinations into dates, we add a component that indicates the day. This
+is the purpose of <em>paste0()</em>, which marks each date as the first
+day of the week, placing a “1” in a string that already designates the
+year and week (out of the 52 weeks of the year). Note the %U and %u in
+the format string: they have to do with marking time according to the
+week of the year and the day of the week, a somewhat unusual timestamp
+format. We then split the data relating specifically to Paris and sorted
+it by date:</p>
+<table>
+<caption>Flu Data Table</caption>
+<thead>
+<tr class="header">
+<th align="right">week</th>
+<th align="left">date</th>
+<th align="right">flu.rate</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">200401</td>
+<td align="left">2003-12-29</td>
+<td align="right">66</td>
+</tr>
+<tr class="even">
+<td align="right">200402</td>
+<td align="left">2004-01-05</td>
+<td align="right">74</td>
+</tr>
+<tr class="odd">
+<td align="right">200403</td>
+<td align="left">2004-01-12</td>
+<td align="right">88</td>
+</tr>
+<tr class="even">
+<td align="right">200404</td>
+<td align="left">2004-01-19</td>
+<td align="right">26</td>
+</tr>
+<tr class="odd">
+<td align="right">200405</td>
+<td align="left">2004-01-26</td>
+<td align="right">17</td>
+</tr>
+<tr class="even">
+<td align="right">201348</td>
+<td align="left">2013-11-25</td>
+<td align="right">12</td>
+</tr>
+<tr class="odd">
+<td align="right">201349</td>
+<td align="left">2013-12-02</td>
+<td align="right">10</td>
+</tr>
+<tr class="even">
+<td align="right">201350</td>
+<td align="left">2013-12-09</td>
+<td align="right">13</td>
+</tr>
+<tr class="odd">
+<td align="right">201351</td>
+<td align="left">2013-12-16</td>
+<td align="right">49</td>
+</tr>
+<tr class="even">
+<td align="right">201352</td>
+<td align="left">2013-12-23</td>
+<td align="right">24</td>
+</tr>
+</tbody>
+</table>
+<p>If you’ve been paying attention, you’ll be surprised by the line
+count. If there are 52 weeks in a year and we have 10 years of data, why
+do we have 522 rows? We expected 52 weeks x 10 years = 520 lines.
+Likewise, why are there two NA dates? If we go back to the original
+data, we have an explanation. Apparently it has a 53˚ for both 2004 and
+2009. From time to time there is a year with 53 weeks instead of 52.</p>
+<p>Next, we’ll check that the data covers a full, regularly sampled date
+range by first making sure that each year has the same number of data
+points:</p>
+<table>
+<caption>Paris Flu Data - Weekly Observations per Year</caption>
+<thead>
+<tr class="header">
+<th align="right">year</th>
+<th align="right">N</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">2004</td>
+<td align="right">53</td>
+</tr>
+<tr class="even">
+<td align="right">2005</td>
+<td align="right">52</td>
+</tr>
+<tr class="odd">
+<td align="right">2006</td>
+<td align="right">52</td>
+</tr>
+<tr class="even">
+<td align="right">2007</td>
+<td align="right">52</td>
+</tr>
+<tr class="odd">
+<td align="right">2008</td>
+<td align="right">52</td>
+</tr>
+<tr class="even">
+<td align="right">2009</td>
+<td align="right">53</td>
+</tr>
+<tr class="odd">
+<td align="right">2010</td>
+<td align="right">52</td>
+</tr>
+<tr class="even">
+<td align="right">2011</td>
+<td align="right">52</td>
+</tr>
+<tr class="odd">
+<td align="right">2012</td>
+<td align="right">52</td>
+</tr>
+<tr class="even">
+<td align="right">2013</td>
+<td align="right">52</td>
+</tr>
+</tbody>
+</table>
+<p>We can see that the data is as expected; that is, each year (except
+the two we just looked at) has 52 weeks, and each year-to-week label has
+10 data points, one for each year (except week 53). Since we consider
+the timestamps of the data, we will inspect the actual values of the
+<strong>time series</strong> (so far we have only considered time
+indexing). Is there a trend? We will analyze:</p>
+<div class="float">
+<img src="By%20plotting%20the%20flu%20rate%20time%20series,%20we%20can%20see%20the%20seasonality%20of%20the%20flu%20rate" alt="/Users/dellacorte/py-projects/data-science/time-series-pocket-reference/applications-field-of-healthcare/images/flu-paris-ts.R.png" />
+<div class="figcaption">/Users/dellacorte/py-projects/data-science/time-series-pocket-reference/applications-field-of-healthcare/images/flu-paris-ts.R.png</div>
+</div>
 </div>
 </div>
 </div>
