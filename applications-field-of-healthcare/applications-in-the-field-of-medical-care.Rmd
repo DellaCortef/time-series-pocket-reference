@@ -113,3 +113,9 @@ paris.flu <- paris.flu[week != 53]
 
 Whether deleting a data point is a significant problem will depend on the dataset and the question we are asking. Consider this as an exercise: explore other possibilities to adjust the data, keeping data from the 53rd week. There are several options for doing this. One of them is to merge the data from the 53rd week with the data from the 52nd, calculating the average of the two weeks. Another is to use a model that can take cyclical behavior into account, without being stuck with exactly the same cycle length each year. A third option is to use a machine learning model capable of accommodating this with some creative labeling of the data and thus indicating seasonality to the model as an input characteristic.
 
+#### Tuning a seasonal ARIMA model
+
+First, we will consider fitting a seasonal ARIMA model to the data due to strong seasonality. In this case, the periodicity of the data is 52, since the data is sampled weekly. We want to choose a relatively parsimonious model - without too many parameters - because, with 520 data points, our **time series** is not very long.
+
+This **time series** is a good example of how we can go wrong if we rely too much on autopilot. For example, we can think about whether or not we should differentiate the data. Thus, we can consider the autocorrelation graph of the flu index and the autocorrelation of the **time series** differentiated from the flu index. Each is shown in the following figure:
+
