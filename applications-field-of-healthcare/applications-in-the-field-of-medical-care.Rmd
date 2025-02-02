@@ -111,3 +111,5 @@ Things get complicated in the seasonal behavior of the 53rd week. If we want to 
 paris.flu <- paris.flu[week != 53]  
 ```
 
+Whether deleting a data point is a significant problem will depend on the dataset and the question we are asking. Consider this as an exercise: explore other possibilities to adjust the data, keeping data from the 53rd week. There are several options for doing this. One of them is to merge the data from the 53rd week with the data from the 52nd, calculating the average of the two weeks. Another is to use a model that can take cyclical behavior into account, without being stuck with exactly the same cycle length each year. A third option is to use a machine learning model capable of accommodating this with some creative labeling of the data and thus indicating seasonality to the model as an input characteristic.
+
