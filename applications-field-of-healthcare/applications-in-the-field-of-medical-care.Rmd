@@ -119,3 +119,6 @@ First, we will consider fitting a seasonal ARIMA model to the data due to strong
 
 This **time series** is a good example of how we can go wrong if we rely too much on autopilot. For example, we can think about whether or not we should differentiate the data. Thus, we can consider the autocorrelation graph of the flu index and the autocorrelation of the **time series** differentiated from the flu index. Each is shown in the following figure:
 
+![](https://github.com/DellaCortef/time-series-pocket-reference/blob/main/applications-field-of-healthcare/images/acf-paris-flu-rate.png?raw=true)
+
+![In the first graph, we plot the autocorrelation function for the Paris flu index, and in the second graph, we plot the differentiated Paris flu index. We only analyzed a limited range of lag values.](https://github.com/DellaCortef/time-series-pocket-reference/blob/main/applications-field-of-healthcare/images/acf-diff-paris-flu-rate.png?raw=true)

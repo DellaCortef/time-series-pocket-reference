@@ -56,4 +56,6 @@ paris.flu <- paris.flu[week != 53]
 
 acf(paris.flu$flu.rate,        )
 acf(diff(paris.flu$flu.rate, 52))
-    
+
+acf(paris.flu$flu.rate,         , lag.max = 104)
+acf(diff(paris.flu$flu.rate, 52), lag.max = 104)
