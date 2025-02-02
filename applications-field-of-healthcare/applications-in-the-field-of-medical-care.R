@@ -1,6 +1,10 @@
 # Install packages
 install.packages("ISOweek")
+install.packages("forecast")
 install.packages("data.table")
+
+# Load the package
+library(forecast)
 
 # Load packages
 library(ISOweek)
@@ -66,3 +70,30 @@ plot(diff(diff(paris.flu$flu.rate, 52),  1))
 par(mfrow = c(2, 1))
 acf (diff(diff(paris.flu$flu.rate, 52), 1), lag.max = 104)
 pacf(diff(diff(paris.flu$flu.rate, 52), 1), lag.max = 104)
+
+## Arima adjustment
+## Let's estimate 2 weeks 1st time
+first.fit.size <- 104
+h              <- 2
+n              <- nrow(paris.flu) - h - first.fit.size
+
+## Gets the default dimensions for fits that we will produce
+## and related information such as coefficients
+first.fit <- arima(paris.flu$flu.rate[1:first.fit.size], order = c(2, 1, 0), 
+                   seasonal = list(order = c(0, 1, 0), period = 52))
+first.order <- arimaorder(first.fit)
+
+## Pré-alocar espaço para armazenar nossas predições e coeficientes
+fit.preds <- array(0, dim = c(n, h))
+fit.coefs <- array(0, dim = c(n, length(first.fit$coef)))
+
+## Após ajuste inicial, avançamos o ajuste uma semana de cada vez, cada vez 
+## reajustando o modelo e salvando os novos coeficientes e a nova previsao
+for (i in (first.fit.size + 1):(nrow(paris.flu) - h)) {
+  ## predict for an increasingly large window
+  data.to.fit = paris.flu[1:i]
+  fit = arima(data.to.fit$flu.rate, order = first.order[1:3],
+              seasonal = first.order[4:6])
+  fit.preds[i - first.fit.size, ] <- forecast(fit, h = 2)$mean
+  fit.preds[i - first.fit.size, ] <- fit$coef
+}

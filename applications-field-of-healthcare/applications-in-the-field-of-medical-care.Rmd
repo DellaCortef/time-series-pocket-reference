@@ -143,4 +143,37 @@ Although neither result is ideal, the latter, a first standard differentiation o
 
 The decision to adjust or choose a parameter is a matter of judgment, as is the application of tests. Here, we chose to give weight to the seasonality that we clearly observe, but we also use it because it does not harm the model or make it unduly opaque. This way, we will fit a SARIMA model (*p, d, q*) (*P, D, Q*), with *d* = 1 and *D* = 1. Next, we will choose our AR and MA parameters for our standard ARIMA parameters, *p* and *q*. We do this with standard views, using the following code:
 
-![Partial autocorrelation function graph of the differentiated series we selected.]()
+![Partial autocorrelation function graph of the differentiated series we selected.](https://github.com/DellaCortef/time-series-pocket-reference/blob/main/applications-field-of-healthcare/images/acf-pacf-diff-diff-52-lagmax-104.png?raw=true)
+
+We have a limited set of data and prefer a simpler model. The PACF model suggests that an AR(2) model may be appropriate, so we will parsimoniously model our data as a SARIMA(2, 1, 0). We are interested in understanding how this model would work if we continually tweaked it on new data as it became available, the way most models built for the world's systems work. In other words, if we were modeling the flu rate for several years, each week modeling only the data available up to that point, how would our model perform? We’ll answer this as we slide through the model tuning and evaluation, like this:
+
+```R
+## Arima adjustment
+## Let's estimate 2 weeks 1st time
+first.fit.size <- 104
+h <- 2
+n <- nrow(paris.flu) - h - first.fit.size
+
+## Gets the default dimensions for fits that we will produce
+## and related information such as coefficients
+first.fit <- arima(paris.flu$flu.rate[1:first.fit.size], order = c(2, 1, 0), 
+                   seasonal = list(order = c(0, 1, 0), period = 52))
+first.order <- arimaorder(first.fit)
+
+## Pre-allocate space to store our predictions and coefficients
+fit.preds <- array(0, dim = c(n, h))
+fit.coefs <- array(0, dim = c(n, length(first.fit$coef)))
+
+## After initial adjustment, we advance the adjustment one week at a time, each time 
+## readjusting the model and saving the new coefficients and the new prediction
+for (i in (first.fit.size + 1):(nrow(paris.flu) - h)) {
+  ## predict for an increasingly large window
+  data.to.fit = paris.flu[1:i]
+  fit = arima(data.to.fit$flu.rate, order = first.order[1:3],
+              seasonal = first.order[4:6])
+  fit.preds[i - first.fit.size, ] <- forecast(fit, h = 2)$mean
+  fit.preds[i - first.fit.size, ] <- fit$coef
+}
+```
+
+Then we will plot these results:
