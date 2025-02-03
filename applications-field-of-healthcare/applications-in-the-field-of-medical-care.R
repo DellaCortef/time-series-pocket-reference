@@ -150,3 +150,10 @@ plot(paris.flu$date[300:400], paris.flu$flu.rate[300:400],
      )
 lines(paris.flu$date[300:400], exp(fit.preds[, h][(300-h):(400-h)]),
       lty = 2, lws = 2)
+
+test <- flu[week >= 201300]
+plot(test$flu.rate)
+which(test$flu.rate > 1000)
+abline(v = 984)
+which.max(test$flu.rate)
+abline(v = 1050)

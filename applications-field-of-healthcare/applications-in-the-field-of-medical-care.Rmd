@@ -255,3 +255,9 @@ We set the *seasonal* parameter to FALSE in order to ensure that we do not have 
 
 We plot the performance of this model as follows:
 
+![Plot of actual flu rates (points) compared to our predictions from the ARIMA dynamic harmonic regression model](https://github.com/DellaCortef/time-series-pocket-reference/blob/main/applications-field-of-healthcare/images/arima-harmoni-regressors-flu-prediction.png?raw=true)
+
+The advantage is that now our predicted series no longer has negative values. However, there are many disappointing aspects of the model's performance. The most obvious is that many of the predictions are bad. The peaks have magnitude and occur at the wrong time.
+
+One explanation for the problems is that regular seasonality is not a good representation of flu seasonality. For example, the flu can peak each winter in early December or late March. We can observe this in the test data. Consider following the following code and graph, which identifies the peaks in the test range of the data:
+
