@@ -296,3 +296,14 @@ Here, we only look at the tip of the iceberg. To determine the course of a flu s
 Another active area of machine learning research for time series data in healthcare is the prediction of blood glycemic indices in individual patients. Diabetes patients themselves make these measurements all the time, especially when they need to inject bolus insulin, used specifically during meals (meal bolus). In these cases, diabetics need to calculate how the food they eat will affect their blood sugar and adjust their insulin dose accordingly.
 
 Diabetic patients should also time their meals and medications to optimize blood sugar, which should be kept within a specific range, neither too high nor too low. In addition to needing to take into account activities that alter blood sugar, such as diet and exercise, diabetics also need to consider the specific effects of time of day. For example, the dawn phenomenon is the rise in blood sugar that occurs in all humans but can be problematic for diabetics. on the other hand, for people with type 1 diabetes, low blood sugar levels during sleeping hours can be fatal events resulting from failure to make an accurate prediction.
+
+Here we will analyze a small data set: the continuous glucose monitor (CGM) data for an individual over several non-contiguous segments of time. These data were published on the internet and modified to preserve patient privacy.
+
+There are other options for obtaining diabetes dataset. In addition to large healthcare companies and a few startups that have their hands on a huge amount of CGM data, there are several datasets published and available as people increasingly manage their diabetes through DIY initiatives such as Night Scout project (https://perma.cc/N42T-A35K). There are also several CGM datasets (https://perma.cc/RXG2-CYEE) open for research purposes.
+
+We will explore the disorder of a real-world dataset and try to predict that data.
+
+### Data Cleansing and Exploration
+
+The data stored in various files available on GitHub (https://github.com/PracticalTimeSeriesAnalysis/BookRepo). First, we'll load the files and combine them into a *data.table*:
+
