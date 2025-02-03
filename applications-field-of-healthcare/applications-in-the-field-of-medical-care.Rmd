@@ -261,3 +261,12 @@ The advantage is that now our predicted series no longer has negative values. Ho
 
 One explanation for the problems is that regular seasonality is not a good representation of flu seasonality. For example, the flu can peak each winter in early December or late March. We can observe this in the test data. Consider following the following code and graph, which identifies the peaks in the test range of the data:
 
+![Graph that only includes test values for influenza and their apparent peak locations.](https://github.com/DellaCortef/time-series-pocket-reference/blob/main/applications-field-of-healthcare/images/test-flu-rate.png?raw=true)
+
+With peak-to-peak distances sampled from over 984 in one case and 50 in another, we can see a lot of variability from year to year. Our dynamic harmonic regression would not consider this and would apply a stricter seasonality model than the SARIMA model, since the latter's seasonal behavior can change over time. This mismatch between the assumptions and the data may go a long way toward explaining the poor performance of this model, so using a bad model actually drew our attention to important features of our data that we had not noticed before.
+
+Despite its low performance, this alternative model proved useful for a few reasons. He showed us the value of including the physical limitations of the system in our data preprocessing, in this case through a logarithmic transformation. And it also showed us the value of testing multiple classes of models with an underlying theory behind model selection at each point. We chose this model to simplify our seasonality, but what we discovered is that probably neither SARIMA nor the seasonality dynamic harmonic regression model are good for this system.
+
+### What is the Cutting-edge Technology in Flu Prediction?
+
+The models we just explored were relatively simple, yet reasonably effective in making immediate or non-immediate predictions of influenza rates in the Paris metropolitan region for short forecast horizons. These models are a good start for understanding your data set and recognizing the limitations of what could be predictive in a noisy but complicated system like the flu rate in a given geographic region.
