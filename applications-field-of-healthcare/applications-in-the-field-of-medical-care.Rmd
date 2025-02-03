@@ -270,3 +270,29 @@ Despite its low performance, this alternative model proved useful for a few reas
 ### What is the Cutting-edge Technology in Flu Prediction?
 
 The models we just explored were relatively simple, yet reasonably effective in making immediate or non-immediate predictions of influenza rates in the Paris metropolitan region for short forecast horizons. These models are a good start for understanding your data set and recognizing the limitations of what could be predictive in a noisy but complicated system like the flu rate in a given geographic region.
+
+#### Research on flu predictions
+
+The CDC (Center for Disease Control) actively encourages researchers to work on flu prediction, even sponsoring an R package to make their data available. For more than five years, the CDC has also sponsored flu forecasting competitions, although it was only during the 2017-2018 flu season that the center incorporated flu rate predictions into its official communications and bulletins. Carnegie Mellon's Delphi research group has won the most competitions so far, and the group predicts the flu through three initiatives:
+
+1. Empirical Bayes approach (https://perma.cc/8EBA-GN2C), which applies data from the previous flu period with a series of manipulations aimed at generating *a priori* distributions for data from the current period, based in the general "shapes" of the **time series** of previous influenza periods;
+2. Crowndsourcing platform (https://perma.cc/XDE9-A9Y4) in which anyone can send a prediction of flu rates;
+3. Immediate prediction methods that use *sensor fusion* (https://perma.cc/NGZ8-TD39), aggregate data from multiple sources, such as Wikipedia hit counts and relevant Twitter queries, in order to generate geographically localized flu predictions;
+
+And see that this is the set of approaches used in just one academic research group. If we go further, we see even more diversity:
+
+4. using deep convolutional networks (CNNs) to classify Instagram images and using the outputs of these CNNs along with textual features from Twitter as inputs into a variety of machine learning models, including **XGBoost**. One of these works (https://perma.cc/N39F-GSL5) had the advantage of focusing on a small linguistic community (Finnish speakers), which made it possible to use conventional social media platforms in a way that would remain regionally specific;
+
+5. identifying trusted users in large social media clusters. This article (https://perma.cc/25GR-MHRK) focuses on improving flu predictions by finding the most highly ranked and trusted users on social media platforms;
+
+6. access to electronic health records to have a more complete and additional data source, in addition to public data. This paper (https://perma.cc/Q8B7-5TC4) demonstrated that extremely large gains in forecast accuracy across a range of temporal scales could be achieved by integrating electronic health records into forecast input streams. Unfortunately, this is difficult to organize and suggests that flu prediction accuracy skills will go to wealthy data holders rather than to the most creative researchers.
+
+As we can see from the diversity of approaches to this problem, there are many paths to take in flu forecasting, and none of them is the best. This is an active area of research and development, even though some of the best strategies have been applied to government uses and public information.
+
+Here, we only look at the tip of the iceberg. To determine the course of a flu season, we have to involve areas such as biology, sociology, medicine and economic policy. And there are still a variety of models that are less oriented toward **time series** analyzes and more oriented toward other aspects of flu behavior. From a comprehensive perspective, **time series** contribute to an extremely complicated area.
+
+## Predicting Blood Glycemic Indexes
+
+Another active area of machine learning research for time series data in healthcare is the prediction of blood glycemic indices in individual patients. Diabetes patients themselves make these measurements all the time, especially when they need to inject bolus insulin, used specifically during meals (meal bolus). In these cases, diabetics need to calculate how the food they eat will affect their blood sugar and adjust their insulin dose accordingly.
+
+Diabetic patients should also time their meals and medications to optimize blood sugar, which should be kept within a specific range, neither too high nor too low. In addition to needing to take into account activities that alter blood sugar, such as diet and exercise, diabetics also need to consider the specific effects of time of day. For example, the dawn phenomenon is the rise in blood sugar that occurs in all humans but can be problematic for diabetics. on the other hand, for people with type 1 diabetes, low blood sugar levels during sleeping hours can be fatal events resulting from failure to make an accurate prediction.
