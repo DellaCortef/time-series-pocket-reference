@@ -177,3 +177,81 @@ for (i in (first.fit.size + 1):(nrow(paris.flu) - h)) {
 ```
 
 Then we will plot these results:
+
+![Flu rates [flu rate](points) accompanied by our SARIMA forecasts. The predictions of this simple model can assist in public health planning.](https://github.com/DellaCortef/time-series-pocket-reference/blob/main/applications-field-of-healthcare/images/actual-predicted-sarima.png?raw=true)
+
+Now that we have considered fitting a basic ARIMA model to this problem, we will look at other modeling possibilities.
+
+#### Alternative ARIMA model: exogenous harmonic regressors instead of seasonality
+
+Given the performance of the previously analyzed SARIMA model, we can make a variety of modifications. Here, we will consider two modifications, each independent of the other and which can be applied separately.
+
+First, we would like to apply constraints to our model to avoid predicting negative values. One way to do this is to use logarithmic transformation of the data, so that we can predict the logarithm of the **time series** value, rather than the value itself. Thus, when we want to see the "true" series that represents the actually measured numbers, we will use an exponential transformation to backtrack the logarithmic transformation and obtain the predictions in their units.
+
+Second, we would like to find a more transparent way to deal with seasonality in the data. Even though we represented our seasonal ARIMA model as a simple model, in practice a model that deals with a seasonal recurrence of 52 is not simple at all. Seasonal ARIMA models perform best on shorter seasonal cycles and worse on longer seasonal cycles (52 is a long seasonal cycle).
+
+Here, we will use *dynamic harmonic regression*. In this approach, we will find a Fourier series that represents the periodicity in our data and then use that series as an exogenous regressor that fits the ARIMA terms. Because we can extrapolate the Fourier series ahead of time (due to its uniquely periodic nature), we can also pre-calculate the values we expect for the future when generating forecasts. The strength of this model is that its degrees of freedom can be used to explain underlying behavior in addition to seasonal behavior, rather than devoting too much explanatory power to seasonal behavior.
+
+But harmonic regression also has its disadvantages. First, we assume that the behavior is very regular and repeats itself at exactly the same interval. Second, we assume that seasonal behavior is not changing; that is, the period and amplitude of seasonal behavior are not changing. These limitations are similar to the SARIMA model, although the SARIMA model shows more flexibility in how the range of seasonality impacts the data over time. Next, we will demonstrate how to perform a harmonic regression with R similar to the one we used before:
+
+```R
+## Pre-allocate vectors to maintain coefficients and adjustments
+fit.preds       <- array(0, dim = c(n, h))
+fit.coefs       <- array(0, dim = c(n, 100))
+
+## Exogenous regressors that are components of the Fourier series fitted to the data
+flu.ts          <- ts(log(paris.flu$flu.rate + 1) + 0.0002, frequency = 52)
+
+## Add small offsets as small values cause problems
+exog.regressors <- fourier(flu.ts, K = 2)
+exog.colnames   <- colnames(exog.regressors)
+
+## Adjust the model again each week with the expansion window
+## of training data
+for (i in (first.fit.size + 1):(nrow(paris.flu) - h)) {
+  data.to.fit       <- ts(flu.ts[1:i], frequency = 52)
+  exogs.for.fit     <- exog.regressors[1:i,]
+  exogs.for.predict <- exog.regressors[(i + 1):(i + h),]
+  
+  fit <- auto.arima(data.to.fit,
+                    xreg = exogs.for.fit,
+                    seasonal = FALSE)
+  
+  fit.preds[i - first.fit.size, ] <- forecast(fit, h = h,
+                                              xreg = exogs.for.predict)$mean
+  fit.coefs[i - first.fit.size, 1:length(fit$coef)] = fit$coef 
+}
+```
+
+Here we made some adjustments to the previous code. First, we use a *ts* object. With an object, we explicitly indicate the seasonality of the **time series** (52 weeks) when creating it. We also performed a logarithmic transformation of the data at this point to ensure positive predictions of our final value of interest, the flu index:
+
+```R
+flu.ts = ts(log(paris.flu$flu.rate + 1) + 0.0001,
+            frequency = 52)
+```
+
+We also added a small numerical offset (+ 0.0001), because numerical adjustment does not work well with strict zero values or even very small values. One of our two adjustments has already been performed with just this line of code (i.e., the logarithmic transformation to apply the physical condition of non-negative values). We then generate the exogenous harmonic regressors (the Fourir approximation) that we are using in place of the seasonal parameters in SARIMA. We do this using the *fourir()* function from the **forecast** package:
+```R
+exog.regressors <- fourier(flu.ts, K = 2)
+exog.colnames   <- colnames(exog.regressors)
+```
+
+We first generate the harmonic series that accompanies our entire **time series**, and then subdivide it as appropriate for our later expanding window adjustment in the loop.
+
+The *K* hyperparameter signals how many separate sine/cosine pairs we will include in our fit, where each represents a new frequency used to tune the sine/cosine. In general, *K* will be higher for longer seasonal periods and lower for shorter periods. In a more complete example, we could consider setting an information criterion to adjust *K*, but in this example we use *K* = 2 as a reasonable model.
+
+Finally, all that's left to do is generate new fits that take into account the exogenous Fourir components that we just adjusted. We do the adjustment as follows: the *xreg* parameter contains the Fourier adjustment series as additional regressors, which are adjusted together with the standard ARIMA parameters:
+
+```R
+fit <- auto.arima(data.to.fit, xreg = exogs.for.fit, seasonal = FALSE)
+```
+
+We set the *seasonal* parameter to FALSE in order to ensure that we do not have redundant seasonal parameters, given our decision to use dynamic harmonic regression. It is also necessary to include regressors when we generate a forecast, which means that we need to indicate what the regressors will be at the moment the forecast is segmenting:
+
+```R
+  fit.preds[i - first.fit.size, ] <- forecast(fit, h = h,
+                                              xreg = exogs.for.predict)$mean
+```
+
+We plot the performance of this model as follows:
+
