@@ -1,0 +1,27 @@
+---
+title: "Government Uses"
+author: "Della"
+date: "2025-02-06"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+For several reasons, **time series** analysis is pertinent and invaluable for government uses. First, governments, large and small, are custodians of some of the world's most important time series data, including the US jobs report, ocean temperature data, and local crime statistics. Second, governments, by definition, provide some of the most essential services we all depend on. Therefore, they need to be reasonably skillful forecasters of demand if they do not want to overspend or understaff these services. Thus, all aspects of **time series** are relevant to government objectives: storage, cleaning, exploration and forecasting.
+
+As we mentioned earlier, when analyzing "found" **time series**, a relatively high percentage of all government data can look a lot like **time series** data if we restructure it a bit. In general, most government datasets are the result of continuous data collection, not a single chunk of time. However, government datasets can be scary for several reasons:
+
+- inconsistent data records (due to organizational constraints or political forces changing over time);
+- shady or confusing data practices;
+- gigantic set of data with relatively low information content.
+
+However, it can be very beneficial to analyze government datasets for both intellectual interest and many practical purposes. Now, we will explore a government dataset consisting of all complaints filed in New York City from 2010 to present (https://perma.cc/BXF6-BZ4X) through a city hotline that can be accessed by dialing 311. We will cover the following topics:
+
+- interesting sources of government data, including the one we will analyze;
+- deal with gigantic plain text data files;
+- online/continuous statistical analysis of large datasets and other options to analyze data without keeping it in memory.
+
+## Obtaining Government Data
+
