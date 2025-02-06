@@ -25,3 +25,28 @@ However, it can be very beneficial to analyze government datasets for both intel
 
 ## Obtaining Government Data
 
+Government datasets that fall into the “found data” category can be a nightmare from a data consistency standpoint. These datasets, although timestamped, are generally made available for open source initiatives and not for a specific **time series** purpose. Often, there is little or no information available about data timestamp conventions or other recording conventions. It can be difficult to confirm that underlying recordkeeping practices were consistent.
+
+But if you are curious or want to be the first to identify interesting temporal characteristics in human behaviors related to government activities, you are lucky to live in the open source government era. In recent years, regardless of government hierarchies, many governments have strived hard to make their **time series** data transparent to the public. Below, we'll look at just a few examples of where we can get open government data with a **time series** component:
+
+- monthly hospital data (https://perma.cc/4TR3-84WA) from the UK National Health Service. This dataset is very time series aware: it includes a tab called "MAR timeseries" and describes the recording conventions and how they have evolved over time;
+- Jamaica's open data portal also includes an assessment and recognition of **time series** data, such as its timestamped dataset on Chikungunya cases (https://perma.cc/4RCP-VMY6) from 2014 and the associated data report (https://perma.cc/QPR6-WNMJ), which includes an animation (i.e. a **time series** visualization) and an epidemiological curve;
+- Singapore's open data portal (https://perma.cc/N9W4-ZDM8) presents extensive data sets and discloses the **time series** nature of some of this data, including two **time series** charts.
+
+## Exploring Big Time Series Data
+
+When the data is large enough, we will not be able to put it into memory. How big the data needs to be before reaching this limit will depend on the hardware we are using. Sooner or later, we'll need to understand how to iterate through your data, one manageable piece at a time. Those familiar with deep learning have probably already done this, especially if they have worked in image processing. Deep learning frameworks have made available Python iterators that work their way through a dataset, and these datasets are stored in specific directories, each with many files.
+
+At the time of testing, the 311 dataset was over 3 gigabytes in CSV format. There was no way to open this on the machine, so the first idea was to use the standard Unix system options, such as *head*. Unfortunately, what was displayed was already so large as to be impossible to manage in a Unix command-line interface:
+
+```Linux
+head 311.csv
+```
+
+Although the content is heavy, this preview was enough to show that there were multiple timestamps as well as other interesting and orderly information like geographic coordinates. Of course, the data is vast, so we will need to be able to manipulate this information to obtain the columns we want.
+
+Even if you are new to Linux, you can easily learn simple command-line tools that can provide you with useful information. We can get a row count from the CSV file to get a sense of the scale we are analyzing, that is, how many data points we have:
+
+```Linux
+wc -l 311.csv
+```
