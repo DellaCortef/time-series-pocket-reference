@@ -50,21 +50,21 @@ ggplot(df, aes(x = index, y = created_date, group = 1)) +
        y = "Created Date") +
   theme_minimal()
 
-## Le apenas as colunas de interesse
+## Read only the columns of interest
 df = fread("311.csv", select = c("created_date", "closed_date"))
 
-## Usa o paradigma 'set' recomendado do data.table para definir os nomes das colunas
+## Uses data.table's recommended 'set' paradigm to define column names
 setnames(df, gsub(" ", "", colnames(df)))
 
 df = df[nchar(created_date) > 1 & nchar(closed_date) > 1]
 
-## Converte as colunas de string de data para POSIXct
+## Convert date string columns to POSIXct
 fmt.str = "%m%d%Y %I:%M:%S %p"
 df[, created_date := as.POSIXct(created_date, format = fmr.str)]
 df[, closed_date  := as.POSIXct(closed_date, format = fmr.str)]
 
-## Ordenamento em ordem cronologica do `created_date`
+## Chronological ordering of `created_date`
 setorder(df, created_date)
 
-## Calcula o numero de dias entre a criação e o encerramento
+## Calculates the number of days between creation and closure
 df[, LagTime := as.numeric(difftime(closed_date, created_date, units = "days"))]
