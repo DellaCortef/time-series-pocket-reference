@@ -68,3 +68,15 @@ setorder(df, created_date)
 
 ## Calculates the number of days between creation and closure
 df[, LagTime := as.numeric(difftime(closed_date, created_date, units = "days"))]
+
+summary(df$LagTime)
+
+nrow(df[LagTime < 0]) / nrow(df)
+
+nrow(df[LagTime > 1000]) / nrow(df)
+
+df = df[LagTime < 1000]
+df = df[LagTime > 0]
+
+df.new = df[seq(1, nrow(df), 2), ]
+write.csv(df.new[order(closed_date)], "abridged.df.csv")

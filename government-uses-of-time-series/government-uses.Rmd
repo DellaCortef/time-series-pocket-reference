@@ -165,3 +165,9 @@ Now we can read all the rows of data and our further analysis will be on the ent
 
 Newbies to **Big Data** might be surprised by the fact that 19 million rows isn't that big, but that's how it is. In reality, a small portion of the data is enough to solve a relevant **time series** question. We soon noticed some shockingly incorrect numbers in the *LagTime* column - tens of thousands of days or negative days. We will eliminate these numbers and place a limit on the data, driven in part by a distribution of a random sample of data points:
 
+We discard data with negative lag times, as we lack documentation or domain knowledge to know what they are. We also left out data that we considered to have extreme or unrealistic values, discarding data in which the lag time to close the complaint on line 311 was more than 1,000 days.
+
+Now that we can store all the data of interest in memory at the same time, we can ask questions about the **time series** holistically. However, the question is whether and how the distribution of lag time may have changed over time. We could resort to a rolling or sliding window over the **time series**, but this is computationally heavy; we would have to do a lot of calculations repeatedly as we slid a window over the data. We also want to, as we could imagine the continuation of this project in the current data as it arrives. It would be best not to store this multigigabyte data file indefinitely.
+
+## Online Statistical Analysis of Time Series data
+
