@@ -199,3 +199,24 @@ class PQuantile:
     self.discount_factor = discount_factor
 ```
 
+There are two configurable parameters: the number of evenly spaced quantiles to estimate and the discount factor for old observations.
+
+The other members of the class include a total run number of observations (which will be subject to time discounting by the configurable discount factor), the estimated quantiles, and the run count of observations less than or equal to a given quantile value.
+
+There is only one public function, whose role is to accept the next observation. When a new observation arrives, what happens is the result of where we found ourselves at the beginning of the series. For the first *self.b* values, the inputs are accepted and necessarily constitute the quantile estimate. *self.q* is sorted so that its values depict the quantiles.
+
+So, for example, imagine you enter *b = 5* for the number of quantile values you want, and then enter the sequence *2, 8, 1, 4, 3*. At the end of this sequence, *self.q* would equal *[1, 2, 3, 4, 8]*. *self.n*, the counts of values less than or equal to each of the quantiles, would be equal to *[1, 2, 3, 4, 5]*; the value has already been initialized in **__init__"**:
+
+```Python
+  def next_obs(self, x):
+    if self.num_obs < (self.b + 1):
+      self.q.append(x)
+      self.q.sort()
+      self.num_obs = self.num_obs + 1
+    else:
+      self.next_obs2(x)
+      self.next_obs = self.next_obs2
+```
+
+Things get interesting when you have more than *self.b* values. At this point, the code begins to make decisions about how to combine values to estimate quantiles without keeping all the data points stored for repeated analysis. in this case, the P-square algorithm does this with what we call *self.next_obs2*:
+
