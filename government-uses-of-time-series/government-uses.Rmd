@@ -50,3 +50,74 @@ Even if you are new to Linux, you can easily learn simple command-line tools tha
 ```Linux
 wc -l 311.csv
 ```
+
+We can see that NYC has received 1,202,182 complaints through its 311 hotline. We use data from 2024 to today.
+
+Armed with this knowledge, we will use R's *data.table*, as we know that its *fread()* function allows partial reading of files (https://perma.cc/ZHN9-5HD3). Note the *nrows()* and *skip()* parameter part. We also know that *data.table* is extremely efficient when dealing with large data sets. We can use them to obtain initial information, like this:
+
+```R
+# Install packages
+install.packages("data.table")
+
+# Load packages
+library(data.table)
+
+# Setting the dataset path
+setwd('/Users/dellacorte/py-projects/data-science/time-series-pocket-reference/datasets/')
+
+df = fread("311.csv", skip = 0, nrows = 10)
+colnames(df)
+```
+
+Just read ten lines and we can see the column names. Of all the advantages I've listed of NoSQL approaches to **time series** data, it can be nice, in a large dataset, to know the column names from the beginning. Of course, there are alternative solutions with NoSQL data, but most require a little effort on the part of the user, as things don't flow automatically. Several columns suggest useful information:
+
+  "Created Date"
+  
+  "Closed Date"
+  
+  "Due Date"
+  
+  "Resolution Action Updated Date"
+  
+These columns will likely be of type character before we convert them, but once we do a conversion to a POSIXct type, we can examine what the time interval between dates looks like:
+
+```R
+df[, created_date := as.POSIXct(created_date, format = "%m/%d/%Y %I:%M:%S %p")]
+```
+
+In the format string, we need to use %I for the time, as it is only expressed in the format 01-12, and %p because timestamps are dammed as AM/PM. To get a sense of how spaced these dates tend to be, especially when it comes to when a claim is opened or closed, we'll load more rows and look at the distribution that I'll call the *claim period* (i.e., the interval between opening and closing a claim):
+
+```R
+> summary(df$duration_days)
+```
+
+---
+title: "Summary Statistics Table"
+output: html_document
+---
+
+```{r, echo=FALSE, message=FALSE}
+# Load required libraries
+library(knitr)
+library(kableExtra)
+
+# Create summary statistics table
+summary_stats <- data.frame(
+  Statistic = c("Min.", "1st Qu.", "Median", "Mean", "3rd Qu.", "Max.", "NA's"),
+  Value = c(-66.00, 0.06, 0.38, 3.34, 2.20, 114.62, 99777)
+)
+
+# Render the table in HTML format
+kable(summary_stats, format = "html", caption = "Summary Statistics of Duration in Days") %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"), full_width = FALSE)
+```
+
+As we can see, it is a wide distribution. More impressive than the long years of waiting for some complaints to be closed is the fact that some of them have negative, even extremely negative, results between their creation and the closing date. If the negative time was around -365 days, we could imagine a data entry problem, but this seems less likely with numbers like -66 days. It's the kind of problem we need to look at. We can identify another one, when we get a creation date range:
+
+```R
+> range(df$created_date)
+[1] "2024-10-01 16:09:24 -03" "2025-01-26 03:33:15 -03"
+```
+
+Given the size of this CSV file (three months or so) and the fact that it must be constantly updated, it is a wonder that the first few lines are not from 2010, which should mark the first datasets. We expected the CSV to be continually appended. And even more surprising is the fact that the dates of 2024 are in the first lines. This suggests that we cannot determine the date ordering of the data in the file. We can visualize the date distribution from one line to the next by plotting a line graph on the index against the date:
+

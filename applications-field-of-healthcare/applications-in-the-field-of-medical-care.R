@@ -37,123 +37,180 @@ head(flu)
 # NA checking
 nrow(flu[is.na(flu.rate)]) / nrow(flu)
 
-unique(flu[is.na(flu.rate)]$region_name)
+# Get unique region names where flu.rate is NA
+unique(flu[is.na(flu.rate)]$region_name)  
 
-flu[, year := as.numeric(substr(week, 1, 4))]
-flu[, wk   := as.numeric(substr(week, 5, 6))]
+# Extract year from 'week' column
+flu[, year := as.numeric(substr(week, 1, 4))]  
 
-flu[, date := ISOweek2date(paste0(substr(as.character(week), 1, 4), "-W", substr(as.character(week), 5, 6), "-1"))]
+# Extract week number from 'week' column
+flu[, wk   := as.numeric(substr(week, 5, 6))]  
 
-# Lets focus on Paris
-paris.flu = flu[region_name == "ILE-DE-FRANCE"]
-paris.flu = paris.flu[order(date, decreasing = FALSE)]
+# Convert ISO week format to date
+flu[, date := ISOweek2date(paste0(substr(as.character(week), 1, 4), "-W", 
+                                  substr(as.character(week), 5, 6), "-1"))]  
 
-paris.flu[, .(week, date, flu.rate)]
+# Filter data for Paris region
+paris.flu = flu[region_name == "ILE-DE-FRANCE"]  
 
-paris.flu[, .N, year]
+# Order data by date in ascending order
+paris.flu = paris.flu[order(date, decreasing = FALSE)]  
 
-paris.flu[, plot(date, flu.rate,
-                 type = "l", xlab = "Date",
-                 ylab = "Flu rate")]
+# Select specific columns: week, date, flu rate
+paris.flu[, .(week, date, flu.rate)]  
 
-paris.flu <- paris.flu[week != 53]           
+# Count number of entries per year
+paris.flu[, .N, year]  
 
-acf(paris.flu$flu.rate,        )
-acf(diff(paris.flu$flu.rate, 52))
+# Plot flu rate over time
+paris.flu[, plot(date, flu.rate, 
+                 type = "l", xlab = "Date", 
+                 ylab = "Flu rate")]  
 
-acf(paris.flu$flu.rate,         , lag.max = 104)
-acf(diff(paris.flu$flu.rate, 52), lag.max = 104)
+# Remove data for week 53
+paris.flu <- paris.flu[week != 53]  
 
-plot(diff(diff(paris.flu$flu.rate, 52), 52))
-plot(diff(diff(paris.flu$flu.rate, 52),  1))
+# Compute autocorrelation function (ACF) of flu rate
+acf(paris.flu$flu.rate)  
 
-par(mfrow = c(2, 1))
-acf (diff(diff(paris.flu$flu.rate, 52), 1), lag.max = 104)
-pacf(diff(diff(paris.flu$flu.rate, 52), 1), lag.max = 104)
+# Compute ACF of flu rate with 52-week differencing
+acf(diff(paris.flu$flu.rate, 52))  
 
-## Arima adjustment
+# ACF with max lag of 104 weeks
+acf(paris.flu$flu.rate, lag.max = 104)  
+
+# ACF after seasonal differencing
+acf(diff(paris.flu$flu.rate, 52), lag.max = 104)  
+
+# Double seasonal differencing (52-week)
+plot(diff(diff(paris.flu$flu.rate, 52), 52)) 
+
+# Seasonal + first-order differencing
+plot(diff(diff(paris.flu$flu.rate, 52), 1))  
+
+# Set plotting area to 2 rows, 1 column
+par(mfrow = c(2, 1)) 
+# ACF of double differenced series
+acf (diff(diff(paris.flu$flu.rate, 52), 1), lag.max = 104)  
+# PACF of double differenced series
+pacf(diff(diff(paris.flu$flu.rate, 52), 1), lag.max = 104)  
+
+## ARIMA adjustment
 ## Let's estimate 2 weeks 1st time
-first.fit.size <- 104
-h <- 2
-n <- nrow(paris.flu) - h - first.fit.size
+first.fit.size <- 104  
+# Forecast horizon of 2 weeks
+h <- 2  
+# Number of time steps for rolling forecast
+n <- nrow(paris.flu) - h - first.fit.size  
 
-## Gets the default dimensions for fits that we will produce
-## and related information such as coefficients
+# Fit SARIMA(2,1,0)(0,1,0)[52] model
 first.fit <- arima(paris.flu$flu.rate[1:first.fit.size], order = c(2, 1, 0), 
-                   seasonal = list(order = c(0, 1, 0), period = 52))
-first.order <- arimaorder(first.fit)
+                   seasonal = list(order = c(0, 1, 0), period = 52))  
 
-## Pre-allocate space to store our predictions and coefficients
-fit.preds <- array(0, dim = c(n, h))
-fit.coefs <- array(0, dim = c(n, length(first.fit$coef)))
+# Get ARIMA order details
+first.order <- arimaorder(first.fit)  
 
-## After initial adjustment, we advance the adjustment one week at a time, each time 
-## readjusting the model and saving the new coefficients and the new prediction
+## Pre-allocate space for predictions and coefficients
+# Array to store predictions
+fit.preds <- array(0, dim = c(n, h))  
+# Array to store model coefficients
+fit.coefs <- array(0, dim = c(n, length(first.fit$coef)))  
+
+## Iteratively fit ARIMA model for rolling forecasts
 for (i in (first.fit.size + 1):(nrow(paris.flu) - h)) {
-  ## predict for an increasingly large window
-  data.to.fit = paris.flu[1:i]
+  # Expand training dataset
+  data.to.fit = paris.flu[1:i]  
   fit = arima(data.to.fit$flu.rate, order = first.order[1:3],
-              seasonal = first.order[4:6])
-  fit.preds[i - first.fit.size, ] <- forecast(fit, h = 2)$mean
-  fit.preds[i - first.fit.size, ] <- fit$coef
+              # Refit ARIMA model
+              seasonal = first.order[4:6])  
+  # Store forecast
+  fit.preds[i - first.fit.size, ] <- forecast(fit, h = 2)$mean  
+  # Store model coefficients
+  fit.preds[i - first.fit.size, ] <- fit$coef  
 }
 
-ylim <- range(paris.flu$flu.rate[300:400],
-              fit.preds[, h][(300-h):(400-h)])
-par(mfrow = c(1, 1))
+# Define y-axis range for plotting
+ylim <- range(paris.flu$flu.rate[300:400], 
+              fit.preds[, h][(300-h):(400-h)])  
+
+# Reset plotting layout
+par(mfrow = c(1, 1))  
 plot(paris.flu$date[300:400], paris.flu$flu.rate[300:400], 
      ylim = ylim, cex = 0.8, 
      main = "Actual and predicted flu with SARIMA (2, 1, 0), (0, 1, 0)", 
-     xlab = "Date", ylab = "Flu rate")
+     xlab = "Date", ylab = "Flu rate")  # Plot actual flu rate
+
+# Add SARIMA predictions
 lines(paris.flu$date[300:400], fit.preds[, h][(300-h):(400-h)], 
-      col = 2, type = "l", lty = 2, lwd = 2)
+      col = 2, type = "l", lty = 2, lwd = 2)  
 
-## Pre-allocate vectors to maintain coefficients and adjustments
-fit.preds       <- array(0, dim = c(n, h))
-fit.coefs       <- array(0, dim = c(n, 100))
+## Pre-allocate vectors for coefficients and predictions
+# Reset prediction array
+fit.preds       <- array(0, dim = c(n, h))  
+# Reset coefficient array
+fit.coefs       <- array(0, dim = c(n, 100))  
 
-## Exogenous regressors that are components of the Fourier series fitted to the data
-flu.ts          <- ts(log(paris.flu$flu.rate + 1) + 0.0002, frequency = 52)
+## Convert flu rates to time series with Fourier terms
+# Log transformation with small offset
+flu.ts          <- ts(log(paris.flu$flu.rate + 1) + 0.0002, frequency = 52)  
 
-## Add small offsets as small values cause problems
-exog.regressors <- fourier(flu.ts, K = 2)
-exog.colnames   <- colnames(exog.regressors)
 
-## Adjust the model again each week with the expansion window
-## of training data
+## Generate exogenous regressors using Fourier series
+# Fourier terms for seasonality
+exog.regressors <- fourier(flu.ts, K = 2)  
+# Store column names of Fourier regressors
+exog.colnames   <- colnames(exog.regressors)  
+
+## Rolling ARIMA model with Fourier regressors
 for (i in (first.fit.size + 1):(nrow(paris.flu) - h)) {
-  data.to.fit       <- ts(flu.ts[1:i], frequency = 52)
-  exogs.for.fit     <- exog.regressors[1:i,]
-  exogs.for.predict <- exog.regressors[(i + 1):(i + h),]
+  # Subset data
+  data.to.fit       <- ts(flu.ts[1:i], frequency = 52)  
+  # Subset exogenous regressors
+  exogs.for.fit     <- exog.regressors[1:i,]  
+  # Get future exog regressors
+  exogs.for.predict <- exog.regressors[(i + 1):(i + h),]  
   
+  # Fit ARIMA model with exog regressors
   fit <- auto.arima(data.to.fit,
                     xreg = exogs.for.fit,
-                    seasonal = FALSE)
+                    seasonal = FALSE)  
   
+  # Store coefficients
   fit.preds[i - first.fit.size, ] <- forecast(fit, h = h,
-                                              xreg = exogs.for.predict)$mean
-  fit.coefs[i - first.fit.size, 1:length(fit$coef)] = fit$coef 
+                                              xreg = exogs.for.predict)$mean  # Store predictions
+  fit.coefs[i - first.fit.size, 1:length(fit$coef)] = fit$coef  
 }
 
-flu.ts = ts(log(paris.flu$flu.rate + 1) + 0.0001,
-            frequency = 52)
-fit <- auto.arima(data.to.fit, xreg = exogs.for.fit, seasonal = FALSE)
+# Recalculate flu time series
+flu.ts = ts(log(paris.flu$flu.rate + 1) + 0.0001, frequency = 52)  
+# Fit final ARIMA model
+fit <- auto.arima(data.to.fit, xreg = exogs.for.fit, seasonal = FALSE)  
 
+# Store final prediction
 fit.preds[i - first.fit.size, ] <- forecast(fit, h = h,
-                                            xreg = exogs.for.predict)$mean
+                                            xreg = exogs.for.predict)$mean  
 
-ylim = range(paris.flu$flu.rate)
+# Set y-axis range
+ylim = range(paris.flu$flu.rate)  
 plot(paris.flu$date[300:400], paris.flu$flu.rate[300:400], 
      ylim = ylim, cex = 0.8,
      main = "Actual and predicted flu with ARIMA + harmonic regressors",
-     xlab = "Date", ylab = "Flu rate"
-     )
-lines(paris.flu$date[300:400], exp(fit.preds[, h][(300-h):(400-h)]),
-      lty = 2, lws = 2)
+     xlab = "Date", ylab = "Flu rate")  # Plot actual flu rate
 
-test <- flu[week >= 201300]
-plot(test$flu.rate)
-which(test$flu.rate > 1000)
-abline(v = 984)
-which.max(test$flu.rate)
-abline(v = 1050)
+# Plot predicted flu rate with exponentiation
+lines(paris.flu$date[300:400], exp(fit.preds[, h][(300-h):(400-h)]),
+      lty = 2, lwd = 2)  
+
+# Filter test data from week 201300 onward
+test <- flu[week >= 201300]  
+# Plot test flu rates
+plot(test$flu.rate)  
+
+# Identify weeks with extremely high flu rates
+which(test$flu.rate > 1000)  
+# Add vertical line at index 984
+abline(v = 984)  
+# Find index of maximum flu rate
+which.max(test$flu.rate)  
+# Add vertical line at index 1050
+abline(v = 1050)  
