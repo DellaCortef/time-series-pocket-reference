@@ -171,3 +171,31 @@ Now that we can store all the data of interest in memory at the same time, we ca
 
 ## Online Statistical Analysis of Time Series data
 
+We will use a very simple online quantile estimation tool, called *P-square algorithm* (https://perma.cc/G8LA-7738), but we will modify it so that it is time-aware. The original algorithm assumed that there was a stable distribution from which quantiles were being inferred, but we want to consider the case of distributions that change over time. As with an exponentially weighted moving average, we will add this time awareness by weighting past observations less. And we do this in the same way, introducing a factor to reduce the weights of previous measurements each time a new measurement becomes available.
+
+The algorithm requires a little data recording, making it easier to implement in a more object-oriented programming language. Soon, we will switch from R to Python (I will leave the commands here in Markdown). However, note that we will use preprocessed data from R, as the **data.table** package has considerably better performance with this type of **Big Data** than the tools available in Python.
+
+The version of the P-square algorithm that we will implement will generate a histogram of the values. So, as we create a *PQuantile* object, we allocate a predefined number of bins for our histogram calculations, bin positions, and ongoing observation calculations:
+
+```Python
+## Importing libs
+import math
+import bisect
+
+sign = lambda x: (1, -1)[x < 0]
+
+## Beginning of class definition
+class PQuantile:
+  def __init__(self, b, disocunt_factor):
+    ## Initializing
+    self.num_obs = 0
+    ## Counts per quantile
+    self.n = [i for i in range(self.b+1)]
+    self.q = []
+    
+    ## b is the number of quantiles
+    self.b = b
+    ## The discount factor defines how we adjust previous counts when new data is available
+    self.discount_factor = discount_factor
+```
+
