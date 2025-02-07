@@ -121,3 +121,8 @@ As we can see, it is a wide distribution. More impressive than the long years of
 
 Given the size of this CSV file (three months or so) and the fact that it must be constantly updated, it is a wonder that the first few lines are not from 2010, which should mark the first datasets. We expected the CSV to be continually appended. And even more surprising is the fact that the dates of 2024 are in the first lines. This suggests that we cannot determine the date ordering of the data in the file. We can visualize the date distribution from one line to the next by plotting a line graph on the index against the date:
 
+![](https://github.com/DellaCortef/time-series-pocket-reference/blob/main/government-uses-of-time-series/images/cumulative-record-count-over-time.png?raw=true)
+
+There is no way to avoid this problem. If we want to understand how behavior changes over time, we will have to deal with unordered data. But we have some options.
+
+### Use Upsampling and aggregate Data as we iterate
