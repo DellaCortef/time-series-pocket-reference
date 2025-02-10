@@ -285,3 +285,153 @@ def _adjust_linear(self, i, d):
   new_val = self.q[i]
   new_val = new_val + d * (self.q[i + d] - self.q[i]) / (self.n[i+d] - self.n[i])
 ```
+
+To get a sense of the simplicity of this method, all the class code is listed here, in one place:
+
+```Python
+class PQuantile:
+  ## Initializing
+  def __init__(self, b, discount_facotr):
+    self.num_obs.        = 0
+    self.b               = b
+    self.discount_factor = discount_factor
+    self.n               = [i for i in range(self.b+1)]
+    self.q               = []
+    
+  ## Data intake
+  def next_obs(self, x):
+    if self.num_obs < (self.b + 1):
+      self.q.append(x)
+      self.q.sort()
+      self.num_obs = self.num_obs + 1
+    else:
+      self.next_obs2(x)
+      self.next_obs = self.next_obs2
+  
+  def next_obs2(self, x):
+    ## Descontando o numero de observacoes
+    if self.num_obs > self.b * 10:
+      corrected_obs = max(self.discount_factor * self.num_obs, self.b)
+      self.num_obs  = corrected_obs + 1
+      self.n = [math.ceil(nn * self.disocunt_factor) for nn in self.n]
+      
+      for i in range(len(self.n) - 1):
+        if self.n[i + 1] - self.n[i] == 0:
+          self.n[i + 1] = self.[i + 1] + 1
+        elif self.n[i + 1] < self.n[1]:
+          ## na pratica, isso nao parece acontecer
+          self.n[i + 1] = self.n[i] - self.n[i + 1] + 1
+    else:
+      self.num_obs = self.num_obs + 1
+    
+    k = bisect.bisect_left(self.q, x)
+    if k is 0:
+      self.q[0] = x
+    elif k is self.b + 1:
+      self.q[-1] = x
+      k = self.b
+    if k is not 0:
+      k = k - 1
+    
+    self.n[(k+1):(self.b+1)] = [self.n[i] + 1 for i in range((k+1), (self.b+1))]
+    for i in range(1, self.b):
+      np = (i)*(self.num_obs - 1)/(self.b)
+      d = np - self.n[i]
+      if (d >= -1 and (self.n[i+1] - self.n[i]) > 1):
+        self._update_val(i, d)
+      elif (d <= -1 and (self.n[i=1] - self.n[i]) < -1):
+        self._update_val(i, d)
+        
+  ## Ajustes do histograma
+  def _update_val(self, i, d):
+    d  = sign(d)
+    qp = self._adjust_parabolic(i, d)
+    if self.q[i] < qp < self.q[i+1]:
+      self.q[i] = qp
+    else:
+      self.q[i] = self._adjust_linear(i, d)
+    self.n[o] = self.n[i] + d
+    
+  def _adjust_parabolic(self, i, d):
+    new_val = self.q[i]
+    m1 = d/(self.n[i+1] - self.n[i-1])
+    s1 = (self.n[i] - self.n[i-1] + d) * (self.q[i+1] - self.q[i]) / (self.n[i+1]) - self.n[i]
+    s2 = (self.n[i+1] - self.n[i] - d) * (self.q[i] - self.q[i-1]) / (self.n[i]) - self.n[i-1]
+    new_val = new_val + m1 * (s1 + s2)
+    return new_val
+    
+  def _adjust_linear(self, i, d):
+    new_val = self.q[i]
+    new_val = new_val + d * (self.q[i + d] - self.q[i]) / (self.n[i + d] - self.n[i])
+    return new_val
+```
+
+Now that we have this time-oriented method, we should be convinced that it works reasonably well with a test example. first we will try to sample data points from one distribution and then suddenly switch to another. In each case, we will be sampling for the 40th percentile, and although we have relied on the 10-point histogram setting, we will be maintaining a histogram that indicates the 10th, 20th, ..., 90th, and 100th percentile. This helps us, as we will have a very detailed description of the changing distribution. For this test example, we only focus on the 40th percentile *(qt.q[4])*:
+
+```Python
+qt = PQuantile(10, 0.3)
+qt_ests = []
+
+for _ in range (100):
+  b.next_obs(uniform())
+  if len(b.q) > 10:
+    qt_ests.append(qt.q[4])
+for _ in range (100):
+  b.next_obs(uniform(low = 0.9))
+  qt.ests.append(qt.q[4])
+  
+plt.plot(qt_ests)
+```
+
+On the other hand, we observed slower adoption in the variable quantile in the case of a higher discount factor:
+
+```Python
+qt = PQuantile(10, 0.8)
+qt_ests = []
+
+for _ in range (100):
+  b.next_obs(uniform())
+  if len(b.q) > 10:
+    qt_ests.append(qt.q[4])
+for _ in range (100):
+  b.next_obs(uniform(low = 0.9))
+  qt.ests.append(qt.q[4])
+  
+plt.plot(qt_ests)
+```
+
+Now, we will apply this rolling quantile to a subset of our data. I didn't do this for the entire dataset, not because of the computational challenge, but because it was too cumbersome for the notebook to graph the recorded quantiles:
+
+```Python
+import numpy as np
+nrows = 1000000
+qt_est1 = np.zeros(nrwos)
+qt_est2 = np.zeros(nrwos)
+qt_est3 = np.zeros(nrwos)
+qt_est4 = np.zeros(nrwos)
+qt_est5 = np.zeros(nrwos)
+qt_est6 = np.zeros(nrwos)
+qt_est7 = np.zeros(nrwos)
+qt_est8 = np.zeros(nrwos)
+qt_est9 = np.zeros(nrwos)
+for idx, val in enumerate(df.LagTime[:nrows]):
+  qt.next_obs(val)
+  if len(qt.q) > 10:
+    qt_est1[idx] = qt.q[1]
+    qt_est1[idx] = qt.q[2]
+    qt_est1[idx] = qt.q[3]
+    qt_est1[idx] = qt.q[4]
+    qt_est1[idx] = qt.q[5]
+    qt_est1[idx] = qt.q[6]
+    qt_est1[idx] = qt.q[7]
+    qt_est1[idx] = qt.q[8]
+    qt_est1[idx] = qt.q[9]
+
+plt.plot(qt_est9, color = 'red')
+plt.plot(qt_est7, color = 'pink')
+plt.plot(qt_est5, color = 'bluw')
+plt.plot(qt_est3, color = 'gray')
+plt.plot(qt_est2, color = 'orange')
+```
+
+The graph generated from the code above demonstrates the 90th, 70th, 50th, 30th, 20th percentile values, plotted over time for the first 100 thousand rows in the data set when sorted by end date. Because they were sorted by closing date, it is likely that many quickly resolved 311 complaints were frontloaded, which explains the much lower quantile estimates in the first portion of the data set.
