@@ -14,3 +14,4 @@ applications-in-the-field-of-medical-care.html
 
 # envs
 cesium_envdatasets/311.csv # Add it to .gitignore
+datasets/.RData
