@@ -435,3 +435,19 @@ plt.plot(qt_est2, color = 'orange')
 ```
 
 The graph generated from the code above demonstrates the 90th, 70th, 50th, 30th, 20th percentile values, plotted over time for the first 100 thousand rows in the data set when sorted by end date. Because they were sorted by closing date, it is likely that many quickly resolved 311 complaints were frontloaded, which explains the much lower quantile estimates in the first portion of the data set.
+
+Mas a distribuicao mudou? Visualmente parece que sim, por alguns motivos. Um One of these is left censoring, briefly described, which reflects how we classify and select data. The fact that we sort the data via the 'closed_date' column, coupled with the fact that this data set does not appear to have an infinite lookahead (i.e. presumably 311 complaints made before a given date have not reached this system), makes the lag times we see in the start dates seem longer. Roughly speaking, this apparent change over time is simply an artifact of our incomplete data (and an incomplete underlying dataset) coupled with our choice of classification.
+
+In contrast, we can see features that suggest changes in distributions over time. Apparently, there are peaks and valleys in the quantile curve estimates, and we can even consider the existence of periodic behavior in our curves, as there may be predictable times when quantile values ​​rise and fall due to exogenous organizational factors (perhaps an effort to close claims before the end of the month, or certain funding cycles that increase the number of workers available to close claims at certain times of the year).
+
+Since we now have preliminary results, the best option would be to determine some significant dates and try to cross-reference them with any institutional facts we can determine about the pace of work. We should also run simulations to evaluate how we think left censoring should impact the initial quantile estimates in different scenarios. Thus, we could have a better qualitative and quantitative understanding of the unknown aspects of our system, and this information would be very useful in making a final determination about whether the distribution of resolution times is evolving over time and, if so, how.
+
+Let's say we follow these steps - what then? A methodology would be needed to compare distributions for similarity differences in which only the quantiles of the distribution. rather than all sample points were available. One way to do this would be to run simulations/bootstrap throughout the process. This would lead to an answer where we could fully express and control the assumptions that went into the model by programming our simulations. In fact, many statistical approaches that perform these purchases also focus on bootstrap methods.
+
+---
+
+##### Left censoring, right censoring, and interval censoring
+
+For **time series analysis** and related activities such as survival analysis, we must be aware of how our selection, classification, or presentation of data may impact our analysis, as we determined whether this is the case here, where earlier time periods appeared to have a stricter distribution than later ones. This is probably due to the fact that we classified the data by closing date, a form of *left censoring*, which means that the "event of interest" already occurred before the start of the "study". Here, our event of interest is the start and end dates of complaints and we are limited by the start date of the data set. On the other hand, the related concept of *right censoring* means that the event of interest would occur after an event has ended. Lastly, *interval censoring* concerns situations where we only have an inaccurate record, such as an interval, for when an event occurred, which will necessarily impact our analysis.
+
+---
