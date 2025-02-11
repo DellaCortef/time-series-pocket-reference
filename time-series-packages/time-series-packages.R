@@ -41,3 +41,5 @@ plot(df$ds, df$y, col = 1, type = 'l', xlim = range(forecast$ds),
      main = "Actual and predicted Wikipedia pageviews of 'Facebook'")
 points(forecast$ds, forecast$yhat, type = 'l', col = 2)
 
+prophet_plot_components(m, forecast)
+
