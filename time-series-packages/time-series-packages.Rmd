@@ -9,3 +9,12 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+In recent years, several packages and articles have been made available by large technology companies portraying how these companies deal with large numbers of **time series** that they collect as digital organizations with huge customer bases, sophisticated extraction, with state-of-the-art business analysis and with numerous forecasting and data processing needs. Now we will look at some of the key areas of research and development related to this ever-expanding **time series** dataset, specifically scaled prediction and anomaly detection.
+
+## Forecasting at Scale
+
+For many large technology companies, dealing with **time series** is an increasingly important problem and has emerged naturally within their organizations. Over time, several of these companies responded to this by developing intelligent, automated **time series** packages specifically aimed at "forecasting at scale", as many forecasts needed to be made across a wide variety of domains. See how two Google data scientists who developed the company's automated prediction suite described the circumstances that motivated their product in a 2017 blog post (https://perma.cc/6M7J-MWDY).
+
+There is so much data and so much to predict that it would be very expensive and challenging to integrate and employ enough analysts to generate all the predictions of organizational interest. Instead, these packages resorted to a "good enough" philosophy; that is, a reasonably good forecast is better than having no forecast at all, while waiting for the perfect forecast to be expertly crafted by a time series expert with domain knowledge. Next, we will analyze two automated forecasting frameworks in more detail, that of Google and Facebook.
+
+### Google In-House Industry Forecast
