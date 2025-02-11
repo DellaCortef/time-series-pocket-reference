@@ -168,3 +168,7 @@ row.names(df_forecast) <- 1458:1463
 kable(df_forecast, caption = "Forecasted Values with Confidence Intervals")
 ```
 
+![Graph of Wikipedia page count data (solid line) and prophet's predictions for that data (thick dashed line)](https://github.com/DellaCortef/time-series-pocket-reference/blob/main/time-series-packages/images/actual-predicted-wikipedia-pageview.png?raw=true)
+
+Prophet also provides the option to graphically represent the components (trend and seasonal) that form the forecast:
+
