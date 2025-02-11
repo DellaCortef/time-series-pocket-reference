@@ -451,3 +451,21 @@ Let's say we follow these steps - what then? A methodology would be needed to co
 For **time series analysis** and related activities such as survival analysis, we must be aware of how our selection, classification, or presentation of data may impact our analysis, as we determined whether this is the case here, where earlier time periods appeared to have a stricter distribution than later ones. This is probably due to the fact that we classified the data by closing date, a form of *left censoring*, which means that the "event of interest" already occurred before the start of the "study". Here, our event of interest is the start and end dates of complaints and we are limited by the start date of the data set. On the other hand, the related concept of *right censoring* means that the event of interest would occur after an event has ended. Lastly, *interval censoring* concerns situations where we only have an inaccurate record, such as an interval, for when an event occurred, which will necessarily impact our analysis.
 
 ---
+
+### Pending Issues
+
+Our visualization suggests new queries. One concerns the possibility of cyclical or seasonal behavior. Apparently, there are periodic impacts in all estimated quantiles. We may consider further investigation into this, and we have several options:
+
+- we could try to adjust the harmonics (sines and cosines) to these quantile curves and analyze whether a common periodicity emerged;
+- we could model the quantile itself as an ARIMA or SARIMA process and look for evidence of seasonality. This would also result in preliminary steps, such as exploring the ACF and PACF of the curves that we would model as **time series**;
+- we could ask the agency that manages the 311 service for more information and see if they recognize any periodic behavior induced by their organizational structure and operational procedures.
+
+In addition to the regular behavior, we can also see a jump in quantile values just below the index location = 70,000. Since all quantiles fluctuated, it seems likely that this is due to just one or a set of outliers. Let's look at ways to investigate:
+
+- go back to the raw data from this time period and examine what features might provide an explanation. Has there been an increase in 311 hotline complaints? Or a spike in a specific type of query that tends to take longer to resolve?
+- we also thought about reanalyzing the raw data to recover the approximate data of this jump in quantiles and cross-referencing it with local news, preferably with the help of someone who can point in the right direction. Help from someone at the agency, or someone who understands municipal government, can be very helpful. But it is also possible that this data corresponds to a major event in New York that would explain the jump, such as the passage of Hurricane Sandy in 2012.
+
+### Other improvements
+
+We could make our algorithm even more time aware. Our modification to the P-square algorithm disregards previous observations, assuming that all observations are evenly spaced. This manifests itself in the fact that the next observation entry does not have a timestamp, and the same discount factor is always applied. We could create a more flexible algorithm using the change in timestamp for old information compared to new information, so that the discount depends on the change in time from the last measured update. This would also be more accurate for our row 311 dataset.
+We could also consider other ways of estimating quantiles over time, whether with an online or window measurement. As the importance of online data is growing - and especially when it comes to online **Big Data** - there is a variety of emerging research on this topic. Statistical and machine learning approaches have addressed this in recent years, and there are a good number of academic articles available.
