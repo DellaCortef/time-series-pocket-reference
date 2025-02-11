@@ -18,3 +18,153 @@ For many large technology companies, dealing with **time series** is an increasi
 There is so much data and so much to predict that it would be very expensive and challenging to integrate and employ enough analysts to generate all the predictions of organizational interest. Instead, these packages resorted to a "good enough" philosophy; that is, a reasonably good forecast is better than having no forecast at all, while waiting for the perfect forecast to be expertly crafted by a time series expert with domain knowledge. Next, we will analyze two automated forecasting frameworks in more detail, that of Google and Facebook.
 
 ### Google In-House Industry Forecast
+
+Google has released some information (https://perma.cc/N3AU-5VWK) about its internal automated forecasting tool, coming from an initiative led by several data scientists in the company's search infrastructure department. The task was to create a unified approach to automated forecasting across the organization. Since the tasks were automated, this meant that the results had to be reliable - they could not go out of control and they had to present estimates of uncertainty in the forecast. Furthermore, as the team sought a broadly applicable solution, the methodology had to address common issues in human-related **time series** datasets, such as seasonality, missing data, holidays, and behaviors that evolve over time.
+
+The solution implemented at Google comprises three interesting steps:
+
+1. Automated and comprehensive data cleaning and smoothing;
+2. Temporal aggregation and geographic/conceptual disaggregation of data;
+3. Combining forecasts and simulation-based generation of uncertainty estimates.
+
+#### Automated, comprehensive data cleaning and smoothing
+
+In the previously mentioned unofficial Google data science blog post, two internal project leaders stated that data cleansing and smoothing solved a number of problems:
+
+*Important data effects*
+
+- missing data;
+- outlier detection;
+- level changes (such as those due to product launches or sudden but permanent changes in behavior);
+- data transformation.
+
+Imperfect data is a fact of life. Missing data may occur due to technical failures. Outliers may have similar causes or be "true values", but they are not worth including in a forecast if they are not likely to recur. Level shifts (*regime shifts*) can occur for a multitude of reasons, including radically changing baseline behavior (evolving world), what is being measured is changing drastically (evolving product), or what is being recorded is changing radically (evolving records). Finally, data may come in distributions that are far from the normality or stationarity assumed in many **time series** models. Google's approach addresses each of these data imperfections through automated methodologies to detect and "fix" these issues.
+
+*Calendar-related effects*
+
+- annual seasonality;
+- weekly seasonality (effect of the day of the week);
+- holidays.
+
+Handling calendar-related effects was extremely complicated for an organization like Google, with operations and users spread across the world. Annual seasonality is very different in different parts of the world, especially in opposite hemispheres with their own weather patterns, and also in cultures with different calendars. As the blog post pointed out, sometimes the same holiday can occur more than once in a year (Gregorian). Likewise, the "seasons" under which a given group of people live can change within the year of the Gregorian calendar, which can occur frequently since the Islamic calendar has a different periodicity than the Gregorian calendar.
+
+#### Temporal aggregation and geographic/conceptual disaggregation of data
+
+The Google team found that weekly data worked well for most of their predictions of interest. So, after cleaning the data in the previous step, analysts aggregated it into weekly increments to make predictions. In this context, they performed temporal aggregation. However, the qteam also found that it was useful to disaggregate the data, sometimes geographically, sometimes by category (such as device type), and other times by a combination of factors (such as geographic region by device type). The team found that in these cases it was more effective to make forecasts for the disaggregated subseries and then reconcile them to generate a global forecast, if both the subseries and the global series were of interest. We have seen several ways to adjust hierarchical **time series**, and this method depicts the methodology of starting lower-level predictions and propagating them in an increasing manner.
+
+#### Combining forecasts and simulation-based generation of uncertainty estimates
+
+Google uses ensemble approaches, combining several results from different forecasting models to generate the final forecast. This is useful for several reasons. Google believes this generates a "wisdom from experts" style of forecasting, drawing the benefits of many well-justified, well-performing forecasting models (such as exponential smoothing, ARIMA, and others). Furthermore, a set of predictions generates a distribution of predictions, providing a basis for determining whether any of them are so different from the "crowd" as to be unreasonable. Lastly, the ensemble approach provides a way to quantify uncertainty around the forecast, which Google also does by simulating the propagation of errors over time.
+
+Ultimately, as the Data Science team admits, Google's approach takes advantage of large-scale, highly parallel approaches appropriate to the enormous computing resources available at the company. The company takes advantage of established parallel tasks (such as simulating errors propagated over time many times) and automated processes with space for an analyst's input, but without the need for this. In this way, reasonable predictions can be generated at scale and across a variety of data sets.
+
+Although your work may not have the same advantages or require the high level of automation required by Google, there are many ideas that you can integrate into your workflow using their model:
+
+- build a framework or "pipeline" to clean your data as a "good enough" baseline version of how you would like to prepare each **time series** data set before modeling;
+- Building a set of forecasting models is part of your frequent toolkit.
+
+### Prophet Open Source Facebook Package
+
+Facebook released its automated **time series** forecasting package, **Phophet**, around the same time that Google released information about its internal package. In its own blog post (https://perma.cc/V6NC-PZYJ) about **Phophet**, the company highlighted some of the same issues emphasized in Google's approach, particularly:
+
+- "human scale" seasonality and irregularly spaced holidays;
+- level changes;
+- missing data and outliers.
+
+Furthermore, the Facebook package contributed with positive aspects, including:
+
+- ability to handle datasets at various levels of granularity, such as minute-by-minute or hourly data, as well as daily data;
+- trends that signal non-linear growth, such as reaching a saturation point.
+
+Facebook noted that results from its suite are often as good as those generated by analysts. Like Google, Facebook said it found many instances of highly parallel tasks when developing its **time series** tuning pipeline. Facebook claimed that **Prophet** became such a reliable predictor that its predictions were used not only internally, but also in products aimed at external audiences. What's more, Facebook said it developed an "analyst-in-the-loop" working pattern so that the automated process could be overseen and corrected when necessary, resulting in a product that could assist or replace human analysis, depending on the level of resources dedicated to a task.
+
+Facebook's approach is very different from Google's approach, including three simple components:
+
+- seasonal effects;
+- a personalized list of holidays;
+- a linear or gradual logistic trend curve;
+
+These components are used to form an *additive regression model*. It is a non-parametric regression model, meaning that no assumptions are made about the shape of the underlying regression function and no linearity is imposed. The model is more flexible and interpretable than a linear regression, but is accompanied by a higher variance trade-off (think of the bias/variance trade-off commonly known in machine learning and statistics) and overfitting problems. This model makes sense for the general task Facebook is pursuing, where complex non-linear behaviors must be modeled in an automated way that avoids overly cumbersome methodologies.
+
+The Prophet package has many advantages, including:
+
+- Simple API;
+- open source code and in active development;
+- Complete and equal APIs in Python and R, which helps data science teams specialized in different programming languages;
+
+Prophet is easy to use. We end this section with an example code snippet taken from the Quick Start (htpps://perma.cc/9TLC-FFRM) so you can see the minimum code to implement an automated prediction. We combined our use of Prophet with *pageviews*, an R package that easily retrieves **time series** data related to Wikipedia page views. First, we will download some **time series** data:
+
+```Python
+# Install packages
+install.packages("pageviews")
+
+# Load packages
+library(pageviews)
+
+df_wiki = article_pageviews(project   = "en.wikipedia",
+                            article   = "Facebook",
+                            start     = as.Date('2015-11-01'),
+                            end       = as.Date('2018-11-02'),
+                            user_type = c("user"),
+                            platform  = c("mobile-web"))
+
+colnames(df_wiki)  
+```
+
+Now that we have some data in daily temporal resolution and over a few years, we can try to predict this data with prophet. Just follow a few simple steps:
+
+---
+title: "My Report"
+author: "Your Name"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+Here is the table created dynamically using R.
+
+```{r, echo=FALSE}
+# Load knitr for table formatting
+library(knitr)
+
+# Create the data frame
+df_table <- data.frame(
+  ds = as.Date(c("2019-10-28", "2019-10-29", "2019-10-30", 
+                 "2019-10-31", "2019-11-01", "2019-11-02"))
+)
+
+# Add row names
+row.names(df_table) <- 1458:1463
+
+# Print table using knitr::kable
+kable(df_table, caption = "Table with Dates and Row Numbers")
+```
+
+---
+title: "Forecast Table"
+author: "Your Name"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+Below is a dynamically generated table showing forecasted values.
+
+```{r, echo=FALSE}
+# Load required library
+library(knitr)
+
+# Create the forecast data frame
+df_forecast <- data.frame(
+  ds = as.Date(c("2019-10-28", "2019-10-29", "2019-10-30", 
+                 "2019-10-31", "2019-11-01", "2019-11-02")),
+  yhat = c(9.132372, 9.103962, 9.078370, 9.080225, 9.028603, 9.022300),
+  yhat_lower = c(8.357851, 8.255045, 8.258462, 8.240010, 8.169030, 8.209786),
+  yhat_upper = c(9.882819, 9.964910, 9.950310, 9.904536, 9.821218, 9.835078)
+)
+
+# Assign row names
+row.names(df_forecast) <- 1458:1463
+
+# Display table with knitr::kable()
+kable(df_forecast, caption = "Forecasted Values with Confidence Intervals")
+```
+
