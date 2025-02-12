@@ -255,5 +255,15 @@ When we look at things more closely, we can better understand why these points a
 
 There are many parameters (https://perma.cc/BR4K-R8GL) that you can use with automatic Twitter anomaly detection, and they are a good tool to use when you are exploring a new dataset for data cleaning and modeling.
 
-## Outros Pacotes de Séries Temporais
+## Other Time Series Packages
+
+Here, we essentially focus on the most commonly used packages developed by some of the biggest technology companies, along with the huge sets of data and related forecasts that these same companies generate as part of their core business operations. However, these companies are far from being the main or most important suppliers of **time series** packages. There is a huge ecosystem of **time series** packages dedicated to:
+
+- **time series** storage and infrastructure;
+- **time series** dataset;
+- breakpoint detection;
+- forecast;
+- frequency domain analysis;
+- **non-linear time series**;
+- automated prediction of **time series**.
 
