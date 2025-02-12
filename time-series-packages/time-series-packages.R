@@ -1,11 +1,18 @@
 # Install packages
+install.packages("ggplot2")
+install.packages("remotes")
+install.packages("devtools")
 install.packages("pageviews")
 installed.packages()["prophet", ]
+install.packages("AnomalyDetection")
 install.packages("prophet", dependencies=TRUE)
+remotes::install_github("twitter/AnomalyDetection")
 
-# Load packages
+11# Load packages
+library(ggplot2)
 library(prophet)
 library(pageviews)
+library(AnomalyDetection)
 
 df_wiki = article_pageviews(project   = "en.wikipedia",
                             article   = "Facebook",
@@ -42,4 +49,35 @@ plot(df$ds, df$y, col = 1, type = 'l', xlim = range(forecast$ds),
 points(forecast$ds, forecast$yhat, type = 'l', col = 2)
 
 prophet_plot_components(m, forecast)
+
+data("raw_data")
+head(raw_data)
+
+# Check if the Function Exists
+exists("AnomalyDetectionTs", where = "package:AnomalyDetection")
+
+## Detects a high percentage of anomalies in any direction
+general_amons <- AnomalyDetectionTs(raw_data, max_anoms = 0.4, direction = 'both')
+
+## Detecta uma porcentagem menor de anomalias apenas na direção pos
+high_amons <- AnomalyDetectionTs(raw_data, max_anoms = 0.4, direction = 'both')
+
+# Check the Anomaly Column Names
+colnames(general_amons$anoms)
+
+# Plotting the graphs
+## Extract anomalies and rename columns if necessary
+anomalies_general <- general_amons$anoms
+
+## Ensure column names match raw_data
+colnames(anomalies_general) <- colnames(raw_data)
+
+## Create time series plot
+ggplot(raw_data, aes(x = timestamp, y = count)) +
+  geom_line(color = "blue") +  # Plot the time series
+  geom_point(data = anomalies_general, aes(x = timestamp, y = count), 
+             color = "red", size = 3) +  # Highlight anomalies
+  labs(title = "Anomaly Detection (5% anomalies, both directions)",
+       x = "Timestamp", y = "Count") +
+  theme_minimal()
 

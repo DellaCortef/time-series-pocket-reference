@@ -177,3 +177,83 @@ Prophet also provides the option to graphically represent the components (trend 
 Over time, more automated **time series** open source packages and black box products become more available. This can be a good starting point for an organization that is new to forecasting and is trying to make reasonable forecasts. However, in the near future, these packages will likely not make the best prediction for all **time series** and all organizations. When you can build domain knowledge and relevant organizational constraints into your **time series** model, you will have a better result, and for now, this remains the task of a human analyst until more general forecasting packages are built.
 
 ## Anomaly Detection
+
+Anomaly detection is another area where technology companies are investing heavily and sharing the benefits with the open source community. Let's see why anomaly detection is important in **time series**:
+
+- when fitting models that are not sufficiently robust to outliers, it may be useful to remove them;
+- it can be useful to identify outliers if we want to build a specific forecasting model to predict the scope of these outlier events conditional on the knowledge that they will happen.
+
+Next, we will analyze the approach adopted by Twitter in its open source code for anomaly detection.
+
+### Twitter Open Source AnomalyDetection Package
+
+Four years ago, Twitter released an outlier detection package, **AnomalyDetection**. This package continues to be useful and performs well. This also implements the *Seasonal Hybrid ESD* (Extreme Studentized Deviant) algorithm, which controls a more elaborate model than the *Generalized ESD* algorithm to identify outliers. The *Generalized ESD* test (https://perma.cc/C7BV-4KGT) itself builds on another statistical test, the *Grubbs* test (https://perma.cc/MKR5-UR3V), which defines a statistic to test the hypothesis that there is a single outlier in a data set. *Generalized ESD* applies this test repeatedly, first to the outlier with the most critical values in the test, considering several sequential tests. The *Seasonal Hybrid ESD* is based on the *Generalized ESD* to take seasonality in behavior into account through the decomposition of the **time series**.
+
+Let's look at using this simple package in R code. First, we'll load some sample data provided by the Twitter package:
+
+---
+title: "Time Series Data Table"
+author: "Your Name"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+Below is a dynamically generated table showing timestamped count values.
+
+```{r, echo=FALSE}
+# Load required library
+library(knitr)
+
+# Create the time series data frame
+df_time_series <- data.frame(
+  timestamp = as.POSIXct(c("1980-09-25 14:01:00", "1980-09-25 14:02:00", 
+                           "1980-09-25 14:03:00", "1980-09-25 14:04:00",
+                           "1980-09-25 14:05:00", "1980-09-25 14:06:00")),
+  count = c(182.478, 176.231, 183.917, 177.798, 165.469, 181.878)
+)
+
+# Display table with knitr::kable()
+kable(df_time_series, caption = "Timestamped Count Data")
+```
+
+Then, we use Twitter's automatic anomaly detection function with two sets of parameters:
+
+1. we look for a large share of anomalies in the positive and negative direction;
+2. we look for a small portion of anomalies only in the positive range. These use cases are demonstrated below:
+
+```R
+## Detects a high percentage of anomalies in any direction
+general_amons <- AnomalyDetectionTs(raw_data, max_anoms = 0.4, direction = 'both')
+
+## Detecta uma porcentagem menor de anomalias apenas na direção pos
+high_amons <- AnomalyDetectionTs(raw_data, max_anoms = 0.4, direction = 'both')
+
+# Check the Anomaly Column Names
+colnames(general_amons$anoms)
+
+# Plotting the graphs
+## Extract anomalies and rename columns if necessary
+anomalies_general <- general_amons$anoms
+
+## Ensure column names match raw_data
+colnames(anomalies_general) <- colnames(raw_data)
+
+## Create time series plot
+ggplot(raw_data, aes(x = timestamp, y = count)) +
+  geom_line(color = "blue") +  # Plot the time series
+  geom_point(data = anomalies_general, aes(x = timestamp, y = count), 
+             color = "red", size = 3) +  # Highlight anomalies
+  labs(title = "Anomaly Detection (5% anomalies, both directions)",
+       x = "Timestamp", y = "Count") +
+  theme_minimal()
+```
+
+When we look at things more closely, we can better understand why these points are anomalies. They deviate from the daily pattern that is present. As for why we want to only look for positive deviations, imagine we are building the infrastructure for a high-traffic, high-data site. While decreasing/negative anomalies may be of interest, the decisive business anomalies for us will be times when our infrastructure cannot handle imminent high traffic. We are most interested in identifying peaks, for a number of reasons:
+
+- if these numbers are false, we would like to eliminate them so that we can know the true limit of realistic use. Abnormally high numbers will lead us to acquire computational resources that we do not need, which does not apply to abnormally low numbers. Using anomaly detection can help us clean our data as a preprocessing step;
+- if the computing equipment is cheap, we would prefer to just buy more to accommodate these anomalies. If we can label the anomalies, that is the first step in generating labeled data to try to predict these anomalies. However, it is difficult to predict anomalies. that is, don't expect much from such efforts.
+
+There are many parameters (https://perma.cc/BR4K-R8GL) that you can use with automatic Twitter anomaly detection, and they are a good tool to use when you are exploring a new dataset for data cleaning and modeling.
+
+## Outros Pacotes de Séries Temporais
+
